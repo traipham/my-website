@@ -1,0 +1,31 @@
+.heading {
+  text-align: center;
+  background-color: chocolate;
+}
+.home {
+  background-color: aqua;
+}
+.wish-list,
+.resume,
+.interest,
+.blog,
+.setting { 
+  border-radius: 10px;
+}
+.wish-list:hover,
+.resume:hover,
+.interest:hover,
+.blog:hover,
+.setting:hover {
+  background-color: lightgreen;
+}
+/* .App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+} */

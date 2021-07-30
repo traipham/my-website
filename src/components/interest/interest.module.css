@@ -1,0 +1,28 @@
+.page {
+  background-color: hotpink ;
+  display: flex;
+  flex-direction: column;
+}
+
+#add-interest-interface{
+  display: grid;
+  background-color: aqua;
+}
+
+/* .interest-container{
+  position: relative;
+} */
+
+.addInterface{
+  position: absolute;
+  right: 50%;
+  z-index: 2;
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  border: black 1px solid;
+  border-radius: 10px;
+  margin: auto;
+  width: 20%;
+  padding: 10px;
+  box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.25);
+}

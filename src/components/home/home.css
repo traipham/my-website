@@ -1,0 +1,44 @@
+.heading {
+  text-align: center;
+  background-color: rgb(0, 225, 255);
+}
+.home {
+  background-color: rgba(0, 0, 0, 0.774);
+}
+
+.home-btn{
+  background-color:tomato;
+  margin-right: 15px;
+}
+.wish-list,
+.resume,
+.interest,
+.blog,
+.setting,
+.goals,
+.random { 
+  border-radius: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 35px;
+  padding-left: 35px;
+  margin-right: 10px;
+}
+
+.wish-list:hover,
+.resume:hover,
+.interest:hover,
+.blog:hover,
+.setting:hover,
+.goals:hover,
+.random:hover {
+  background-color: lightgreen;
+}
+
+.setting{ 
+  position: absolute;
+  right: 0%;
+}
+/*
+    ***INTERFACE STYLING BELOW***
+*/

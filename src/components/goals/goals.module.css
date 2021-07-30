@@ -1,0 +1,33 @@
+.page {
+    background-color: lawngreen;
+}
+
+.content-interface {
+    position: relative;
+    margin: 0 auto;
+    width:fit-content;
+    padding: 20px;
+    background-color: gold;
+    border: solid black 5px;
+    border-radius: 10px;
+}
+
+#add-content,
+#add-color {
+    margin-right: 10px;
+}
+
+.confirm-btn {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    background-color: rgb(1, 230, 1);
+}
+
+#content-area{
+    background-color: lawngreen;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 10px;
+}
