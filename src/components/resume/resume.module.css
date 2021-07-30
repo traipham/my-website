@@ -1,3 +1,32 @@
 .page {
     background-color: rgba(255, 166, 0, 0.808) ;
 }
+
+.container{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    margin: auto
+}
+
+.focus-btn{
+    background-color: lightgreen;
+    height: fit-content;
+    width: fit-content;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.focus-btn:hover{
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,0.24), 0 0px 10px 0 green;
+}
+
+.focus-btn:active{
+    background-color: aqua;
+}
+
+/****Pdf display component*****/
+.resumePdf{
+    width: 80%;
+    height: 100%;
+}

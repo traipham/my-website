@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './resume.module.css';
-import { Document } from 'react-pdf';
-
+import { Document, Page } from 'react-pdf';
+import DisplayResume from "./pdf.component";
 const linkedin = <a href="https://www.linkedin.com/in/trai-pham-4a1272198/">Linkedin</a>
 
 /**
@@ -11,6 +11,26 @@ const linkedin = <a href="https://www.linkedin.com/in/trai-pham-4a1272198/">Link
  * replacing the current one and DOWNLOAD the current resume.
  */
 class Resume extends React.Component {
+    constructor(props){
+        super(props)
+
+        this.state = {
+            focus: false
+        }
+
+        this.focusFunc = this.focusFunc.bind(this);
+    }
+
+    componentDidUpdate(){
+        window.location.reload();
+    }
+
+    focusFunc(){
+        this.setState({
+            focus: true
+        })
+    }
+
     render(){
         return (
             <div className={styles.page}>
@@ -31,7 +51,10 @@ class Resume extends React.Component {
                 <h3>Programing/Computer Experience</h3>
                 <p id="p-experience">--experience here--</p>
                 <hr id="h-line"></hr>
-                <Document file="resume.pdf"/>
+                <div className={styles.container} id='container'>
+                    <DisplayResume />
+                    <button type='button' className={styles['focus-btn']} id='focus-btn' onClick={this.focusFunc}>Focus</button>
+                </div>
                 <button type="button" className="upload-btn" >Upload</button>
                 <button type="button" className="download-btn">Download</button>
             </div>
