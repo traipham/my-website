@@ -1,3 +1,48 @@
+/****Wish-list-Page-Component****/
 .page {
     background-color: rgb(220, 20, 60);
+}
+#wish-display-container{
+    display: flex;
+    flex-direction: row;
+}
+
+/****Wish-Interface-Component****/
+.interface-container{
+    position: absolute;
+    margin: auto;
+    z-index: 10000; 
+    left: 0; right: 0;
+    width:fit-content;
+    border: 3px solid black;
+    border-radius: 5px;
+    background-color: darksalmon;
+    padding: 10px;
+}
+
+#add-a-wish{
+    text-align: center;
+}
+
+
+/***Wish-display-component***/
+#wish-container{
+    /* visibility: hidden; */
+    border: 5px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 10px;
+    margin: 10px;
+}
+
+#title-tag-container{
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+#wish-title{
+    text-align: center;
+    width: 100%;
 }
