@@ -31,7 +31,7 @@ class Resume extends React.Component {
                 <h3>Programing/Computer Experience</h3>
                 <p id="p-experience">--experience here--</p>
                 <hr id="h-line"></hr>
-                <Document file="Computer_Science_Job_Resume.pdf" width="800px" length="500px" />
+                <Document file="resume.pdf"/>
                 <button type="button" className="upload-btn" >Upload</button>
                 <button type="button" className="download-btn">Download</button>
             </div>
