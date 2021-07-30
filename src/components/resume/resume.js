@@ -1,5 +1,6 @@
 import React from "react";
 import styles from './resume.module.css';
+import { Document } from 'react-pdf';
 
 const linkedin = <a href="https://www.linkedin.com/in/trai-pham-4a1272198/">Linkedin</a>
 
@@ -30,7 +31,7 @@ class Resume extends React.Component {
                 <h3>Programing/Computer Experience</h3>
                 <p id="p-experience">--experience here--</p>
                 <hr id="h-line"></hr>
-                <img src="../../Computer_Science_Job_Resume.pdf" width="800px" length="2100px" />
+                <Document file="Computer_Science_Job_Resume.pdf" width="800px" length="500px" />
                 <button type="button" className="upload-btn" >Upload</button>
                 <button type="button" className="download-btn">Download</button>
             </div>
