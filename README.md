@@ -18,7 +18,7 @@
 - [ ] Design color
 - [ ] Design and Layout of blog post
 - [ ] Remove button will be available for each post
-- [ ] Blog will contain description content, images, and a rating system (rate the day)
+- [ ] Blog will contain description content, images, location, date, and a rating system (rate the day)
 - [ ] Set up database to store blog posts
 
 ### Goals 
