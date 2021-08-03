@@ -7,6 +7,7 @@ import defaultImg from './shield-hero-chibi.jpg'
  * 
  * TODO:
  *  - DATABASE SET UP
+ *  - Remove wish
  */
 
 /**
