@@ -4,10 +4,17 @@ import ReactDOM from 'react-dom';
 import styles from './goals.module.css';
 
 export const GoalDisplay = (props) => {
+    let textColor = 'black';
+    if(parseInt(props.tagColor.slice(1,3), 16) < 100){
+        textColor= 'white'
+    }
     const styleContainer = {
+        color: textColor,
+        overflowWrap: 'break-word',
         border: "2px solid black",
         borderRadius: "5px",
         width: "fit-content",
+        maxWidth: '200px',
         padding: "10px",
         backgroundColor: props.tagColor,
         margin: '10px'
@@ -15,7 +22,7 @@ export const GoalDisplay = (props) => {
 
     const styleIndex = {
         float: 'left',
-        border: "1px solid black",
+        border: "1px solid " + textColor,
         borderRadius: "5px",
         width: 'fit-content',
         padding: '5px',
@@ -51,6 +58,8 @@ export const ContentInterface = (props) =>{
 
     function printColor(){
         console.log(document.getElementById('inp-color').value);
+        console.log(document.getElementById('inp-color').value.slice(1,3));
+        console.log(parseInt(document.getElementById('inp-color').value.slice(1, 3), 16))
     }
 
     return(
@@ -60,7 +69,7 @@ export const ContentInterface = (props) =>{
             <br/>
             <br/>
             <label className="add-color" id={styles['add-color']}><b>Tag Color</b></label>
-            <input type='color' className="inp-color" id="inp-color" htmlFor="add-color" value="#FFA500"  onChange={printColor}></input>
+            <input type='color' className="inp-color" id="inp-color" htmlFor="add-color" onChange={printColor}></input>
             <br />
             <br />
             <button className={styles['confirm-btn']} id="conf-btn" onClick={handleClick} >Confirm Change</button>

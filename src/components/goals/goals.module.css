@@ -5,9 +5,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
-    /* align-items: baseline; */
-    align-content: space-between;
+    /* justify-content: space-around;  */
+    align-items: flex-start; /*So that flex items don't have the same height*/
+    align-content: flex-start;
 }
 /*** Content Interface Styling ***/
 .content-interface {
