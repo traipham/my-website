@@ -17,8 +17,11 @@ import defaultImg from './shield-hero-chibi.jpg'
  * @returns 
  */
 export const WishDisplay = (props) => {
-    console.log("This is the idea of this Wish: " + props.index);
-
+    // console.log("This is the idea of this Wish: " + props.index);
+    
+    /**
+     * function to call the remove function in parent that sets the remove state of specific goal at index to true
+     */
     const handleOnRemove = () => {
         props.removeWish(props.index);
     }
@@ -53,12 +56,20 @@ export const WishInterface = (props) => {
 
     let fileURL = '';
 
+    /**
+     * Gives us the URL of the image 
+     * @param {} e Event object of event listener of 'onChange' when selecting image
+     */
     const handleImage = (e) => {
         e.preventDefault();
         const imgURL = URL.createObjectURL(e.target.files[0]);
         fileURL = imgURL;
     }
 
+    /**
+     * This will call the parent function to change value of parent state based on inputted information
+     * @param {*} e Event object of the event listener that is calling this function
+     */
     const handleSubmitForm = (e) => {
         e.preventDefault();
         props.displayWishFunc(fileURL);
@@ -126,6 +137,11 @@ class WishList extends React.Component {
         this.setRemoveWish = this.setRemoveWish.bind(this);
     }
 
+    /**
+     * set the state values of specified state based on inputted information in interface.
+     * This will allow us to transfer information to props of wishDisplay component
+     * @param {*} imgFile image file that will be displayed if inputted
+     */
     displayWishFunc(imgFile){
         const titleVal = document.getElementById("input-wish-title").value;
         const tagVal = document.getElementById("input-wish-tag").value;
@@ -150,6 +166,9 @@ class WishList extends React.Component {
         })
     }
 
+    /**
+     * Set the state 'addBtn' to true when 'Add a Wish' button is clicked
+     */
     setStateAddButton() {
         this.setState({
             ...this.state,
@@ -157,12 +176,20 @@ class WishList extends React.Component {
         })
     }
 
+    /**
+     * Displays wish Interface when "Add a wish" button is clicked
+     * @returns WishInterface 
+     */
     displayAddWishInterface() {
         if (this.state.addBtn) {
             return <WishInterface displayWishFunc={this.displayWishFunc} setImage={this.setImage}/>
         }
     }
 
+    /**
+     * Sets the remove of the specific wish to true when remove button is clicked 
+     * @param {*} index the index of wish 
+     */
     setRemoveWish(index){
         const displayWishArr = this.state.displayWish;
         displayWishArr[index].remove = true;
