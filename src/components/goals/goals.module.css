@@ -1,10 +1,19 @@
 .page {
     background-color: lawngreen;
 }
-
+.goals-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /* align-items: baseline; */
+    align-content: space-between;
+}
+/*** Content Interface Styling ***/
 .content-interface {
-    position: relative;
-    margin: 0 auto;
+    position: absolute;
+    margin: auto;
+    left: 0; right: 0;
     width:fit-content;
     padding: 20px;
     background-color: gold;
@@ -23,8 +32,8 @@
     margin: 0 auto;
     background-color: rgb(1, 230, 1);
 }
-
-#content-area{
+/***Display-content-styling***/
+#goal-container{
     background-color: lawngreen;
     border: 2px solid black;
     border-radius: 5px;

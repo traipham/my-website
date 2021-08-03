@@ -2,6 +2,35 @@ import { render } from "@testing-library/react";
 import React, { useState } from "react";
 import ReactDOM from 'react-dom';
 import styles from './goals.module.css';
+
+export const GoalDisplay = (props) => {
+    const styleContainer = {
+        border: "2px solid black",
+        borderRadius: "5px",
+        width: "fit-content",
+        padding: "10px",
+        backgroundColor: props.tagColor,
+        margin: '10px'
+    }
+
+    const styleIndex = {
+        float: 'left',
+        border: "1px solid black",
+        borderRadius: "5px",
+        width: 'fit-content',
+        padding: '5px',
+        marginRight: '10px'
+    }
+    return(
+        <div className='container' id={"goal-container" + props.index} style={styleContainer}>
+            <h4 id="index" style={styleIndex}>{props.index}</h4>
+            <h3 id="date" styke={{display: 'inline'}}>{props.date.toString().slice(0, 16)}</h3>
+            <hr/>
+            <p id="content">{props.content}</p>
+        </div>
+    )
+}
+
 /**
  * This file will be where I learn about Hooks and component functions. I learned how to transfer information
  * of child component to parent component using state.
@@ -10,15 +39,13 @@ import styles from './goals.module.css';
  *  - Get infromation and display it/append it to the interface container
  *  - Problem with appending, it does not append due to error about Node
  */
-const ContentInterface = (props) =>{
+export const ContentInterface = (props) =>{
 
-    const tagColors = ['Aquamarine', 'BlueViolet', 'Chartreuse', 'CornflowerBlue',
-        'Thistle', 'SpringGreen', 'SaddleBrown', 'PapayaWhip', 'MistyRose'];
     
     // dismount interface when button is clicked
     const handleClick = () =>{
         props.setInterfaceRemove();
-        document.getElementById('content-container').appendChild(props.handleOnSubmit());
+        props.displayGoalsFunc();
     }
 
 
@@ -58,7 +85,7 @@ class Goals extends React.Component {
 
         this.displayInterface = this.displayInterface.bind(this);
         this.setInterfaceRemove = this.setInterfaceRemove.bind(this);
-        this.handleOnSubmit = this.handleOnSubmit.bind(this);
+        this.displayGoalsFunc = this.displayGoalsFunc.bind(this);
     }
 
     setInterfaceRemove(){
@@ -69,25 +96,19 @@ class Goals extends React.Component {
         setTimeout(() => { console.log(this.state.removeInterface)}, 100) ;
     }
 
-    /**
-     * - make a component out of what's being displayed
-     * - use the new states
-     */
-    handleOnSubmit(){
-        let container = document.createElement('div')
-        container.setAttribute('className', "content-area");
-        container.setAttribute('id', styles['content-area']);
-        let description = document.createElement('p');
-        description.innerHTML = document.getElementById('inp-content').value;
-        container.appendChild(description);
-        container.style['background-color'] = document.getElementById('inp-color').value;
-        window.alert('Sucessfully submitted a goal!');
-        return container;
-        // return(
-        //     <div className="content-area" id={styles['content-area']}>
-        //         <p>{document.getElementById('inp-content').value}</p>
-        //     </div>
-        // )
+    displayGoalsFunc(){
+        const contentVal = document.getElementById('inp-content').value;
+        const color = document.getElementById('inp-color').value;
+
+        this.setState({
+            removeInterface: true,
+            goals:[...this.state.goals,{
+                content: contentVal,
+                tagColor: color,
+                date: new Date(),
+                index: this.state.goals.length
+            }]
+        })
     }
 
     displayInterface(){
@@ -102,14 +123,16 @@ class Goals extends React.Component {
                 <h1>Goals</h1>
                 <button type="button" className="add-interface-btn" id="add-goals-btn" onClick={this.displayInterface}>Add Goals</button>
                 {
-                    this.state.removeInterface ? null : <ContentInterface setInterfaceRemove={this.setInterfaceRemove} handleOnSubmit={this.handleOnSubmit}/>
+                    this.state.removeInterface ? null : <ContentInterface setInterfaceRemove={this.setInterfaceRemove} displayGoalsFunc={this.displayGoalsFunc}/>
                 }
-                <div className="content-container" id="content-container">
-                    
+                <div className={styles["goals-container"]} id="goals-container">
+                    {
+                        this.state.goals.slice(1).map((goal) => {
+                            console.log(goal);
+                            return <GoalDisplay key={"goal-" + goal.index} content={goal.content} tagColor={goal.tagColor} index={goal.index} date={goal.date}/>
+                        })
+                    }
                 </div>
-                {
-                    // create a new div everytime a tag color is selected
-                }
             </div>
         )
     }
