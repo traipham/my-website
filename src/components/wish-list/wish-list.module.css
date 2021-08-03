@@ -5,10 +5,12 @@
 #wish-display-container{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 /****Wish-Interface-Component****/
 .interface-container{
+    visibility: visible;
     position: absolute;
     margin: auto;
     z-index: 10000; 
@@ -18,9 +20,36 @@
     border-radius: 5px;
     background-color: darksalmon;
     padding: 10px;
+
+    /* display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: auto;
+    z-index: 10000; 
+    left: 0; right: 0;
+    padding: 40px; */
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: auto;
+    z-index: 10000; 
+    left: 0; right: 0;
+    padding: 40px;
+}
+
+#submit-btn,
+#reset-btn {
+    position: relative;
+    width: fit-content;
 }
 
 #add-a-wish{
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
     text-align: center;
 }
 
@@ -30,6 +59,7 @@
     /* visibility: hidden; */
     border: 5px solid black;
     border-radius: 5px;
+    background-color: whitesmoke;
     width: fit-content;
     padding: 10px;
     margin: 10px;
