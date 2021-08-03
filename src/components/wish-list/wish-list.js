@@ -17,11 +17,15 @@ import defaultImg from './shield-hero-chibi.jpg'
  * @returns 
  */
 export const WishDisplay = (props) => {
+    console.log("This is the idea of this Wish: " + props.index);
 
-    // const imgURL = URL.createObjectURL(props.img);
+    const handleOnRemove = () => {
+        props.removeWish(props.index);
+    }
+
     return(
         <div className="container" id={styles['wish-container']}>
-            <button type="button" className="remove-btn" id="remove-wish">Remove this Wish</button>
+            <button type="button" className="remove-btn" id={"remove-wish-"+props.index} onClick={handleOnRemove}>Remove this Wish</button>
             <p className="date" id="wish-date"><b>Date: </b>{new Date().toString().slice(0,16)}</p>
             <div className="header-grp" id={styles['title-tag-container']}>
                 <h3 className="title" id={styles['wish-title']}>{props.title}</h3>
@@ -111,13 +115,15 @@ class WishList extends React.Component {
                 img: defaultImg,
                 rating: 10,
                 date: new Date(),
-                index: 0
+                index: 0,
+                remove: true
             }]
         }
 
         this.setStateAddButton = this.setStateAddButton.bind(this);
         this.displayAddWishInterface = this.displayAddWishInterface.bind(this);
         this.displayWishFunc = this.displayWishFunc.bind(this);
+        this.setRemoveWish = this.setRemoveWish.bind(this);
     }
 
     displayWishFunc(imgFile){
@@ -138,7 +144,8 @@ class WishList extends React.Component {
                 img: imgVal,
                 rating: ratingVal,
                 date: new Date(),
-                index: this.state.displayWish.length
+                index: this.state.displayWish.length,
+                remove: false
             }]
         })
     }
@@ -156,6 +163,15 @@ class WishList extends React.Component {
         }
     }
 
+    setRemoveWish(index){
+        const displayWishArr = this.state.displayWish;
+        displayWishArr[index].remove = true;
+        this.setState({
+            ...this.state,
+            displayWish: displayWishArr
+        })
+    }
+
     render(){
         return (
             <div className={styles.page}>
@@ -168,11 +184,11 @@ class WishList extends React.Component {
                     {
                         //Iterate through the array ignoring the first initial element
                         this.state.displayWish.slice(1).map(wish =>{
-                            if(this.state.noWish){
+                            if(this.state.noWish || this.state.addBtn){
                                 return;
-                            } else {
+                            } else if (!wish.remove) {
                                 console.log(wish);
-                                return <WishDisplay key={"wish-"+wish.index}  title={wish.title} description={wish.description} tag={wish.tag} img={wish.img} rating={wish.rating} />
+                                return <WishDisplay key={"wish-" + wish.index} removeWish={this.setRemoveWish} index={wish.index}  title={wish.title} description={wish.description} tag={wish.tag} img={wish.img} rating={wish.rating} />
                             }
                     //***TEST STATE VALUES WHEN SUBMIT ***/
 
