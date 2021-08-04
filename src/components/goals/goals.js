@@ -1,8 +1,17 @@
 import { render } from "@testing-library/react";
 import React, { useState } from "react";
-import ReactDOM from 'react-dom';
 import styles from './goals.module.css';
+import PropTypes from 'prop-types';
+/**
+ * TODO: Remove a goal functionality
+ */
 
+
+/**
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 export const GoalDisplay = (props) => {
     let textColor = 'black';
     if(parseInt(props.tagColor.slice(1,3), 16) < 100){
@@ -37,6 +46,13 @@ export const GoalDisplay = (props) => {
         </div>
     )
 }
+//Checks for propTypes to be required and correct data type
+GoalDisplay.propTypes = {
+    index: PropTypes.number.isRequired,
+    date: PropTypes.object.isRequired,
+    tagColor: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired
+}
 
 /**
  * This file will be where I learn about Hooks and component functions. I learned how to transfer information
@@ -46,7 +62,7 @@ export const GoalDisplay = (props) => {
  *  - Get infromation and display it/append it to the interface container
  *  - Problem with appending, it does not append due to error about Node
  */
-export const ContentInterface = (props) =>{
+export const GoalInterface = (props) =>{
 
     
     // dismount interface when button is clicked
@@ -58,8 +74,8 @@ export const ContentInterface = (props) =>{
 
     function printColor(){
         console.log(document.getElementById('inp-color').value);
-        console.log(document.getElementById('inp-color').value.slice(1,3));
-        console.log(parseInt(document.getElementById('inp-color').value.slice(1, 3), 16))
+        // console.log(document.getElementById('inp-color').value.slice(1,3));
+        // console.log(parseInt(document.getElementById('inp-color').value.slice(1, 3), 16))
     }
 
     return(
@@ -76,6 +92,12 @@ export const ContentInterface = (props) =>{
         </div>
     );
 }
+
+GoalInterface.propTypes = {
+    setInterfaceRemove: PropTypes.func.isRequired,
+    displayGoalsFunc: PropTypes.func.isRequired
+}
+
 class Goals extends React.Component {
     // const [removeInterface, setInterfaceRemove ] = useState(false);
     constructor(props){
@@ -102,7 +124,6 @@ class Goals extends React.Component {
             ...prevState,
             removeInterface: true
         }))
-        setTimeout(() => { console.log(this.state.removeInterface)}, 100) ;
     }
 
     displayGoalsFunc(){
@@ -124,15 +145,17 @@ class Goals extends React.Component {
         this.setState({
             removeInterface: false
         })
+        // Hide 'Add' btn when clicked
+        document.getElementById('add-goals-btn').style.visibility = 'hidden';
     }
 
     render() {
         return (
             <div className={styles.page}>
                 <h1>Goals</h1>
-                <button type="button" className="add-interface-btn" id="add-goals-btn" onClick={this.displayInterface}>Add Goals</button>
+                <button type="button" className="add-interface-btn" id="add-goals-btn" style={{visibility: 'visible'}} onClick={this.displayInterface}>Add Goals</button>
                 {
-                    this.state.removeInterface ? null : <ContentInterface setInterfaceRemove={this.setInterfaceRemove} displayGoalsFunc={this.displayGoalsFunc}/>
+                    this.state.removeInterface ? null : <GoalInterface setInterfaceRemove={this.setInterfaceRemove} displayGoalsFunc={this.displayGoalsFunc}/>
                 }
                 <div className={styles["goals-container"]} id="goals-container">
                     {
