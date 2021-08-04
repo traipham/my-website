@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styles from './wish-list.module.css';
 import defaultImg from './shield-hero-chibi.jpg'
-
+import PropTypes from 'prop-types';
 /**
  * Overall functionality finished!
  * 
@@ -28,8 +28,9 @@ export const WishDisplay = (props) => {
 
     return(
         <div className="container" id={styles['wish-container']}>
-            <button type="button" className="remove-btn" id={"remove-wish-"+props.index} onClick={handleOnRemove}>Remove this Wish</button>
-            <p className="date" id="wish-date"><b>Date: </b>{new Date().toString().slice(0,16)}</p>
+            <button type="button" className={styles["remove-btn"]} id={"remove-wish-"+props.index} onClick={handleOnRemove}><b>Remove this Wish</b></button>
+            <p className="index" id={styles["wish-num"]}><b>Wish #: </b><i>{props.index}</i></p>
+            <p className="date" id="wish-date"><b>Date: </b>{props.date.toString().slice(0,16)}</p>
             <div className="header-grp" id={styles['title-tag-container']}>
                 <h3 className="title" id={styles['wish-title']}>{props.title}</h3>
                 <p className="tag" id="wish-tag">Tag: <i>{props.tag}</i></p>
@@ -39,6 +40,17 @@ export const WishDisplay = (props) => {
             <p><b>Rating:</b> {props.rating}</p>
         </div>
     )
+}
+
+//Using PropTypes to make sure props are being delivered with correct data type and requirement
+WishDisplay.propTypes = {
+    index: PropTypes.number.isRequired,
+    date: PropTypes.object.isRequired,
+    title: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired,
+    img: PropTypes.string,
+    description: PropTypes.string,
+    rating: PropTypes.number
 }
 
 /**
@@ -106,6 +118,10 @@ export const WishInterface = (props) => {
         </div> 
     )
 }
+//Using PropTypes to make sure props functions are there
+WishInterface.propTypes = {
+    displayWishFunc: PropTypes.func.isRequired
+}
 /**
  * Main component for displaying everything. This is the page component itself
  * This is the parent component that contains all the states
@@ -126,8 +142,7 @@ class WishList extends React.Component {
                 img: defaultImg,
                 rating: 10,
                 date: new Date(),
-                index: 0,
-                remove: true
+                index: 0
             }]
         }
 
@@ -147,7 +162,7 @@ class WishList extends React.Component {
         const tagVal = document.getElementById("input-wish-tag").value;
         const descriptionVal = document.getElementById("input-wish-description").value;
         const imgVal = imgFile;
-        const ratingVal = document.getElementById("input-wish-rating").value;
+        const ratingVal = Number(document.getElementById("input-wish-rating").value);
         
         this.setState({
             ...this.state,
@@ -160,10 +175,10 @@ class WishList extends React.Component {
                 img: imgVal,
                 rating: ratingVal,
                 date: new Date(),
-                index: this.state.displayWish.length,
-                remove: false
+                index: this.state.displayWish.length
             }]
         })
+        document.getElementById('add-wish').style.visibility = 'visible';
     }
 
     /**
@@ -182,6 +197,7 @@ class WishList extends React.Component {
      */
     displayAddWishInterface() {
         if (this.state.addBtn) {
+            document.getElementById('add-wish').style.visibility = 'hidden';
             return <WishInterface displayWishFunc={this.displayWishFunc} setImage={this.setImage}/>
         }
     }
@@ -189,10 +205,17 @@ class WishList extends React.Component {
     /**
      * Sets the remove of the specific wish to true when remove button is clicked 
      * @param {*} index the index of wish 
+     * TODO: 
+     * - A better way to remove, by actually removing from array and updating index
      */
     setRemoveWish(index){
-        const displayWishArr = this.state.displayWish;
-        displayWishArr[index].remove = true;
+        let displayWishArr = this.state.displayWish;
+        displayWishArr.splice(index, 1)
+        let newIndex = index;
+        while(newIndex < displayWishArr.length){
+            displayWishArr[newIndex].index = displayWishArr[newIndex].index - 1;
+            newIndex++;
+        }
         this.setState({
             ...this.state,
             displayWish: displayWishArr
@@ -203,7 +226,7 @@ class WishList extends React.Component {
         return (
             <div className={styles.page}>
                 <h1>My Wishes</h1>
-                <button type='button' className='add-btn' id='add-wish' onClick={this.setStateAddButton}>Add a Wish</button>
+                <button type='button' className='add-btn' id='add-wish' style={{visibility: 'visible'}} onClick={this.setStateAddButton}>Add a Wish</button>
                 {
                     this.displayAddWishInterface()
                 }
@@ -213,9 +236,9 @@ class WishList extends React.Component {
                         this.state.displayWish.slice(1).map(wish =>{
                             if(this.state.noWish || this.state.addBtn){
                                 return;
-                            } else if (!wish.remove) {
+                            } else {
                                 console.log(wish);
-                                return <WishDisplay key={"wish-" + wish.index} removeWish={this.setRemoveWish} index={wish.index}  title={wish.title} description={wish.description} tag={wish.tag} img={wish.img} rating={wish.rating} />
+                                return <WishDisplay key={"wish-" + wish.index} removeWish={this.setRemoveWish} index={wish.index}  title={wish.title} description={wish.description} tag={wish.tag} img={wish.img} rating={wish.rating} date={wish.date}/>
                             }
                     //***TEST STATE VALUES WHEN SUBMIT ***/
 
