@@ -1,3 +1,42 @@
 .page {
     background-color: rgba(38, 0, 255, 0.562);
 }
+#post-container{
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 50%;
+}
+
+/***Blog-Interface-Style***/
+#post-interface-container{
+    visibility: visible;
+    position: absolute;
+    margin: auto;
+    z-index: 10000; 
+    left: 0; right: 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    width:fit-content;
+    background-color:rgba(38, 0, 255, 0.562);
+}
+
+#header{
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+}
+#post-interface-form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    border: 1px solid black;
+    border-radius: 0px 0px 5px 5px;
+    background-color: rgba(172, 255, 47, 0.842);
+    max-width: 400px;
+    margin: auto;
+}
+
+.input-container{
+    margin: 10px;
+}
