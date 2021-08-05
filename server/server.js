@@ -23,6 +23,16 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully!");
 })
 
+const goalsRouter = require('./routers/goals');
+const blogRouter = require('./routers/blogRouter');
+const interestRouter = require('./routers/interest');
+const wishListRouter = require('./routers/wish-list');
+
+app.use('/goals', goalsRouter);
+app.use('/blog', blogRouter);
+app.use('/interest', interestRouter);
+app.use('/wish-list', wishListRouter);
+
 // This is how we start a server with a port
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
