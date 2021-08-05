@@ -1,0 +1,2 @@
+*8/5/2021*
+- Use React reference: React.createRef() in constructor to create a reference attribute value for the attribute 'ref' for an html element. Access it by creating a variable and calling the 'current' property: 'const node = some_component.ref_name.current
