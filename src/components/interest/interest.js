@@ -2,6 +2,7 @@ import React from "react";
 import reactDom from "react-dom";
 import ReactDOM from "react-dom";
 import styles from './interest.module.css';
+import PropTypes from 'prop-types';
 /**
  * Name of Component: Interest
  * 
@@ -10,37 +11,60 @@ import styles from './interest.module.css';
  * 
  */
 
-
-/**
- * 
- * @returns a string of the date 'YYYY-MM-DD'
- */
-function getCurrDate(){
-    let currDate = new Date();
-    console.log("Current Date: " + currDate.toISOString().split('T')[0])
-    return currDate.toISOString().split('T')[0];
-}
 /**
  * Add Interest Interface  
  */
-class AddPersonalInterest extends React.Component {
+class AddInterestInterface extends React.Component {
+    constructor(props){
+        super(props)
+
+        this.state = {
+            typeOfInterest: ''
+        }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount(){
+        if(this.props.whichBtn == 'add-academic-interest'){
+            const academic= 'Academic';
+            this.setState({
+                typeOfInterest: academic
+            })
+        } else {
+            const personal = "Personal";
+            this.setState({
+                typeOfInterest: personal
+            })
+        }
+    }
+    handleSubmit = (e) =>{
+        e.preventDefault();
+        this.props.displayInterestFunc();
+    }
 
     render() {
+        const submitBtnStyle = {
+            margin: 10
+        }
         return (
             <div className={styles.addInterface}>
                 <div className="container">
-                    <h4>Add a new Personal Interest</h4>
-                    <form>
-                        <label className="content" id="content">Content</label>
-                        <input className="inpt-cnt" htmlFor="content" placeholder="add-content"></input>
-                        <button className="confirm-btn" id="confirm-btn" type="button">Confirm</button>
+                    <h4>Add a new {this.state.typeOfInterest} Interest</h4>
+                    <hr/>
+                    <form onSubmit={this.handleSubmit}>
+                        <label className="label" id="label-interest" htmlFor="input-interest"><b>Interest: </b></label>
+                        <input className="inpt-cnt" id="input-interest" placeholder="add interest..."></input>
+                        <br/>
+                        <button type="submit" className="submit-btn" id="submit-btn" style={submitBtnStyle}><b>Submit</b></button>
                     </form>
                 </div>
             </div>
         )
     }
 }
-
+AddInterestInterface.propTypes = {
+    typeOfInterest: PropTypes.func.isRequired
+}
 
 /**
  * Functionality/Note:
@@ -56,15 +80,60 @@ class Interest extends React.Component {
     constructor(props) {
         super(props);
 
-        this.addInterestInterface = this.addInterestInterface.bind(this);
+        this.state = {
+            academicInterest:[{
+                interest: '',
+                date: new Date()
+            }],
+            personalInterest: [{
+                interest: '',
+                date: new Date()
+            }],
+            addBtn: false,
+            whichBtn: ''
+        }
+
+        this.setAddBtn = this.setAddBtn.bind(this);
+        this.displayInterestFunc = this.displayInterestFunc.bind(this);
     }
 
+    displayInterestFunc(){
+        const interest = document.getElementById('input-interest').value;
 
-    addInterestInterface() {
-        ReactDOM.render(<AddPersonalInterest />, document.querySelector('.add-interest-interface'));
+        if (this.state.whichBtn == 'add-academic-interest') {
+            this.setState({
+                ...this.state,
+                academicInterest: [...this.state.academicInterest, {
+                    interest: interest,
+                    date: new Date()
+                }],
+                addBtn: false
+            })
+        } else if (this.state.whichBtn == 'add-personal-interest') {
+            this.setState({
+                ...this.state,
+                personalInterest: [...this.state.personalInterest, {
+                    interest: interest,
+                    date: new Date()
+                }],
+                addBtn: false
+            })
+        }
+
+    }
+
+    setAddBtn(e){
+        this.setState({
+            ...this.state,
+            addBtn: true,
+            whichBtn: e.target.id
+        })
+        setTimeout(() =>console.log(this.state.whichBtn), 1000);
     }
 
     render(){
+        let academicIndex =6;
+        let personalIndex=9;
         return (
             <div className={styles.page} id="interest-page">
                 <h1 className="title">Interests</h1>
@@ -78,11 +147,19 @@ class Interest extends React.Component {
                         <li key="a-li-4">Game Development</li>
                         <li key="a-li-5">Software/App Development</li>
                         <li key="a-li-6">Project Management</li>
+                        {
+                            this.state.academicInterest.slice(1).map((interest)=>{
+                                academicIndex++;
+                                return <li key={"a-li-"+academicIndex}>{interest.interest} {interest.date.toString().slice(0,16)}</li>
+                            })
+                        }
                     </ul>
-                    <button type="button" className="add-btn" onClick={this.addInterestInterface}>Add</button>
-                    <div className='add-interest-interface' id={styles['add-interest-interface']}>
-
+                    <div className="container" id="personal-interest-interface">
+                        {
+                            this.state.addBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn}/> : null
+                        }
                     </div>
+                    <button type="button" className="add-btn" id="add-academic-interest" onClick={this.setAddBtn}>Add</button>
                     <button type="button" className="remove-btn">Remove</button>
                     <p>
                         I'm very flexible with what I want to do professionally. I want to be able to gain all types of experience.
@@ -103,8 +180,14 @@ class Interest extends React.Component {
                         <li key="p-li-7">Anime</li>
                         <li key="p-li-8">Games</li>
                         <li key="p-li-9">Exploring/Sight-seeing</li>
+                        {
+                            this.state.personalInterest.slice(1).map((interest) => {
+                                personalIndex++;
+                                return <li key={"a-li-" + personalIndex}>{interest.interest} {interest.date.toString().slice(0, 16)}</li>
+                            })
+                        }
                     </ul>
-                    <button type="button" className="add-btn">Add</button>
+                    <button type="button" className="add-btn" id="add-personal-interest" onClick={this.setAddBtn}>Add</button>
                     <button type="button" className="remove-btn">Remove</button>
                 </div>
             </div>
