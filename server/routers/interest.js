@@ -39,11 +39,12 @@ router.route('/addAcadInterest').post((req, res) =>{
     const interestId = 1; // TODO: generate uniqueID?
 
     // Get user input
+    const acadInterestId = new mongoose.Types.ObjectId;
     const interest = req.body.interest;
-    const date = new Date(); // TODO: replace with ref to input date?
-
+    const date = new Date();
     // Store values in object
     const addInterest = {
+        _id: acadInterestId,
         interest: interest,
         date: date
     };
@@ -77,11 +78,13 @@ router.route('/addPersonalInterest').post((req, res) =>{
     const interestId = 1; // TODO: generate unique ID?
 
     // Get user input
+    const personalInterestId = new mongoose.Types.ObjectId;
     const interest = req.body.interest;
     const date = new Date(); // TODO: replace with input date?
 
     // Store values in object
     const addInterest = {
+        _id: personalInterestId,
         interest: interest,
         date: date
     }

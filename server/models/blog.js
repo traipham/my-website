@@ -10,6 +10,10 @@ const blogSchema = new Schema(
         },
         blogPosts: [
             {
+                _id: {
+                    type: Schema.Types.ObjectId,
+                    required: true
+                },
                 content: {
                     type: String,
                     required: false

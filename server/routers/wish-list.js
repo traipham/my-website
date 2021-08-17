@@ -33,6 +33,7 @@ router.route('/addWish').post((req, res) => {
     const wishListId = 1; // TODO: Generate unique Id?
 
     // Get user input 
+    const wishPostId = new mongoose.Types.ObjectId;
     const title = req.body.title;
     const description = req.body.description;
     const img = req.body.img;
@@ -43,6 +44,7 @@ router.route('/addWish').post((req, res) => {
 
     // Store values in object
     const addWish = {
+        _id: wishPostId,
         title: title,
         description: description,
         img: img,

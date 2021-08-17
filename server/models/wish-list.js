@@ -10,6 +10,10 @@ const wishListSchmea = new _Schema(
         },
         wishes: [
             {
+                _id:{
+                    type: _Schema.Types.ObjectId,
+                    required: true
+                },
                 title: {
                     type: String,
                     required: true

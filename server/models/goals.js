@@ -10,6 +10,10 @@ const goalsSchema = new _Schema(
         },
         goals: [
             {
+                _id:{
+                    type: _Schema.Types.ObjectId,
+                    required: true
+                },
                 content: {
                     type: String,
                     required: true

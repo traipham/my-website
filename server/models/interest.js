@@ -10,6 +10,10 @@ const interestSchema = new Schema(
         },
         academicInterests: [
             {
+                _id:{
+                    type: Schema.Types.ObjectId,
+                    required: true
+                },
                 interest: {
                     type: String,
                     required: true
@@ -22,6 +26,10 @@ const interestSchema = new Schema(
         ],
         personalInterests: [
             {
+                _id:{
+                    type: Schema.Types.ObjectId,
+                    required: true
+                },
                 interest: {
                     type: String,
                     required: true

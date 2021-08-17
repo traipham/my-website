@@ -33,6 +33,7 @@ router.route('/addPost').post((req,res) => {
     const blogId = 1; // TODO: Generate unique Id?
 
     // Get user input
+    const blogPostId = new mongoose.Types.ObjectId;
     const content = req.body.content;
     const location = req.body.location;
     const image = req.body.image;
@@ -41,6 +42,7 @@ router.route('/addPost').post((req,res) => {
 
     // Store values in object
     const addPost = {
+        _id: blogPostId,
         content: content,
         location: location,
         image: image,

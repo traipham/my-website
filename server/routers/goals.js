@@ -33,6 +33,7 @@ router.route('/add').post((req, res)=>{
     const goalId = 1; // TODO: generate unique ID?
 
     // Get user input 
+    const goalPostId = new mongoose.Types.ObjectId;
     const content = req.body.content;
     const tagColor = req.body.tagColor;
     const index = req.body.index;
@@ -40,6 +41,7 @@ router.route('/add').post((req, res)=>{
     
     // Store values in object
     const addGoal = {
+        _id: goalPostId,
         content: content,
         tagColor: tagColor,
         index: index,
