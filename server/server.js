@@ -26,12 +26,12 @@ connection.once('open', () => {
 const goalsRouter = require('./routers/goals');
 const blogRouter = require('./routers/blog');
 const interestRouter = require('./routers/interest');
-// const wishListRouter = require('./routers/wish-list');
+const wishListRouter = require('./routers/wish-list');
 
 app.use('/goals', goalsRouter);
 app.use('/blog', blogRouter);
 app.use('/interest', interestRouter);
-// app.use('/wish-list', wishListRouter);
+app.use('/wish-list', wishListRouter);
 
 // This is how we start a server with a port
 app.listen(port, () => {
