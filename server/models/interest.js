@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const interestSchema = new Schema(
     {
         _id: {
-            type: Schema.Types.ObjectId,
+            type: Number,
             required: true
         },
         academicInterests: [
