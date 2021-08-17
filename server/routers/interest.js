@@ -30,6 +30,27 @@ router.route('/').get((req, res) => {
         })
         .catch((err) => res.status(400).json("Error: " + err))
 })
+/**
+ * GET all academic interests
+ */
+router.route('/academic-interest').get((req, res) => {
+    Interest.findOne({}, {academicInterests: 1})
+        .then((interest) => {
+            res.json(interest);
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
+
+/**
+ * GET all personal interests
+ */
+router.route('/personal-interest').get((req, res) => {
+    Interest.findOne({}, {personalInterests: 1})
+        .then((interest) => {
+            res.json(interest)
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
 
 /**
  * ADD academic interest
