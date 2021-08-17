@@ -5,7 +5,7 @@ const { Schema: _Schema } = mongoose;
 const goalsSchema = new _Schema(
     {
         _id: {
-            type: Number,
+            type: Number, // _Schema.Types.ObjectId
             required: true,
         },
         goals: [

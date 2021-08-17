@@ -5,7 +5,7 @@ const { Schema: _Schema } = mongoose;
 const wishListSchmea = new _Schema(
     {
         _id: {
-            type: _Schema.Types.ObjectId,
+            type: Number, // _Schema.Types.ObjectId
             required: true,
         },
         wishes: [
