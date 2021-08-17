@@ -32,6 +32,8 @@ const interestSchema = new Schema(
                 }
             }
         ]
+    }, {
+        timestamps: true
     }
 )
 

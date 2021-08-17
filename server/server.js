@@ -23,11 +23,13 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully!");
 })
 
+// Router to different collection defined by files in router folders
 const goalsRouter = require('./routers/goals');
 const blogRouter = require('./routers/blog');
 const interestRouter = require('./routers/interest');
 const wishListRouter = require('./routers/wish-list');
 
+// Using these routers
 app.use('/goals', goalsRouter);
 app.use('/blog', blogRouter);
 app.use('/interest', interestRouter);

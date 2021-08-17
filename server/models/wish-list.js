@@ -40,6 +40,8 @@ const wishListSchmea = new _Schema(
                 }
             }
         ]
+    }, {
+        timestamps: true
     }
 )
 

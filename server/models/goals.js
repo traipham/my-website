@@ -28,8 +28,9 @@ const goalsSchema = new _Schema(
                 }
             }
         ]
-    }
-);
+    }, {
+        timestamps: true
+    });
 
 const Goals = mongoose.model('Goals', goalsSchema);
 
