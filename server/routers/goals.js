@@ -1,3 +1,4 @@
+// Goals router
 const mongoose = require('mongoose');
 const router = require('express').Router();
 // import GoalsController from '../controller/goalsController.js';
@@ -5,46 +6,65 @@ const GoalsHelper = require('../helper/goalsHelper.js');
 const Goals = require('../models/goals.js');
 
 let goalsHelper = new GoalsHelper();
-// Gets all the goals and return it in json format
+/**
+ * GET all goals
+ */
 router.route('/').get((req, res) => {
     Goals.find()
-        .then(goal => res.json(goal))
+        .then(goal => {
+            // If goals collection does not exist, create one
+            // Error: (node:24072) UnhandledPromiseRejectionWarning: Error [ERR_HTTP_HEADERS_SENT]: 
+            // Cannot set headers after they are sent to the client
+            // ( use db.createCollection() )
+            if (Object.keys(goal).length === 0) {
+                const log = goalHelper.createGoals(req, res);
+                console.log(log);
+            }
+            res.json(goal);
+        })
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
-// Need to initialize a goal array of object if it doesn't exist
+/**
+ * ADD new goal
+ */
 router.route('/add').post((req, res)=>{
     // const goalId = mongoose.Types.ObjectId();
-    const goalId = 1; // Manual placement key for now 
+    const goalId = 1; // TODO: generate unique ID?
 
+    // Get user input 
     const content = req.body.content;
     const tagColor = req.body.tagColor;
     const index = req.body.index;
-    const date = new Date();
+    const date = new Date(); // TODO: input date?
     
-    let addGoals = new Goals();
-
-    try {
-        addGoals = Goals.findOne({ _id: goalId })
-    } catch(err){
-        goalsHelper.createGoals(req, res);
-        addGoals = Goals.findOne({ _id : goalId});
-        res.status(400).json('Error: ' + err);
-    }
-    const goal = {
+    // Store values in object
+    const addGoal = {
         content: content,
         tagColor: tagColor,
         index: index,
         date: date
     }
+    // Reference variable to Goals query
+    let newGoals = new Goals();
+
+    try {
+        // Find specific Goals query based on Id ( only 1 )
+        newGoals = Goals.findOne({ _id: goalId })
+    } catch(err){
+        return res.status(400).json('Error: ' + err);
+    }
     // console.log("individual goal: " + JSON.stringify(goal));
 
-
-    addGoals.then((resolve) => {
-        resolve.goals.push(goal)
-        resolve.save()
-            .then(() => res.json('Goals added!'))
-            .catch(err => res.status(400).json('Error: ' + err));
+    // Add user input to Goals query
+    newGoals.then((resolve) => {
+        resolve.goals.push(addGoal)
+        try {
+            resolve.save();
+        } catch (err) {
+            return res.status(400).json('Error: ' + err);
+        }
+        return res.json('Goals added!');
     })
 
 });

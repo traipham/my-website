@@ -1,11 +1,19 @@
 const mongoose = require('mongoose');
 const Interest = require('../models/interest');
-
+/**
+ * Class that contains helper methods for Interest router
+ */
 class InterestHelper{
     constructor(){
         this.createInterestCollection = this.createInterestCollection.bind(this);
     }
 
+    /**
+     * Create new interest collection
+     * @param {*} req 
+     * @param {*} res 
+     * @returns 
+     */
     async createInterestCollection(req, res){
         const interestCollection = new Interest();
 

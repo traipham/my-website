@@ -2,13 +2,19 @@ const mongoose = require('mongoose');
 let Goals = require('../models/goals.js');
 
 /**
- * class that contains helper methods for Routing for router>goals.js
+ * class that contains helper methods for Goals router
  */
 module.exports = class GoalsHelper{
 
     constructor(){
         this.createGoals = this.createGoals.bind(this);
     }
+    /**
+     * Create new goals collection
+     * @param {*} req 
+     * @param {*} res 
+     * @returns 
+     */
     async createGoals(req, res) {
         const goalId = 1;
 

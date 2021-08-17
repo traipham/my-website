@@ -1,11 +1,18 @@
 const mongoose = require('mongoose');
 const Blog = require('../models/blog');
-
+/**
+ * Class containing helper methods for Blog router
+ */
 class BlogHelper{
     constructor(){
         this.createBlog = this.createBlog.bind(this);
     }
 
+    /**
+     * Create new blog collection
+     * @param {*} req 
+     * @param {*} res 
+     */
     async createBlog(req, res){
 
         const index = -1;

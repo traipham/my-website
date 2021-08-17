@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 const WishList = require('../models/wish-list');
-
+/**
+ * Class that contains helper methods for Wishlist router
+ */
 class WishListHelper{
     constructor(){
         this.createWishListCollection = this.createWishListCollection.bind(this);
     }
 
     /**
-     * initialize interest collection
+     * Create new interest collection
      * @param {*} req 
      * @param {*} res 
      * @returns 

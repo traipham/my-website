@@ -1,3 +1,4 @@
+// Blog router
 const mongoose = require('mongoose');
 const router = require('express').Router();
 const Blog = require('../models/blog');
@@ -6,27 +7,39 @@ const BlogHelper = require('../helper/blogHelper');
 const blogHelper = new BlogHelper();
 
 /**
- * Get all blog post 
+ * GET all blog post 
  */
 router.route('/').get((req, res) => {
 
     Blog.find()
-        .then((blog) => res.json(blog))
+        .then((blog) => {
+            // If blog collection does not exist, create one
+            // Error: (node:24072) UnhandledPromiseRejectionWarning: Error [ERR_HTTP_HEADERS_SENT]: 
+            // Cannot set headers after they are sent to the client
+            // ( use db.createCollection() )
+            if (Object.keys(blog).length === 0) {
+                const log = blogHelper.createBlog(req, res);
+                console.log(log);
+            }
+            res.json(blog);
+        })
         .catch(err => res.status(400).json('Error: ' + err))
 })
 
 /**
- * Add another blog post (pushing new post to blogPosts array)
+ * ADD another blog post (pushing new post to blogPosts array)
  */
 router.route('/addPost').post((req,res) => {
-    const blogId = 1;
+    const blogId = 1; // TODO: Generate unique Id?
 
+    // Get user input
     const content = req.body.content;
     const location = req.body.location;
     const image = req.body.image;
     const index = req.body.index;
-    const date = new Date();
+    const date = new Date(); // TODO: input date?
 
+    // Store values in object
     const addPost = {
         content: content,
         location: location,
@@ -35,22 +48,25 @@ router.route('/addPost').post((req,res) => {
         date: date
     }
 
+    // Reference variable to mongoDB blog query
     let newBlogPost = {}
 
     try{
+        // Find specific blog query based on Id (only 1)
         newBlogPost = Blog.findOne({ _id : blogId });
-    // Make a new blog area ( won't be necessary ) for others
     } catch{
-        blogHelper.createBlog(req, res);
-        newBlogPost = Blog.findOne({ _id: blogId });
-        res.status(400).json("Error: " + "Blog does not exist");
+        return res.status(400).json("Error: " + "Blog does not exist");
     }
 
+    // Add user input to the blog query
     newBlogPost.then((resolve) => {
         resolve.blogPosts.push(addPost);
-        resolve.save()
-            .then(() => res.json("Blog Post added!"))
-            .catch((err) => res.status(400).json("Error: " + err))
+        try {
+            resolve.save();
+        } catch (err) {
+            return res.status(400).json("Error: " + err)
+        }
+        return res.json("Blog Post added!");
     })
 })
 
