@@ -1,11 +1,11 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const BlogSchema = new Schema(
+const blogSchema = new Schema(
     {
         _id: {
-            type: Schema.Types.ObjectId,
+            type: Number,
             required: true,
         },
         blogPosts: [
@@ -35,4 +35,6 @@ const BlogSchema = new Schema(
     }
 )
 
-export default BlogSchema;
+const Blog = mongoose.model('Blog', blogSchema);
+
+module.exports = Blog;

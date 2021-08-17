@@ -1,11 +1,11 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 // Destructuring of Schema property from mongoose and giving it a value
 const { Schema: _Schema } = mongoose;
 
-const GoalsSchema = new _Schema(
+const goalsSchema = new _Schema(
     {
         _id: {
-            type: _Schema.Types.ObjectId,
+            type: Number,
             required: true,
         },
         goals: [
@@ -31,4 +31,6 @@ const GoalsSchema = new _Schema(
     }
 );
 
-export default GoalsSchema
+const Goals = mongoose.model('Goals', goalsSchema);
+
+module.exports = Goals;

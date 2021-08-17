@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const InterestSchema = new Schema(
+const interestSchema = new Schema(
     {
         _id: {
             type: Schema.Types.ObjectId,
@@ -35,4 +35,6 @@ const InterestSchema = new Schema(
     }
 )
 
-export default InterestSchema;
+const Interest = mongoose.model('Interest', interestSchema);
+
+module.exports = Interest;
