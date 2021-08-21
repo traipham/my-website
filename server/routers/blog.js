@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
 const Blog = require('../models/blog');
+// const BlogPost = require('../models/blogPost');
 const BlogHelper = require('../helper/blogHelper');
 
 const blogHelper = new BlogHelper();
@@ -37,7 +38,7 @@ router.route('/addPost').post((req,res) => {
     const content = req.body.content;
     const location = req.body.location;
     const image = req.body.image;
-    const index = req.body.index;
+    const index = Number(req.body.index);
     const date = new Date(); // TODO: input date?
 
     // Store values in object
@@ -72,4 +73,80 @@ router.route('/addPost').post((req,res) => {
     })
 })
 
+/**
+ * GET specific blog query/collection
+ *  NOTE NEEDED ? 
+ */
+// router.route('/:id').get((req, res) => {
+//     // THIS WILL GET YOU THE INDIVIDUAL BLOG ITSELF
+//     // const blogQuery = Blog.findOne({ _id: 1 });
+
+//     // blogQuery.then((blog) => {
+//     //     blog.blogPosts.forEach((post)=>{
+//     //         try{
+//     //             if (String(post._id) === req.params.id) {
+//     //                 return res.json(post);
+//     //             }
+//     //         } catch (err) {
+//     //             return res.status(400).json("Error: " + err)
+//     //         }
+//     //     })
+//     // })
+//     // .catch((err) => {return res.status(400).json("Error: " + err)});
+
+//     Blog.findById(req.params.id)
+//         .then((blog) => res.json(blog))
+//         .catch((err) => res.status(400).json("Error: " + err))
+// })
+
+/**
+ * DELETE specific blog post
+ */
+router.route('/delete/:id').delete((req, res) => {
+    // Get specific index to delete
+    const index = req.body.index;
+
+    Blog.findById(req.params.id)
+        .then((blogPost) => {
+                blogPost.blogPosts.splice(1, index)
+
+                blogPost.save()
+                    .then(() => res.json("Deleted post!"))
+                    .catch((err) => res.status(400).json("Error: " + err))
+            })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
+
+/**
+ * UPDATE specific blog Post
+ */
+router.route('/update/:id').post((req, res) => {
+    // Get updated user input
+    const blogPostId = req.body._id;
+    const content = req.body.content;
+    const location = req.body.location;
+    const image = req.body.image;
+    const index = Number(req.body.index);
+    const date = new Date();
+    // Find specific Blog collection based on Id
+    Blog.findById(req.params.id)
+        .then((blogPost) => {
+            blogPost.blogPosts.forEach((post) => {
+                // Find specific post based on inputted Id
+                if (String(post._id) === blogPostId) {
+                    // Update specific post
+                    post.content = content;
+                    post.location = location;
+                    post.image = image;
+                    post.index = index;
+                    post.date = date;
+                    // Save to collection
+                    blogPost.save()
+                        .then(() => res.json('Post updated!'))
+                        .catch((err) => res.status(400).json("Error: " + err))
+                }
+            })
+        })
+        .catch( (err) => res.status(400).json("Error: " + err))
+})
 module.exports = router;

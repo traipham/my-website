@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+// const BlogPost = require('./blogPost');
 const Schema = mongoose.Schema;
 
 const blogSchema = new Schema(
