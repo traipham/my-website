@@ -4,6 +4,7 @@ const router = require('express').Router();
 // import GoalsController from '../controller/goalsController.js';
 const GoalsHelper = require('../helper/goalsHelper.js');
 const Goals = require('../models/goals.js');
+// const GoalPost = require('../models/goalPost'); // individual posts for goals
 
 let goalsHelper = new GoalsHelper();
 /**
@@ -47,6 +48,7 @@ router.route('/add').post((req, res)=>{
         index: index,
         date: date
     }
+
     // Reference variable to Goals query
     let newGoals = new Goals();
 
@@ -70,5 +72,30 @@ router.route('/add').post((req, res)=>{
     })
 
 });
+/**
+ * Get specific goal collection
+ * 
+ * NEED TO TEST
+ */
+router.route('/:id').get((req, res) => {
+    Goals.findById(req.params.id)
+        .then((post) => res.json(post))
+        .catch((err) => res.status(400).json("Error: " + err))
+})
 
+/**
+ * DElETE specific goal Post from collection
+ * 
+ * NEED TO TEST
+ */
+router.route('/delete/:id').delete((req, res) => {
+    // Get input of post index to delete
+    const goalPostIndex = Number(req.body.index);
+    
+    Goals.findById(req.params.id)
+        .then((post) => {
+            post.goals.splice(goalPostIndex, 1)
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+}) 
 module.exports = router;

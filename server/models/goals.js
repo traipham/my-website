@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const GoalPost = require('./goalPost');
 // Destructuring of Schema property from mongoose and giving it a value
 const { Schema: _Schema } = mongoose;
 
@@ -8,30 +9,10 @@ const goalsSchema = new _Schema(
             type: Number, // _Schema.Types.ObjectId
             required: true,
         },
-        goals: [
-            {
-                _id:{
-                    type: _Schema.Types.ObjectId,
-                    required: true
-                },
-                content: {
-                    type: String,
-                    required: true
-                },
-                tagColor: {
-                    type: String,
-                    required: true
-                },
-                index: {
-                    type: Number,
-                    required: true
-                },
-                date: {
-                    type: Date,
-                    required: true
-                }
-            }
-        ]
+        goals: {
+            type: [GoalPost],
+            required: true
+        }
     }, {
         timestamps: true
     });
