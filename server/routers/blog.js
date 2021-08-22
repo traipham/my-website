@@ -28,7 +28,12 @@ router.route('/').get((req, res) => {
 })
 
 /**
- * ADD another blog post (pushing new post to blogPosts array)
+ * ADD blog post
+ * 
+ * @param {string} content - add content
+ * @param {string} location - add location
+ * @param {string} image - add image
+ * @param {Number} index - add index
  */
 router.route('/addPost').post((req,res) => {
     const blogId = 1; // TODO: Generate unique Id?
@@ -101,6 +106,8 @@ router.route('/addPost').post((req,res) => {
 
 /**
  * DELETE specific blog post
+ * @param {string} id - blog collection id
+ * @param {Number} index - index of blog post to delete
  */
 router.route('/delete/:id').delete((req, res) => {
     // Get specific index to delete
@@ -108,7 +115,7 @@ router.route('/delete/:id').delete((req, res) => {
 
     Blog.findById(req.params.id)
         .then((blogPost) => {
-                blogPost.blogPosts.splice(1, index)
+                blogPost.blogPosts.splice(index, 1)
 
                 blogPost.save()
                     .then(() => res.json("Deleted post!"))
@@ -119,15 +126,21 @@ router.route('/delete/:id').delete((req, res) => {
 
 /**
  * UPDATE specific blog Post
+ * @param {string} id - blog collection id
+ * @param {string} blogPostId - specific blog post id 
+ * @param {string} updateContent - updated content
+ * @param {string} updateLocation - updated location
+ * @param {string} updateImage - updated image
+ * @param {Number} updateIndex - updated index
  */
 router.route('/update/:id').post((req, res) => {
     // Get updated user input
     const blogPostId = req.body._id;
-    const content = req.body.content;
-    const location = req.body.location;
-    const image = req.body.image;
-    const index = Number(req.body.index);
-    const date = new Date();
+    const updateContent = req.body.content;
+    const updateLocation = req.body.location;
+    const updateImage = req.body.image;
+    const updateIndex = Number(req.body.index);
+    const updateDate = new Date();
     // Find specific Blog collection based on Id
     Blog.findById(req.params.id)
         .then((blogPost) => {
@@ -135,11 +148,11 @@ router.route('/update/:id').post((req, res) => {
                 // Find specific post based on inputted Id
                 if (String(post._id) === blogPostId) {
                     // Update specific post
-                    post.content = content;
-                    post.location = location;
-                    post.image = image;
-                    post.index = index;
-                    post.date = date;
+                    post.content = updateContent;
+                    post.location = updateLocation;
+                    post.image = updateImage;
+                    post.index = updateIndex;
+                    post.date = updateDate;
                     // Save to collection
                     blogPost.save()
                         .then(() => res.json('Post updated!'))
@@ -149,4 +162,5 @@ router.route('/update/:id').post((req, res) => {
         })
         .catch( (err) => res.status(400).json("Error: " + err))
 })
+
 module.exports = router;
