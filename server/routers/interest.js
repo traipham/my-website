@@ -1,8 +1,7 @@
 // Interest router
 /**
  * TODO: 
- *  - GET personal interest
- *  - GET academic interest
+ * 
  */
 const mongoose = require('mongoose');
 const router = require('express').Router();
@@ -54,6 +53,8 @@ router.route('/personal-interest').get((req, res) => {
 
 /**
  * ADD academic interest
+ * 
+ * @param interest - new interest to add
  */
 router.route('/addAcadInterest').post((req, res) =>{
 
@@ -94,6 +95,8 @@ router.route('/addAcadInterest').post((req, res) =>{
 
 /**
  * ADD personal interest
+ * 
+ * @param {string} interest - new interest to add
  */
 router.route('/addPersonalInterest').post((req, res) =>{
     const interestId = 1; // TODO: generate unique ID?
@@ -129,8 +132,130 @@ router.route('/addPersonalInterest').post((req, res) =>{
         }  
         return res.json("Added new personal Interest!");
     })
+})
+/**
+ * DELETE specific academic interest
+ * 
+ * @param {string} id - interest collection ID
+ * @param {string} acadInterestId - specific interest id
+ */
+router.route('/delete/acad/:id').delete((req, res) => {
+    const acadInterestId = req.body._id;
 
+    Interest.findById(req.params.id)
+        .then((interest) => {
+            // Filters through array and create new array based params of callback function of filter
+            const newInterestArr = interest.academicInterests.filter((value, index, arr) => {
+                return String(value._id) != acadInterestId
+            })
+            try{
+                if (interest.academicInterests.length === newInterestArr.length){
+                    throw 'Could not delete/find interest'
+                } else {
+                    interest.academicInterests = newInterestArr;
 
+                    interest.save()
+                        .then(() => res.json("Deleted academic interest!"))
+                        .catch((err) => res.status(400).json("Error: " + err))
+                }
+            } catch (err) {
+                res.status(400).json("Error: "+ err)
+            }
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
 })
 
+/**
+ * DELETE specific personal interest
+ * 
+ * @param {string} id - interest collection ID
+ * @param {string} personalInterestId - specific interest id
+ */
+router.route('/delete/personal/:id').delete((req, res) => {
+    const personalInterestId = req.body._id;
+
+    Interest.findById(req.params.id)
+        .then((interest) => {
+            // Filters through array and create new array based params of callback function of filter
+            const newInterestArr = interest.personalInterests.filter((value, index, arr) => {
+                return String(value._id) != personalInterestId
+            })
+            try {
+                if (interest.personalInterests.length === newInterestArr.length) {
+                    throw 'Could not delete/find interest'
+                } else {
+                    interest.personalInterests = newInterestArr;
+
+                    interest.save()
+                        .then(() => res.json("Deleted personal interest!"))
+                        .catch((err) => res.status(400).json("Error: " + err))
+                }
+            } catch (err) {
+                res.status(400).json("Error: " + err)
+            }
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
+
+/**
+ * UPDATE academic interest
+ * 
+ * @param {string} id - interest collection id
+ * @param {string} acadInterestId - specific interest id
+ * @param {string} updateInterest - updated interest content
+ */
+router.route('/update/acad/:id').post((req, res) => {
+    const acadInterestId = req.body._id;
+
+    const updateInterest = req.body.interest;
+    const updateDate = new Date();
+
+    Interest.findById(req.params.id)
+        .then((interest) => {
+            // Find and Update specify academic interest
+            interest.academicInterests.forEach((post) => {
+                if(String(post._id) === acadInterestId){
+                    post.interest = updateInterest;
+                    post.date = updateDate;
+
+                    // Save interest
+                    interest.save()
+                        .then(() => res.json("Updated academic interest!"))
+                        .catch((err) => res.status(400).json("Error: " + err))
+                }
+            })
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
+
+/**
+ * UPDATE personal interest
+ * 
+ * @param {string} id - interest collection id
+ * @param {string} personalInterestId - specific interest id
+ * @param {string} updateInterest - updated interest content
+ */
+router.route('/update/personal/:id').post((req,res) => {
+    const personalInterestId = req.body._id;
+
+    const updateInterest = req.body.interest;
+    const updateDate = new Date();
+
+    Interest.findById(req.params.id)
+        .then((interest) => {
+            // Find and Update specify personal interest
+            interest.personalInterests.forEach((post) => {
+                if (String(post._id) === personalInterestId) {
+                    post.interest = updateInterest;
+                    post.date = updateDate;
+
+                    // Save interest
+                    interest.save()
+                        .then(() => res.json("Updated personal interest!"))
+                        .catch((err) => res.status(400).json("Error: " + err))
+                }
+            })
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
 module.exports = router;

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const interestPost = require('./interestPost');
 
 const Schema = mongoose.Schema;
 
@@ -8,39 +9,15 @@ const interestSchema = new Schema(
             type: Number, // _Schema.Types.ObjectId
             required: true
         },
-        academicInterests: [
-            {
-                _id:{
-                    type: Schema.Types.ObjectId,
-                    required: true
-                },
-                interest: {
-                    type: String,
-                    required: true
-                },
-                date: {
-                    type: Date,
-                    required: true
-                }
-            }
-        ],
-        personalInterests: [
-            {
-                _id:{
-                    type: Schema.Types.ObjectId,
-                    required: true
-                },
-                interest: {
-                    type: String,
-                    required: true
-                },
-                date: {
-                    type: Date,
-                    required: true
-                }
-            }
-        ]
-    }, {
+        academicInterests: {
+            type: [interestPost],
+            required: true
+        },
+        personalInterests: {
+            type: [interestPost],
+            required: true
+        },
+    }, {    
         timestamps: true
     }
 )
