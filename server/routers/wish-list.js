@@ -75,5 +75,71 @@ router.route('/addWish').post((req, res) => {
         return res.json("Added new wish!")
     })
 })
+/**
+ * DELETE specific wish based on index
+ * 
+ * @param {string} id - wish collection id
+ * @param {Number} wishIndex - index of wish being deleted
+ */
+router.route('/delete/:id').delete((req, res) => {
+    const wishIndex = req.body.index;
+
+    WishList.findById(req.params.id)
+        .then((wish) => {
+            wish.wishes.splice(wishIndex, 1);
+
+            wish.save()
+                .then(() => res.json("Deleted wish!"))
+                .catch((err) => res.status(400).json("Error: " + err))
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
+
+/**
+ * UPDATE wish based on id
+ * 
+ * @param {string} id - wish collection id
+ * @param {string} wishId - wish id
+ * @param {string} title - update title
+ * @param {string} description - update description
+ * @param {string} img - update path/source of img
+ * @param {string} tag - update tag
+ * @param {Number} rating - update rating 
+ * @param {Number} index - update index
+ * @param {Date} date - update date
+ */
+router.route('/update/:id').post((req, res) => {
+    const wishId = req.body._id;
+
+    const updateTitle = req.body.title;
+    const updateDescription = req.body.description;
+    const updateImg = req.body.img;
+    const updateTag = req.body.tag;
+    const updateRating = req.body.rating;
+    const updateIndex = req.body.index;
+    const updateDate = new Date();
+
+    WishList.findById(req.params.id)
+        .then((wish) => {
+            wish.wishes.forEach((post) => {
+                if(String(post._id) === wishId){
+                    post.title = updateTitle;
+                    post.description = updateDescription;
+                    post.img = updateImg;
+                    post.tag = updateTag;
+                    post.rating = updateRating;
+                    post.index = updateIndex;
+                    post.date = updateDate;
+
+                    wish.save()
+                        .then(() => res.json("Updated post!"))
+                        .catch((err) => res.status(400).json("Error: " + err))
+                }
+            })
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
+
+
 
 module.exports = router;
