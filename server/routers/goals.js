@@ -28,8 +28,12 @@ router.route('/').get((req, res) => {
 
 /**
  * ADD new goal
+ * 
+ * @param {string} content - add content
+ * @param {string} tagColor - add tagColor
+ * @param {Number} index - add index
  */
-router.route('/add').post((req, res)=>{
+router.route('/addGoal').post((req, res)=>{
     // const goalId = mongoose.Types.ObjectId();
     const goalId = 1; // TODO: generate unique ID?
 
@@ -72,21 +76,21 @@ router.route('/add').post((req, res)=>{
     })
 
 });
-/**
- * Get specific goal collection
- * 
- * NEED TO TEST
- */
-router.route('/:id').get((req, res) => {
-    Goals.findById(req.params.id)
-        .then((post) => res.json(post))
-        .catch((err) => res.status(400).json("Error: " + err))
-})
+// /**
+//  * Get specific goal collection
+//  * 
+//  * NEED TO TEST, not needed yet
+//  */
+// router.route('/:id').get((req, res) => {
+//     Goals.findById(req.params.id)
+//         .then((post) => res.json(post))
+//         .catch((err) => res.status(400).json("Error: " + err))
+// })
 
 /**
  * DElETE specific goal Post from collection
- * 
- * NEED TO TEST
+ * @param {string} id - collection id
+ * @param {Number} index - index of this goal
  */
 router.route('/delete/:id').delete((req, res) => {
     // Get input of post index to delete
@@ -95,7 +99,48 @@ router.route('/delete/:id').delete((req, res) => {
     Goals.findById(req.params.id)
         .then((post) => {
             post.goals.splice(goalPostIndex, 1)
+
+            post.save()
+                .then(() => res.json("Deleted goal!"))
+                .catch((err) => res.status(400).json("Error: " + err))
         })
         .catch((err) => res.status(400).json("Error: " + err))
 }) 
+/**
+ * UPDATE goal post
+ * 
+ * @param {string} id - collection ID
+ * @param {string} goalPostId - specific goal ID
+ * @param {string} updateContent - updated content
+ * @param {string} updateTagColor - updated tagColor
+ * @param {Number} updateIndex - updated index
+ */
+router.route('/update/:id').post((req, res) => {
+    // Get the previous id
+    const goalPostId = req.body._id;
+    // Get previous Index
+    const goalPostPrevIndex = req.body.prevIndex;
+
+    const updateContent = req.body.content;
+    const updateTagColor = req.body.tagColor;
+    const updateIndex = req.body.index;
+    const updateDate = new Date;
+    Goals.findById(req.params.id)
+        .then((post) => {
+            // FIND and UPDATE specify post
+            post.goals.forEach((gPost) => {
+                if(String(gPost._id) === goalPostId){
+                    gPost.content = updateContent;
+                    gPost.tagColor = updateTagColor;
+                    gPost.index = updateIndex;
+                    gPost.date = updateDate;
+
+                    post.save()
+                        .then(() => res.json("Updated goal!"))
+                        .catch((err) => res.status(400).json("Error: " + err));
+                }
+            })
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
 module.exports = router;
