@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const BlogPost = require('./blogPost');
+const blogPost = require('./blogPost');
 const Schema = mongoose.Schema;
 
 const blogSchema = new Schema(
@@ -8,34 +8,10 @@ const blogSchema = new Schema(
             type: Number, // _Schema.Types.ObjectId
             required: true,
         },
-        blogPosts: [
-            {
-                _id: {
-                    type: Schema.Types.ObjectId,
-                    required: true
-                },
-                content: {
-                    type: String,
-                    required: false
-                },
-                location: {
-                    type: String,
-                    required: false
-                },
-                image: {
-                    type: String,
-                    required: false
-                },
-                index: {
-                    type: Number,
-                    required: true
-                },
-                date: {
-                    type: Date,
-                    required: true
-                }
-            }
-        ]
+        blogPosts: {
+            type: [blogPost],
+            required: true
+        }
     }, {
         timestamps: true
     }
