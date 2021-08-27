@@ -21,6 +21,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedT
 
 // let gfs; // Grif FS for storing images
 
+// Mongo Connection
 const connection = mongoose.connection;
 connection.once('open', () => {
     // gfs = Grid(connection.db, mongoose.mongo);
