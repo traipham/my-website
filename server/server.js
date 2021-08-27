@@ -1,5 +1,6 @@
-const express = require('express');
+const express = require('express'); // Express middleware for routing
 const cors = require('cors');
+// const Grid = require('gridfs-stream');
 // Help us connect to MongoDB database
 const mongoose = require('mongoose');
 
@@ -18,8 +19,13 @@ const uri = process.env.CONNECTION_URI;
 // URI is where database is stored, the properties set in the 2nd argument is to make it easier to access MongoDB
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
+// let gfs; // Grif FS for storing images
+
 const connection = mongoose.connection;
 connection.once('open', () => {
+    // gfs = Grid(connection.db, mongoose.mongo);
+    // gfs.collection("photos");
+
     console.log("MongoDB database connection established successfully!");
 })
 
