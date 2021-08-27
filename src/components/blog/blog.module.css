@@ -6,6 +6,13 @@
     flex-flow: row wrap;
     max-width: 50%;
 }
+/***BLOG DISPLAY STYLE***/
+/* .together{
+    display: inline-block;
+    width: fit-content;
+    height: fit-content;
+} */
+
 
 /***Blog-Interface-Style***/
 #post-interface-container{
