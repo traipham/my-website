@@ -1,3 +1,6 @@
+/**
+ * Parent Blog schema that contains array of child blogPost
+ */
 const mongoose = require('mongoose');
 const blogPost = require('./blogPost');
 const Schema = mongoose.Schema;

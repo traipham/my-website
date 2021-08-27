@@ -1,3 +1,6 @@
+/**
+ * Individual Blog Post Schema, child schema to Blog
+ */
 const mongoose = require('mongoose');
 const Image = require('./blogPostImage');
 
@@ -19,12 +22,9 @@ const blogPostSchema = new Schema(
         },
         image: {
             data: Buffer,
-            contentType: String
+            contentType: String,
+            required: false
         },
-        // index: {
-        //     type: Number,
-        //     required: true
-        // },
         date: {
             type: Date,
             required: true
