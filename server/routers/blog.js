@@ -1,11 +1,28 @@
 // Blog router
 const mongoose = require('mongoose');
 const router = require('express').Router();
+const multer = require('multer');
+// const upload = require('../helper/uploadImg');
+const fs = require('fs');
+const path = require('path');
+
 const Blog = require('../models/blog');
 // const BlogPost = require('../models/blogPost');
 const BlogHelper = require('../helper/blogHelper');
-
 const blogHelper = new BlogHelper();
+
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+var upload = multer({ storage });
+
 
 /**
  * GET all blog post 
@@ -35,15 +52,19 @@ router.route('/').get((req, res) => {
  * @param {string} image - add image
  * @param {Number} index - add index
  */
-router.route('/addPost').post((req,res) => {
+router.post('/addPost', upload.single('image'), (req,res) => {
     const blogId = 1; // TODO: Generate unique Id?
 
+    // const imgUrl = `http://localhost:5000/file/${req.file.filename}`;
+    console.log(req.file);
     // Get user input
     const blogPostId = new mongoose.Types.ObjectId;
     const content = req.body.content;
     const location = req.body.location;
-    const image = req.body.image;
-    const index = Number(req.body.index);
+    const image =  {
+        data: fs.readFileSync(path.join('./uploads/' + req.file.filename)),
+        contentType: req.file.mimetype
+    }
     const date = new Date(); // TODO: input date?
 
     // Store values in object
@@ -52,9 +73,9 @@ router.route('/addPost').post((req,res) => {
         content: content,
         location: location,
         image: image,
-        index: index,
         date: date
     }
+
 
     // Reference variable to mongoDB blog query
     let newBlogPost = {}
@@ -74,7 +95,7 @@ router.route('/addPost').post((req,res) => {
         } catch (err) {
             return res.status(400).json("Error: " + err)
         }
-        return res.json("Blog Post added!");
+        return res.json("Blog Post added! Image URL: " + image);
     })
 })
 
@@ -112,13 +133,12 @@ router.route('/addPost').post((req,res) => {
 router.route('/delete/:id').delete((req, res) => {
     // Get specific index to delete
     const index = req.body.index;
-
     Blog.findById(req.params.id)
         .then((blogPost) => {
                 blogPost.blogPosts.splice(index, 1)
 
                 blogPost.save()
-                    .then(() => res.json("Deleted post!"))
+                    .then(() => res.json("Deleted post at index: " + index + "!"))
                     .catch((err) => res.status(400).json("Error: " + err))
             })
         .catch((err) => res.status(400).json("Error: " + err))
