@@ -76,6 +76,7 @@ export const WishInterface = (props) => {
         e.preventDefault();
         const imgURL = URL.createObjectURL(e.target.files[0]);
         fileURL = imgURL;
+        console.log(fileURL);
     }
 
     /**
