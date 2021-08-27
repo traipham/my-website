@@ -54,28 +54,39 @@ router.route('/').get((req, res) => {
  */
 router.post('/addPost', upload.single('image'), (req,res) => {
     const blogId = 1; // TODO: Generate unique Id?
+    let image = {};
 
-    // const imgUrl = `http://localhost:5000/file/${req.file.filename}`;
-    console.log(req.file);
-    // Get user input
     const blogPostId = new mongoose.Types.ObjectId;
     const content = req.body.content;
     const location = req.body.location;
-    const image =  {
-        data: fs.readFileSync(path.join('./uploads/' + req.file.filename)),
-        contentType: req.file.mimetype
-    }
     const date = new Date(); // TODO: input date?
 
-    // Store values in object
-    const addPost = {
-        _id: blogPostId,
-        content: content,
-        location: location,
-        image: image,
-        date: date
+    let addPost = {}
+    // If user don't put in image for post
+    console.log('Uploaded files: ' + req.file);
+    if(req.file === undefined){
+        addPost = {
+            _id: blogPostId,
+            content: content,
+            location: location,
+            date: date
+        }
+        // If user put in image for post
+    } else {
+        image = {
+            data: fs.readFileSync(path.join('./uploads/' + req.file.filename)),
+            contentType: req.file.mimetype
+        }
+        // 
+        addPost = {
+            _id: blogPostId,
+            content: content,
+            location: location,
+            image: image,
+            date: date
+        }
     }
-
+    // const imgUrl = `http://localhost:5000/file/${req.file.filename}`;
 
     // Reference variable to mongoDB blog query
     let newBlogPost = {}
@@ -95,35 +106,9 @@ router.post('/addPost', upload.single('image'), (req,res) => {
         } catch (err) {
             return res.status(400).json("Error: " + err)
         }
-        return res.json("Blog Post added! Image URL: " + image);
+        return res.json("Blog Post added! Image added: " + image);
     })
 })
-
-/**
- * GET specific blog query/collection
- *  NOTE NEEDED ? 
- */
-// router.route('/:id').get((req, res) => {
-//     // THIS WILL GET YOU THE INDIVIDUAL BLOG ITSELF
-//     // const blogQuery = Blog.findOne({ _id: 1 });
-
-//     // blogQuery.then((blog) => {
-//     //     blog.blogPosts.forEach((post)=>{
-//     //         try{
-//     //             if (String(post._id) === req.params.id) {
-//     //                 return res.json(post);
-//     //             }
-//     //         } catch (err) {
-//     //             return res.status(400).json("Error: " + err)
-//     //         }
-//     //     })
-//     // })
-//     // .catch((err) => {return res.status(400).json("Error: " + err)});
-
-//     Blog.findById(req.params.id)
-//         .then((blog) => res.json(blog))
-//         .catch((err) => res.status(400).json("Error: " + err))
-// })
 
 /**
  * DELETE specific blog post
