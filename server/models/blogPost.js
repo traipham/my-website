@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Image = require('./blogPostImage');
 
 const Schema = mongoose.Schema;
 
@@ -17,13 +18,13 @@ const blogPostSchema = new Schema(
             required: false
         },
         image: {
-            type: String,
-            required: false
+            data: Buffer,
+            contentType: String
         },
-        index: {
-            type: Number,
-            required: true
-        },
+        // index: {
+        //     type: Number,
+        //     required: true
+        // },
         date: {
             type: Date,
             required: true
