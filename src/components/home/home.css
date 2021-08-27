@@ -42,3 +42,23 @@
 /*
     ***INTERFACE STYLING BELOW***
 */
+/*
+  ***Welcome Styling***
+*/
+
+#welcome-container{
+  background-color: lightblue;
+}
+#click-me-btn{
+  text-align: center;
+  color: green;
+  font-size: 50px;
+  font-family: 	Copperplate;
+  border-radius: 5px;
+  box-shadow:rgba(0, 0, 0, 0.774) 0px 0px 15px;
+  padding: 10px;
+  margin: 10px;
+}
+#btn-container{
+  text-align: center;
+}
