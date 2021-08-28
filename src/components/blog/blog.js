@@ -47,6 +47,7 @@ export const DisplayBlogPost = (props) => {
 
     let btnStyle = {
         display: "inline-block",
+        backgroundColor: 'red',
         visibility: 'hidden',
         width: "fit-content",
         height: "fit-content",
@@ -158,12 +159,11 @@ class Blog extends React.Component {
 
     componentDidMount(){
         // GET blog document in mongo
-        const posts = axios.get('http://localhost:5000/blog/').then((res)=> {return res.data[0].blogPosts});
-        posts.then((arr) => {
-            // console.log(arr);
+        setTimeout(async () => {
+            const posts = await axios.get('http://localhost:5000/blog/').then((res) => { return res.data[0].blogPosts });
+            console.log(posts);
             let counter = 1;
-            // Add all posts from mongoDB to frontend
-            arr.forEach((post)=>{
+            posts.forEach((post) => {
                 this.setState({
                     addBtn: false,
                     posts: [...this.state.posts, {
@@ -175,8 +175,7 @@ class Blog extends React.Component {
                     }]
                 })
             })
-        });
-        
+        })
     }
 
     /**
