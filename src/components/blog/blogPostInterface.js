@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import styles from './blog.module.css';
 import axios from 'axios';
 
@@ -9,11 +10,11 @@ import axios from 'axios';
  *                      help connect parent component to this child component
  * @returns 
  */
-export const BlogPostInterface = (props) => {
+const BlogPostInterface = (props) => {
     // Storing input in states
-    const [contentInp, setContent] = useState('');
-    const [locationInp, setLocation] = useState('');
-    const [imageInp, setImage] = useState('');
+    const [contentInp, setContentInp] = useState('');
+    const [locationInp, setLocationInp] = useState('');
+    const [imageInp, setImageInp] = useState('');
 
     /**
      * Set image for image state and set preview image
@@ -26,7 +27,7 @@ export const BlogPostInterface = (props) => {
         console.log(e.target.files[0])
 
         // Store img file to state
-        setImage(file);
+        setImageInp(file);
 
         // Create URL for img to preview
         const imgUrl = URL.createObjectURL(e.target.files[0]);
@@ -41,7 +42,7 @@ export const BlogPostInterface = (props) => {
      * @param {*} e - event object of onChange event for content input 
      */
     const onChangeContent = (e) =>{
-        setContent(e.target.value);
+        setContentInp(e.target.value);
     }
 
     /**
@@ -49,7 +50,7 @@ export const BlogPostInterface = (props) => {
      * @param {*} e - event object of onChange event for Location input
      */
     const onChangeLocation = (e) =>{
-        setLocation(e.target.value);
+        setLocationInp(e.target.value);
     }
 
     /**
@@ -72,7 +73,8 @@ export const BlogPostInterface = (props) => {
 
         // Route to add blog post
         const success = await axios.post('http://localhost:5000/blog/addPost', fd, config)
-
+        
+        console.log(success);
         if (success.status === 200){
             props.displayBlogPostFunc();
         } else {
@@ -91,7 +93,7 @@ export const BlogPostInterface = (props) => {
                     <label id="label-img" htmlFor="input-img"><b>Select Image (not required) :</b></label>
                     <br/>
                     <input type="file" id="input-img" name="image" accept="image/*" onChange={handleSelectImage}></input>
-                    <img className="img" id="blog-img" src="#" alt="preview image" height="250px" width="250px"></img>
+                    <img className="post-img" id="blog-img" src="#" alt="preview image" height="250px" width="250px"></img>
                 </div>
 
                 {/**
@@ -120,3 +122,9 @@ export const BlogPostInterface = (props) => {
         </div>
     )
 }
+// Checking Prop type
+BlogPostInterface.propTypes = {
+    displayBlogPostFunc: PropTypes.func.isRequired
+}
+
+export default BlogPostInterface;
