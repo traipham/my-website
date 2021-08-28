@@ -101,6 +101,7 @@ Each Input style
     margin-left: 10px;
 }
 .remove-btn{
-    display: inline-block;
+    display: none;
     background-color: red;
+    visibility: hidden;
 }

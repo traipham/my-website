@@ -22,6 +22,24 @@ export const WishDisplay = (props) => {
     // console.log("This is the idea of this Wish: " + props.index);
     
     /**
+     * Make button visible when hovering over post
+     * @param {*} e - event object for onMouseOver of post container
+    */
+    const handleMouseOver = (e) =>{
+        document.getElementById("remove-wish-" + props.index).style.display = 'inline-block';
+        document.getElementById("remove-wish-" + props.index).style.visibility = 'visible';
+    }
+    
+    /**
+     * Make button hidden when moving out of post
+     * @param {*} e - event object for onMouseOut of post container
+    */
+    const handleMouseOut = (e) => {
+        document.getElementById("remove-wish-" + props.index).style.display = 'none';
+        document.getElementById("remove-wish-" + props.index).style.visibility = 'hidden';
+    }
+
+    /**
      * Remove wish at index
      * @param {*} e - event object for onClick event of remove button
      */
@@ -48,8 +66,9 @@ export const WishDisplay = (props) => {
             return <img src={`data:image/jpeg;base64,${imgB64}`} className="img" id="wish-img" width="200px" height="200px" />;
         }
     }
+
     return(
-        <div className="container" id={styles['wish-container']}>
+        <div className="container" id={styles['wish-container']} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             <button type="button" className={styles["remove-btn"]} id={"remove-wish-"+props.index} onClick={removeWishOnClickBtn}><b>Remove this Wish</b></button>
             <p className="index" id={styles["wish-num"]}><b>Wish #: </b><i>{props.index}</i></p>
             <p className="date" id="wish-date"><b>Date: </b>{props.date.toString().slice(0,10)}</p>
