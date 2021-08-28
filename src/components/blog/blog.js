@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import styles from './blog.module.css';
-import { BlogPostInterface } from "./blogPostInterface";
+import BlogPostInterface from "./blogPostInterface";
 import PropTypes from 'prop-types'
 import axios from 'axios';
 
