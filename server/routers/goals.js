@@ -41,7 +41,7 @@ router.route('/addGoal').post((req, res)=>{
     const goalPostId = new mongoose.Types.ObjectId;
     const content = req.body.content;
     const tagColor = req.body.tagColor;
-    const index = req.body.index;
+    // const index = req.body.index;
     const date = new Date(); // TODO: input date?
     
     // Store values in object
@@ -49,7 +49,7 @@ router.route('/addGoal').post((req, res)=>{
         _id: goalPostId,
         content: content,
         tagColor: tagColor,
-        index: index,
+        // index: index,
         date: date
     }
 
@@ -76,16 +76,6 @@ router.route('/addGoal').post((req, res)=>{
     })
 
 });
-// /**
-//  * Get specific goal collection
-//  * 
-//  * NEED TO TEST, not needed yet
-//  */
-// router.route('/:id').get((req, res) => {
-//     Goals.findById(req.params.id)
-//         .then((post) => res.json(post))
-//         .catch((err) => res.status(400).json("Error: " + err))
-// })
 
 /**
  * DElETE specific goal Post from collection

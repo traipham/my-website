@@ -16,10 +16,10 @@ const goalPostSchema = new Schema(
             type: String,
             required: true
         },
-        index: {
-            type: Number,
-            required: true
-        },
+        // index: {
+        //     type: Number,
+        //     required: true
+        // },
         date: {
             type: Date,
             required: true
