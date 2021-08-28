@@ -2,20 +2,23 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
 const multer = require('multer');
+const Blog = require('../models/blog');
 // const upload = require('../helper/uploadImg');
 const fs = require('fs');
 const path = require('path');
 
-const Blog = require('../models/blog');
 // const BlogPost = require('../models/blogPost');
 const BlogHelper = require('../helper/blogHelper');
 const blogHelper = new BlogHelper();
 
 
+// Create storage for images
 var storage = multer.diskStorage({
+    // Location for storing files
     destination: (req, file, cb) => {
         cb(null, 'uploads')
     },
+    // Filename of all files in folder
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now())
     }
@@ -52,7 +55,7 @@ router.route('/').get((req, res) => {
  * @param {string} image - add image
  * @param {Number} index - add index
  */
-router.post('/addPost', upload.single('image'), (req,res) => {
+router.route('/addPost').post(upload.single('image'), (req,res) => {
     const blogId = 1; // TODO: Generate unique Id?
     let image = {};
 
@@ -77,7 +80,6 @@ router.post('/addPost', upload.single('image'), (req,res) => {
             data: fs.readFileSync(path.join('./uploads/' + req.file.filename)),
             contentType: req.file.mimetype
         }
-        // 
         addPost = {
             _id: blogPostId,
             content: content,
