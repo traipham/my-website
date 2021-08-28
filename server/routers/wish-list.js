@@ -3,8 +3,25 @@ const mongoose = require('mongoose');
 const router = require('express').Router();
 const WishList = require('../models/wish-list');
 const WishListHelper = require('../helper/wishListHelper');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 const wishListHelper = new WishListHelper();
+
+// Create storage for images
+const storage = multer.diskStorage({
+    // Location of files to store
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    // Naming of each file placed in folder
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+})
+
+const upload = multer({ storage });
 
 /**
  * GET all wishes 
@@ -29,36 +46,54 @@ router.route('/').get((req, res) => {
 /**
  * ADD new wishes
  */
-router.route('/addWish').post((req, res) => {
+router.route('/addWish').post(upload.single('image'), (req, res) => {
     const wishListId = 1; // TODO: Generate unique Id?
 
     // Get user input 
     const wishPostId = new mongoose.Types.ObjectId;
     const title = req.body.title;
     const description = req.body.description;
-    const img = req.body.img;
+    // const img = req.body.img;
     const tag = req.body.tag;
     const rating = req.body.rating;
-    const index = req.body.index;
+    // const index = req.body.index;
     const date = new Date(); // TODO: input date? 
 
+    let img = {};
+
     // Store values in object
-    const addWish = {
-        _id: wishPostId,
-        title: title,
-        description: description,
-        img: img,
-        tag: tag,
-        rating: rating,
-        index: index,
-        date: date
+    let addWish = {};
+    if(req.file === undefined){
+        addWish = {
+            _id: wishPostId,
+            title: title,
+            description: description,
+            tag: tag,
+            rating: rating,
+            date: date
+        }
+    } else {
+        img = {
+            data: fs.readFileSync(path.join('./uploads/' + req.file.filename)),
+            contentType: req.file.mimetype
+        }
+        addWish = {
+            _id: wishPostId,
+            title: title,
+            description: description,
+            img: img,
+            tag: tag,
+            rating: rating,
+            // index: index,
+            date: date
+        }
     }
 
-    // Reference variable to Wishlist query
+    // Reference variable to Wishlist document
     let newWish = {};
 
     try{
-        // Find specific Wishlist query based on Id ( only 1 )
+        // Find specific Wishlist documet based on Id ( only 1 )
         newWish = WishList.findOne({ _id: wishListId });
     } catch(err) {
         return res.status(400).json("Error: " + err);
@@ -72,6 +107,7 @@ router.route('/addWish').post((req, res) => {
         } catch(err) {
             return res.status(400).json("Error: " + err)
         }
+        console.log("Added new wish!")
         return res.json("Added new wish!")
     })
 })
