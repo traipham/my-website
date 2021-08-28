@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import styles from './wish-list.module.css';
 import defaultImg from './shield-hero-chibi.jpg'
 import PropTypes from 'prop-types';
+import  WishPostInterface from './wishPostInterface';
+import axios from 'axios';
 /**
  * Overall functionality finished!
  * 
@@ -20,22 +22,44 @@ export const WishDisplay = (props) => {
     // console.log("This is the idea of this Wish: " + props.index);
     
     /**
-     * function to call the remove function in parent that sets the remove state of specific goal at index to true
+     * Remove wish at index
+     * @param {*} e - event object for onClick event of remove button
      */
-    const handleOnRemove = () => {
-        props.removeWish(props.index);
+    const removeWishOnClickBtn = async (e) => {
+        const indexToDelete = props.index - 1;
+        const success = await axios.delete('http://localhost:5000/wish-list/delete/1', { data: { index: indexToDelete} });
+        // Log result msg
+        console.log(success.data)
+        if(success.status === 200){
+            props.removeWish(indexToDelete);
+            // window.location.reload();
+        } 
     }
 
+    /**
+     * Display image if user input image
+     * @returns img jsx element
+     */
+    const imageExist = () => {
+        if(props.img === undefined){
+            return
+        } else {
+            let imgB64 = Buffer.from(props.img.data).toString('base64');
+            return <img src={`data:image/jpeg;base64,${imgB64}`} className="img" id="wish-img" width="200px" height="200px" />;
+        }
+    }
     return(
         <div className="container" id={styles['wish-container']}>
-            <button type="button" className={styles["remove-btn"]} id={"remove-wish-"+props.index} onClick={handleOnRemove}><b>Remove this Wish</b></button>
+            <button type="button" className={styles["remove-btn"]} id={"remove-wish-"+props.index} onClick={removeWishOnClickBtn}><b>Remove this Wish</b></button>
             <p className="index" id={styles["wish-num"]}><b>Wish #: </b><i>{props.index}</i></p>
-            <p className="date" id="wish-date"><b>Date: </b>{props.date.toString().slice(0,16)}</p>
+            <p className="date" id="wish-date"><b>Date: </b>{props.date.toString().slice(0,10)}</p>
             <div className="header-grp" id={styles['title-tag-container']}>
                 <h3 className="title" id={styles['wish-title']}>{props.title}</h3>
                 <p className="tag" id="wish-tag">Tag: <i>{props.tag}</i></p>
             </div>
-            <img src={props.img} className="component-img" id="wish-img" width="200px" height="200px"/>
+            {
+                imageExist()
+            }
             <p className="description" id="wish-description">{props.description}</p>
             <p><b>Rating:</b> {props.rating}</p>
         </div>
@@ -45,84 +69,14 @@ export const WishDisplay = (props) => {
 //Using PropTypes to make sure props are being delivered with correct data type and requirement
 WishDisplay.propTypes = {
     index: PropTypes.number.isRequired,
-    date: PropTypes.object.isRequired,
+    date: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     tag: PropTypes.string.isRequired,
-    img: PropTypes.string,
+    img: PropTypes.object,
     description: PropTypes.string,
     rating: PropTypes.number
 }
 
-/**
- * This interfacce shows up when we want to add a wish
- * - input Title
- * - input Tag
- * - input Description
- * - input Image
- * - input Rating
- * Feature?:
- *  - custom tag function? 
- * @returns 
- */
-export const WishInterface = (props) => {
-
-    let fileURL = '';
-
-    /**
-     * Gives us the URL of the image 
-     * @param {} e Event object of event listener of 'onChange' when selecting image
-     */
-    const handleImage = (e) => {
-        e.preventDefault();
-        const imgURL = URL.createObjectURL(e.target.files[0]);
-        fileURL = imgURL;
-        console.log(fileURL);
-    }
-
-    /**
-     * This will call the parent function to change value of parent state based on inputted information
-     * @param {*} e Event object of the event listener that is calling this function
-     */
-    const handleSubmitForm = (e) => {
-        e.preventDefault();
-        props.displayWishFunc(fileURL);
-    }
-
-    return(
-        <div className={styles["interface-container"]} id="wish-interface-container">
-            <form onSubmit={handleSubmitForm} className={styles["form-container"]} id="wish-form-container">
-                <h2 className="add-a-wish" id={styles["add-a-wish"]}>Add a Wish</h2>
-                
-                <label className="title" id="wish-int-title" htmlFor="input-wish-title"><b>Title: </b></label>
-                <input type="text" className="input-title" id="input-wish-title" placeholder="I wish for..." ></input>
-
-                <label className="tag" id="wish-int-tag" htmlFor="input-wish-tag"><b>Tag: </b></label>
-                <select name="input-wish-tag" id="input-wish-tag" >
-                    <option value="Personal">Personal</option>
-                    <option value="Familial">Familial</option>
-                    <option value="Random">Random</option>
-                    <option value="Custom">Custom</option>
-                </select>
-
-                <label className="image" id="wish-int-img" htmlFor="input-wish-img"><b>Select image: </b></label>
-                <input type="file" id="input-wish-img" name="input-wish-img" accept="image/*" onChange={handleImage}></input>
-
-                <label className="description" id="wish-int-description" htmlFor="input-wish-description"><b>Description: </b></label>
-                <input type="text" className="input-description" id="input-wish-description" placeholder="Describe wish..." ></input>
-
-                <label className="rating" id="wish-int-rating" htmlFor="input-wish-rating"><b>Rating(0-10): </b></label>
-                <input type="number" id="input-wish-rating" name="input-wish-rating" min="0" max="10" placeholder="0" ></input>
-
-                <button type='submit' id={styles["submit-btn"]} value="Submit" >Submit</button>
-                <button type="reset" id={styles["reset-btn"]} value="Reset">Reset</button>
-            </form>
-        </div> 
-    )
-}
-//Using PropTypes to make sure props functions are there
-WishInterface.propTypes = {
-    displayWishFunc: PropTypes.func.isRequired
-}
 /**
  * Main component for displaying everything. This is the page component itself
  * This is the parent component that contains all the states
@@ -148,37 +102,65 @@ class WishList extends React.Component {
         }
 
         this.setStateAddButton = this.setStateAddButton.bind(this);
+        this.setRemoveWish = this.setRemoveWish.bind(this);
         this.displayAddWishInterface = this.displayAddWishInterface.bind(this);
         this.displayWishFunc = this.displayWishFunc.bind(this);
-        this.setRemoveWish = this.setRemoveWish.bind(this);
+        this.closeInterface = this.closeInterface.bind(this);
+    }
+    /**
+     * Get data from mongo and update information when component first mounts (when reload)
+     */
+    componentDidMount(){
+        // Get array of wishes
+        setTimeout(async () => {
+            const arrWishes = await axios.get('http://localhost:5000/wish-list/').then((res) => { return res.data[0].wishes });
+            console.log(arrWishes);
+            let indexCount = 1;
+            arrWishes.forEach(wish => {
+                this.setState({
+                    addBtn: false,
+                    noWish: false,
+                    displayWish: [...this.state.displayWish, {
+                        title: wish.title,
+                        tag: wish.tag,
+                        description: wish.description,
+                        img: wish.img,
+                        rating: wish.rating,
+                        date: wish.date,
+                        index: indexCount++
+                    }]
+                })
+            });
+        }, 100)
     }
 
     /**
-     * set the state values of specified state based on inputted information in interface.
-     * This will allow us to transfer information to props of wishDisplay component
+     * set state values, and transfer state info to display Component
+     * 
      * @param {*} imgFile image file that will be displayed if inputted
      */
-    displayWishFunc(imgFile){
-        const titleVal = document.getElementById("input-wish-title").value;
-        const tagVal = document.getElementById("input-wish-tag").value;
-        const descriptionVal = document.getElementById("input-wish-description").value;
-        const imgVal = imgFile;
-        const ratingVal = Number(document.getElementById("input-wish-rating").value);
-        
-        this.setState({
-            ...this.state,
-            addBtn: false,
-            noWish: false,
-            displayWish: [...this.state.displayWish,{
-                title: titleVal,
-                tag: tagVal,
-                description: descriptionVal,
-                img: imgVal,
-                rating: ratingVal,
-                date: new Date(),
-                index: this.state.displayWish.length
-            }]
-        })
+    async displayWishFunc(){
+        // Set state of recently added post
+        setTimeout(async () => {
+            const arrWishes = await axios.get('http://localhost:5000/wish-list/').then((res) => { return res.data[0].wishes });
+            const addWish = arrWishes[arrWishes.length - 1];
+            this.setState({
+                addBtn: false,
+                noWish: false,
+                displayWish: [...this.state.displayWish, {
+                    title: addWish.title,
+                    tag: addWish.tag,
+                    description: addWish.description,
+                    img: addWish.img,
+                    rating: addWish.rating,
+                    index: arrWishes.length,
+                    date: addWish.date
+                }]
+
+            })
+        }, 300)
+
+        // Make "Add a wish" button visible
         document.getElementById('add-wish').style.visibility = 'visible';
     }
 
@@ -193,33 +175,40 @@ class WishList extends React.Component {
     }
 
     /**
+     * When user click on exit button of interface, this will close the interface 
+     */
+    closeInterface(){
+        this.setState({
+            ...this.state,
+            addBtn: false
+        });
+        document.getElementById('add-wish').style.visibility = 'visible';
+    }
+
+    /**
      * Displays wish Interface when "Add a wish" button is clicked
      * @returns WishInterface 
      */
     displayAddWishInterface() {
         if (this.state.addBtn) {
             document.getElementById('add-wish').style.visibility = 'hidden';
-            return <WishInterface displayWishFunc={this.displayWishFunc} setImage={this.setImage}/>
+            return <WishPostInterface displayWishFunc={this.displayWishFunc} closeInterface={this.closeInterface}/>
         }
     }
 
     /**
-     * Sets the remove of the specific wish to true when remove button is clicked 
-     * @param {*} index the index of wish 
-     * TODO: 
-     * - A better way to remove, by actually removing from array and updating index
+     * delete array element without relaoding
+     * @param {*} indexToDelete - index of where we're deleting
      */
-    setRemoveWish(index){
-        let displayWishArr = this.state.displayWish;
-        displayWishArr.splice(index, 1)
-        let newIndex = index;
-        while(newIndex < displayWishArr.length){
-            displayWishArr[newIndex].index = displayWishArr[newIndex].index - 1;
-            newIndex++;
+    setRemoveWish(indexToDelete){
+        const arrWishes = this.state.displayWish;
+        arrWishes.splice(indexToDelete, 1);
+        for (let i = indexToDelete; i < arrWishes.length; i++) {
+            arrWishes[i].index = arrWishes[i].index - 1;
         }
         this.setState({
             ...this.state,
-            displayWish: displayWishArr
+            displayWish: arrWishes
         })
     }
 
@@ -238,7 +227,6 @@ class WishList extends React.Component {
                             if(this.state.noWish || this.state.addBtn){
                                 return;
                             } else {
-                                console.log(wish);
                                 return <WishDisplay key={"wish-" + wish.index} removeWish={this.setRemoveWish} index={wish.index}  title={wish.title} description={wish.description} tag={wish.tag} img={wish.img} rating={wish.rating} date={wish.date}/>
                             }
                     //***TEST STATE VALUES WHEN SUBMIT ***/
