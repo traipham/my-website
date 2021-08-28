@@ -17,7 +17,8 @@ const wishPostSchema = new Schema(
             required: false
         },
         img: {
-            type: String,
+            data: Buffer,
+            contentType: String,
             required: false
         },
         tag: {
@@ -28,10 +29,10 @@ const wishPostSchema = new Schema(
             type: Number,
             required: false
         },
-        index: {
-            type: Number, 
-            required: true
-        },
+        // index: {
+        //     type: Number, 
+        //     required: true
+        // },
         date: {
             type: Date,
             required: true
