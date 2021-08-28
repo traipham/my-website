@@ -21,12 +21,19 @@
     border-radius: 10px;
 }
 
-#add-content,
-#add-color {
+.inp-container{
+    margin: 10px;
+}
+
+#add-content{
     margin-right: 10px;
 }
 
-.confirm-btn {
+#add-color{
+    margin-right: 10px;
+}
+
+.submit-btn {
     display: block;
     position: relative;
     margin: 0 auto;

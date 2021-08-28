@@ -1,7 +1,8 @@
-import { render } from "@testing-library/react";
 import React, { useState } from "react";
 import styles from './goals.module.css';
 import PropTypes from 'prop-types';
+import GoalInterface from "./goalPostInterface";
+import axios from 'axios';
 /**
  * TODO: Remove a goal functionality
  */
@@ -17,18 +18,27 @@ export const GoalDisplay = (props) => {
     if(parseInt(props.tagColor.slice(1,3), 16) < 100){
         textColor= 'white'
     }
+    // Container style
     const styleContainer = {
         color: textColor,
         overflowWrap: 'break-word',
         border: "2px solid black",
         borderRadius: "5px",
-        width: "fit-content",
+        width: "300px",
         maxWidth: '200px',
         padding: "10px",
         backgroundColor: props.tagColor,
         margin: '10px'
     }
-
+    // Delete button style
+    const deleteBtnStyle = {
+        border: '2px solid black',
+        borderRadius: '5px',
+        backgroundColor: 'red',
+        float: 'right',
+        visibility: 'hidden'
+    }
+    // Index style
     const styleIndex = {
         float: 'left',
         border: "1px solid " + textColor,
@@ -37,65 +47,56 @@ export const GoalDisplay = (props) => {
         padding: '5px',
         marginRight: '10px'
     }
+
+    /**
+     * Make button visible when hovering over post
+     * @param {*} e - event object for onMouseOver of post container 
+     */
+    const handleMouseOver = (e) => {
+        document.getElementById("goal-delete-btn-" + props.index).style.visibility = 'visible';
+    }
+
+    /**
+     * Make button hidden when moving out of post 
+     * @param {*} e - event object for onMouseOut of post container
+     */
+    const handleOutMouse = (e) => {
+        document.getElementById("goal-delete-btn-" + props.index).style.visibility = "hidden";
+    }
+
+    /**
+     * Delete and re-render parent component
+     * @param {*} e - event object for onClick of remove button 
+     */
+    const handleRemoveBtnOnClick = async (e) =>{
+        const indexToDelete = props.index-1;
+
+        const deletePost = await axios.delete('http://localhost:5000/goals/delete/1', { data: { index: indexToDelete } } );
+        // console.log(deletePost);
+        if(deletePost.status === 200){
+            props.afterRemovalDisplay(indexToDelete);
+        } else {
+            console.log(deletePost.data);
+        }
+    }
+
     return(
-        <div className='container' id={"goal-container" + props.index} style={styleContainer}>
+        <div className='container' id={"goal-container" + props.index} style={styleContainer} onMouseOver={handleMouseOver} onMouseOut={handleOutMouse}>
+            <button type="button" className="delete-btn" id={"goal-delete-btn-" + props.index} style={deleteBtnStyle} onClick={handleRemoveBtnOnClick}>X</button>
             <h4 id="index" style={styleIndex}>{props.index}</h4>
-            <h3 id="date" styke={{display: 'inline'}}>{props.date.toString().slice(0, 16)}</h3>
+            <h3 id="date" styke={{display: 'inline'}}>{props.date.toString().slice(0, 10)}</h3>
             <hr/>
             <p id="content">{props.content}</p>
         </div>
     )
 }
+
 //Checks for propTypes to be required and correct data type
 GoalDisplay.propTypes = {
     index: PropTypes.number.isRequired,
-    date: PropTypes.object.isRequired,
+    date: PropTypes.string.isRequired,
     tagColor: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired
-}
-
-/**
- * This file will be where I learn about Hooks and component functions. I learned how to transfer information
- * of child component to parent component using state.
- * 
- * 7/26 TODO:
- *  - Get infromation and display it/append it to the interface container
- *  - Problem with appending, it does not append due to error about Node
- */
-export const GoalInterface = (props) =>{
-
-    
-    // dismount interface when button is clicked
-    const handleClick = () =>{
-        props.setInterfaceRemove();
-        props.displayGoalsFunc();
-    }
-
-
-    function printColor(){
-        console.log(document.getElementById('inp-color').value);
-        // console.log(document.getElementById('inp-color').value.slice(1,3));
-        // console.log(parseInt(document.getElementById('inp-color').value.slice(1, 3), 16))
-    }
-
-    return(
-        <div className={styles['content-interface']}>
-            <label className="add-content" id={styles['add-content']}><b>Content</b></label>
-            <input className="inp-content" id="inp-content" htmlFor="add-content" placeholder="content"></input>
-            <br/>
-            <br/>
-            <label className="add-color" id={styles['add-color']}><b>Tag Color</b></label>
-            <input type='color' className="inp-color" id="inp-color" htmlFor="add-color" onChange={printColor}></input>
-            <br />
-            <br />
-            <button className={styles['confirm-btn']} id="conf-btn" onClick={handleClick} >Confirm Change</button>
-        </div>
-    );
-}
-
-GoalInterface.propTypes = {
-    setInterfaceRemove: PropTypes.func.isRequired,
-    displayGoalsFunc: PropTypes.func.isRequired
 }
 
 class Goals extends React.Component {
@@ -115,38 +116,66 @@ class Goals extends React.Component {
         }
 
         this.displayInterface = this.displayInterface.bind(this);
-        this.setInterfaceRemove = this.setInterfaceRemove.bind(this);
         this.displayGoalsFunc = this.displayGoalsFunc.bind(this);
+        this.afterRemovalDisplay = this.afterRemovalDisplay.bind(this);
     }
 
-    setInterfaceRemove(){
-        this.setState(prevState => ({
-            ...prevState,
-            removeInterface: true
-        }))
+    componentDidMount(){
+        setTimeout(async () => {
+            const arrGoal = await axios.get('http://localhost:5000/goals/').then((res) => {return res.data[0].goals});
+            console.log(arrGoal);
+            let goalsCount = 1;
+            arrGoal.forEach((post) => {
+                this.setState({
+                    ...this.state,
+                    goals:[...this.state.goals, {
+                        content: post.content,
+                        tagColor: post.tagColor,
+                        date: post.date,
+                        index: goalsCount++
+                    }]
+                })
+            })
+        }, 100)
     }
 
     displayGoalsFunc(){
-        const contentVal = document.getElementById('inp-content').value;
-        const color = document.getElementById('inp-color').value;
-
-        this.setState({
-            removeInterface: true,
-            goals:[...this.state.goals,{
-                content: contentVal,
-                tagColor: color,
-                date: new Date(),
-                index: this.state.goals.length
-            }]
-        })
+        // Get goals from database
+        setTimeout(async () =>{
+            const arrGoal = await axios.get('http://localhost:5000/goals/').then((res) => { return res.data[0].goals });
+            const post = arrGoal[arrGoal.length-1];
+            // Set and display current goal
+            this.setState({
+                removeInterface: true,
+                goals:[...this.state.goals, {
+                    content: post.content,
+                    tagColor: post.tagColor,
+                    date: post.date,
+                    index: arrGoal.length
+                }]
+            })
+        }, 300)
+        document.getElementById('add-goals-btn').style.visibility = 'visible';
     }
 
     displayInterface(){
         this.setState({
+            ...this.state,
             removeInterface: false
         })
-        // Hide 'Add' btn when clicked
         document.getElementById('add-goals-btn').style.visibility = 'hidden';
+    }
+
+    afterRemovalDisplay(indexToDelete){
+        let arrWish = this.state.goals;
+        arrWish.splice(indexToDelete, 1);
+        for(let i = indexToDelete; i < arrWish.length; i++){
+            arrWish[i].index -= 1;
+        }
+        this.setState({
+            ...this.state,
+            goals: arrWish
+        })
     }
 
     render() {
@@ -155,13 +184,12 @@ class Goals extends React.Component {
                 <h1>Goals</h1>
                 <button type="button" className="add-interface-btn" id="add-goals-btn" style={{visibility: 'visible'}} onClick={this.displayInterface}>Add Goals</button>
                 {
-                    this.state.removeInterface ? null : <GoalInterface setInterfaceRemove={this.setInterfaceRemove} displayGoalsFunc={this.displayGoalsFunc}/>
+                    this.state.removeInterface ? null : <GoalInterface displayGoalsFunc={this.displayGoalsFunc}/>
                 }
                 <div className={styles["goals-container"]} id="goals-container">
                     {
                         this.state.goals.slice(1).map((goal) => {
-                            console.log(goal);
-                            return <GoalDisplay key={"goal-" + goal.index} content={goal.content} tagColor={goal.tagColor} index={goal.index} date={goal.date}/>
+                            return <GoalDisplay key={"goal-" + goal.index} afterRemovalDisplay={this.afterRemovalDisplay} content={goal.content} tagColor={goal.tagColor} index={goal.index} date={goal.date}/>
                         })
                     }
                 </div>
