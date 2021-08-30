@@ -1,80 +1,19 @@
 import React from "react";
-import reactDom from "react-dom";
-import ReactDOM from "react-dom";
 import styles from './interest.module.css';
 import PropTypes from 'prop-types';
+import AddInterestInterface from './interestPostInterface';
+import InterestDisplay from "./interestDisplay";
+import axios from 'axios';
 /**
- * Name of Component: Interest
- * 
- * Description: This component is a page of the website. Contains my academic interest and personal interest.
- * I will be able to ADD new interest or remove interest. (Academic or Personal)
- * 
+ * Component of interest page
  */
-
-/**
- * Add Interest Interface  
- */
-class AddInterestInterface extends React.Component {
-    constructor(props){
-        super(props)
-
-        this.state = {
-            typeOfInterest: ''
-        }
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-    componentDidMount(){
-        if(this.props.whichBtn == 'add-academic-interest'){
-            const academic= 'Academic';
-            this.setState({
-                typeOfInterest: academic
-            })
-        } else {
-            const personal = "Personal";
-            this.setState({
-                typeOfInterest: personal
-            })
-        }
-    }
-    handleSubmit = (e) =>{
-        e.preventDefault();
-        this.props.displayInterestFunc();
-    }
-
-    render() {
-        const submitBtnStyle = {
-            margin: 10
-        }
-        return (
-            <div className={styles.addInterface}>
-                <div className="container">
-                    <h4>Add a new {this.state.typeOfInterest} Interest</h4>
-                    <hr/>
-                    <form onSubmit={this.handleSubmit}>
-                        <label className="label" id="label-interest" htmlFor="input-interest"><b>Interest: </b></label>
-                        <input className="inpt-cnt" id="input-interest" placeholder="add interest..."></input>
-                        <br/>
-                        <button type="submit" className="submit-btn" id="submit-btn" style={submitBtnStyle}><b>Submit</b></button>
-                    </form>
-                </div>
-            </div>
-        )
-    }
-}
-AddInterestInterface.propTypes = {
-    typeOfInterest: PropTypes.func.isRequired
-}
 
 /**
  * Functionality/Note:
  * 
- * ADD: 
- *  when adding new interest, add new key to the li tag
- * 
  * REMOVE:
- *  removing an element would be based on the key
- *  when remove button is clicked, user will need to click an interest to delete
+ *  - removing an element would be based on the key
+ *  - when remove button is clicked, user will need to click an interest to delete
  */
 class Interest extends React.Component {
     constructor(props) {
@@ -83,84 +22,224 @@ class Interest extends React.Component {
         this.state = {
             academicInterest:[{
                 interest: '',
-                date: new Date()
+                date: new Date(),
+                id: '',
+                index: 0
             }],
             personalInterest: [{
                 interest: '',
-                date: new Date()
+                date: new Date(),
+                id: '',
+                index: 0
             }],
-            addBtn: false,
+            addAcadBtn: false,
+            addPersBtn: false,
             whichBtn: ''
         }
 
-        this.setAddBtn = this.setAddBtn.bind(this);
+        this.setAddAcadBtn = this.setAddAcadBtn.bind(this);
+        this.setAddPersBtn = this.setAddPersBtn.bind(this);
         this.displayInterestFunc = this.displayInterestFunc.bind(this);
+        this.deleteAcadBtnOnClick = this.deleteAcadBtnOnClick.bind(this);
+        this.deletePersBtnOnClick = this.deletePersBtnOnClick.bind(this);
+        // this.handleOnMouseOverInterest = this.handleOnMouseOverInterest.bind(this);
+        // this.handleOnMouseOutInterest = this.handleOnMouseOutInterest.bind(this);
     }
 
-    displayInterestFunc(){
-        const interest = document.getElementById('input-interest').value;
+    /**
+     * Get data from mongo for all interest and store in state
+     */
+    componentDidMount(){
+        setTimeout(async ()=>{
+            const arrAcadInterest = await axios.get('http://localhost:5000/interest/').then((res) => { return res.data[0].academicInterests });
+            const arrPersInterest = await axios.get('http://localhost:5000/interest/').then((res) => { return res.data[0].personalInterests });
 
-        if (this.state.whichBtn == 'add-academic-interest') {
-            this.setState({
-                ...this.state,
-                academicInterest: [...this.state.academicInterest, {
-                    interest: interest,
-                    date: new Date()
-                }],
-                addBtn: false
+            console.log(arrAcadInterest);
+            let acadCount = 1;
+            arrAcadInterest.forEach((post) =>{
+                // const removeBtn = document.getElementById('del-btn-'+acadCount)
+                // removeBtn.addEventListener('onClick', this.deleteAcadBtnOnClick())
+                this.setState({
+                    ...this.state,
+                    academicInterest: [...this.state.academicInterest, {
+                        interest: post.interest,
+                        date: post.date, 
+                        id: post._id,
+                        index: acadCount++
+                    }]
+                })
             })
-        } else if (this.state.whichBtn == 'add-personal-interest') {
-            this.setState({
-                ...this.state,
-                personalInterest: [...this.state.personalInterest, {
-                    interest: interest,
-                    date: new Date()
-                }],
-                addBtn: false
+            console.log(arrPersInterest);
+            let persCount = 1;
+            arrPersInterest.forEach((post) => {
+                this.setState({
+                    ...this.state,
+                    personalInterest: [...this.state.personalInterest, {
+                        interest: post.interest,
+                        date: post.date,
+                        id: post._id,
+                        index: persCount++
+                    }]
+                })
             })
-        }
-
+        })
+        setTimeout(() => {
+            console.log(this.state);
+        }, 300)
     }
 
-    setAddBtn(e){
+    /**
+     * Get data from mongo and display recently added interest
+     * @param {String} typeOfInterest - string of whether added interest is academic or personal
+     */
+    displayInterestFunc(typeOfInterest){
+        setTimeout(async () => {
+            if (typeOfInterest === 'Academic') {
+                const arrAcadInterest = await axios.get('http://localhost:5000/interest/').then((res) => {return res.data[0].academicInterests})
+                const post = arrAcadInterest[arrAcadInterest.length -1];
+                console.log(post);
+                this.setState({
+                    ...this.state,
+                    addAcadBtn: false,
+                    academicInterest:[...this.state.academicInterest, {
+                        interest: post.interest,
+                        date: post.date,
+                        index: this.state.academicInterest.length
+                    }]
+                })
+            } else if (typeOfInterest === 'Personal') {
+                const arrPersInterest = await axios.get('http://localhost:5000/interest/').then((res) => { return res.data[0].personalInterests })
+                const post = arrPersInterest[arrPersInterest.length - 1];
+                console.log(post);
+                this.setState({
+                    ...this.state,
+                    addPersBtn: false,
+                    personalInterest: [...this.state.personalInterest, {
+                        interest: post.interest,
+                        date: post.date, 
+                        index: this.state.personalInterest.length
+                    }]
+                })
+            }
+        }, 300)
+    }
+
+    /**
+     * Set state 'addAcadBtn' to true to display interface
+     * @param {*} e - event object for onClick of add academic interest button
+     */
+    setAddAcadBtn(e){
         this.setState({
             ...this.state,
-            addBtn: true,
+            addAcadBtn: true,
             whichBtn: e.target.id
         })
-        setTimeout(() =>console.log(this.state.whichBtn), 1000);
     }
 
+    /**
+     * Set state 'addPersBtn' to true to display interface
+     * @param {*} e - event object for onClick of add personal interest button 
+     */
+    setAddPersBtn(e){
+        this.setState({
+            ...this.state,
+            addPersBtn: true,
+            whichBtn: e.target.id
+        })
+    }
+
+    /**
+     * Delete academic interest and change state
+     * @param {*} e - event object for onClick of delete button 
+     */
+    async deleteAcadBtnOnClick(e){
+        if(window.confirm("Are you sure you want to delete this?")){
+            const index = e.target.id.slice(8, e.target.id.length);
+            // console.log("index to delete: " + index);
+            const idToDelete = this.state.academicInterest[index].id
+            // console.log(this.state.academicInterest[index].interest);
+
+            const success = await axios.delete('http://localhost:5000/interest/delete/acad/1', { data: { _id: idToDelete } });
+            console.log(success);
+
+            if (success.status === 200) {
+                const arrAcadInterest = this.state.academicInterest;
+                arrAcadInterest.splice(index, 1)
+                for (let i = index; i < arrAcadInterest.length; i++) {
+                    arrAcadInterest[i].index -= 1;
+                }
+                this.setState({
+                    ...this.state,
+                    academicInterest: arrAcadInterest
+                });
+            } else {
+                console.log(success.data)
+            }
+        }
+    }
+
+    /**
+     * Delete personal interest, and change state
+     * @param {*} e - event object for onClick of delete button 
+     */
+    async deletePersBtnOnClick(e) {
+        if(window.confirm("Are you sure you want to delete this?")){
+            const index = e.target.id.slice(8, e.target.id.length);
+            const idToDelete = this.state.personalInterest[index].id
+
+            const success = await axios.delete('http://localhost:5000/interest/delete/personal/1', { data: { _id: idToDelete } });
+            console.log(success);
+
+            if (success.status === 200) {
+                const arrPersInterest = this.state.personalInterest;
+                arrPersInterest.splice(index, 1);
+                for (let i = index; i < arrPersInterest.length; i++) {
+                    arrPersInterest[i].index -= 1;
+                }
+                this.setState({
+                    ...this.state,
+                    personalInterest: arrPersInterest
+                });
+            } else {
+                console.log(success.data);
+            }
+        }
+    }
+
+    // handleOnMouseOutInterest(e){
+    //     document.getElementById(`del-btn-${e.target.id.slice(14,e.target.id.length)}`).style.visibility = 'hidden';
+    // }
+
+    // handleOnMouseOverInterest(e){
+    //     document.getElementById(`del-btn-${e.target.id.slice(14, e.target.id.length)}`).style.visibility = 'visible';
+    //     console.log(document.getElementById(`del-btn-${e.target.id.slice(14,e.target.id.length)}`));
+    // }
+
     render(){
-        let academicIndex =6;
-        let personalIndex=9;
         return (
             <div className={styles.page} id="interest-page">
                 <h1 className="title">Interests</h1>
                 <p>This will contain a list of my interest</p>
                 <div className={styles['interest-container']} id="academic-int-container">
                     <h3>Academic/Career Interest</h3>
+                    <div className="interface-container" id="academic-interest-interface">
+                        {
+                            this.state.addAcadBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} /> : null
+                        }
+                    </div>
                     <ul className="acad-list">
-                        <li key="a-li-1">Programming 07/10/2021</li>
-                        <li key="a-li-2">Software Engineering</li>
-                        <li key="a-li-3">IT</li>
-                        <li key="a-li-4">Game Development</li>
-                        <li key="a-li-5">Software/App Development</li>
-                        <li key="a-li-6">Project Management</li>
                         {
                             this.state.academicInterest.slice(1).map((interest)=>{
-                                academicIndex++;
-                                return <li key={"a-li-"+academicIndex}>{interest.interest} {interest.date.toString().slice(0,16)}</li>
+                                return (
+                                    <li key={"a-li-"+interest.index} id={'acad-interest-'+interest.index}>
+                                        {interest.interest} // <b>{interest.date.toString().slice(0,10)}</b>
+                                        <button type="button" className={styles["delete-btn"]} id={interest.index} onClick={this.deleteAcadBtnOnClick}>X</button>
+                                    </li>
+                                )
                             })
                         }
                     </ul>
-                    <div className="container" id="personal-interest-interface">
-                        {
-                            this.state.addBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn}/> : null
-                        }
-                    </div>
-                    <button type="button" className="add-btn" id="add-academic-interest" onClick={this.setAddBtn}>Add</button>
-                    <button type="button" className="remove-btn">Remove</button>
+                    <button type="button" className="add-btn" id="add-academic-interest" onClick={this.setAddAcadBtn}>Add</button>
                     <p>
                         I'm very flexible with what I want to do professionally. I want to be able to gain all types of experience.
                         I want to learn many new concepts/subjects within the field of computer science and technology. The advancement
@@ -170,25 +249,24 @@ class Interest extends React.Component {
                 </div>
                 <div id="personal-interest-container">
                     <h3>Personal Interest</h3>
+                    <div className="interface-container" id="personal-interest-interface">
+                        {
+                            this.state.addPersBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} /> : null
+                        }
+                    </div>
                     <ul className="pers-list">
-                        <li key="p-li-1">Wood Working</li>
-                        <li key="p-li-2">Handy Man</li>
-                        <li key="p-li-3">Mechnical Engineering</li>
-                        <li key="p-li-4">Animating</li>
-                        <li key="p-li-5">Gym</li>
-                        <li key="p-li-6">Health</li>
-                        <li key="p-li-7">Anime</li>
-                        <li key="p-li-8">Games</li>
-                        <li key="p-li-9">Exploring/Sight-seeing</li>
                         {
                             this.state.personalInterest.slice(1).map((interest) => {
-                                personalIndex++;
-                                return <li key={"a-li-" + personalIndex}>{interest.interest} {interest.date.toString().slice(0, 16)}</li>
+                                return (
+                                    <li key={"p-li-" + interest.index} id={'pers-interest-' + interest.index}>
+                                        {interest.interest} // <b>{interest.date.toString().slice(0, 10)}</b>
+                                        <button type="button" className={styles["delete-btn"]} id={'del-btn-' + interest.index} onClick={this.deletePersBtnOnClick}>X</button>
+                                    </li>
+                                )
                             })
                         }
                     </ul>
-                    <button type="button" className="add-btn" id="add-personal-interest" onClick={this.setAddBtn}>Add</button>
-                    <button type="button" className="remove-btn">Remove</button>
+                    <button type="button" className="add-btn" id="add-personal-interest" onClick={this.setAddPersBtn}>Add</button>
                 </div>
             </div>
         )

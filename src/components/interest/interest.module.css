@@ -1,3 +1,4 @@
+/***Interest-Page-Style***/
 .page {
   background-color: hotpink ;
   display: flex;
@@ -9,20 +10,35 @@
   background-color: aqua;
 }
 
-/* .interest-container{
-  position: relative;
-} */
+.interest-date{
+  display: inline-block;
+}
 
+.delete-btn{
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: red;
+  margin-left: 10px;
+  /* visibility: hidden; */
+}
+
+/***Add-Interest-Interface-Style***/
 .addInterface{
-  display: flex;
+  /* display: flex; */
+  position: absolute;
+  text-align: center;
   background-color: rgb(255, 255, 255);
   border: black 4px solid;
   border-radius: 10px;
-  position: absolute;
   margin: auto;
   left: 0; right: 0;
   width:fit-content;
   padding: 20px;
-  text-align: center;
   box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.25);
+}
+
+#interest-submit-btn{
+  background-color: rgba(10, 212, 10, 0.781);
+  margin: 10px;
 }
