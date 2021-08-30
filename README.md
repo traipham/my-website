@@ -82,3 +82,7 @@
 - [ ] Custom fonts, header coloartion, (TBA)
 - [ ] Interface that allow me to set a nickname, clear my information
 - [ ] Connect to database
+
+### Credit
+Matteo Bruni https://github.com/matteobruni/tsparticles 
+- I'm planning to use tsparticles for a small confetti effect
