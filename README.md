@@ -14,32 +14,38 @@
 ### Blog 
 **About:** This will be an area that will contain daily/weekly blog content of my own personal life. 
 - [X] Have add button
-- [ ] Functionality for add and remove buttons
+- [X] Functionality for add and remove buttons
 - [ ] Design color
 - [ ] Design and Layout of blog post
-- [ ] Remove button will be available for each post
+- [ ] Design add interface
+- [ ] Page design
+- [X] Remove button will be available for each post
 - [X] Blog will contain description content, images, location, date, and a rating system (rate the day)
-- [ ] Set up database to store blog posts
+- [X] Set up database to store blog posts
 
 ### Goals 
 **About:** This will show my many goals in life
 - [X] Be able to add goals
 - [X] Have function for Add button
-- [ ] Design for goal
-- [X] A goal will have content and a tag color and maybe the date of when the goal was added
-- [ ] Set up database to store goals
+- [ ] Design color
+- [ ] Design for goal post layout
+- [ ] Design add interface
 - [ ] Page Design
+- [X] A goal will have content and a tag color and maybe the date of when the goal was added
+- [X] Set up database to store goals
 
 ### Interest
 **About:** Show my academic/professional interst as well as personal interest of things I want to do and like doing
 - [X] Have add and remove button
-- [ ] Have add and remove functionality
+- [X] Have add and remove functionality
+- [ ] Design Color
+- [ ] Design interest display layout?
 - [ ] Design of add interface
-- [X] Each listed interest will have a date of when added
-- [ ] Remove should work by hovering on the interest, display remove button, click remove button and confirming removal
-- [ ] Do the same for each interest lists
 - [ ] Page Design
-- [ ] Connect to database
+- [X] Each listed interest will have a date of when added
+- [X] Remove functionality
+- [X] Do the same for both interest lists
+- [X] Connect to database
 
 ### Resume
 **About:** Show my most updated resume to the public
@@ -56,18 +62,20 @@
 - [X] Have add button
 - [X] Remove button will be on every wish
 - [X] Buttons functinality
+- [ ] Design color
 - [ ] Wish display design
+- [ ] Add interface design
 - [ ] Page Design
 - [X] Wish will contain content, image, wish desire(rating wishes on priority), different tags (personal/familial/custom wish for someone), Date when wish was made
-- [ ] Connect to database
+- [X] Connect to database
 
-### Random
+### Random (Additional/Optional)
 **About:** Contain random React.js/JSX elements since this is where I'll be testing different React.js style/structure
 - [X] Random content
 - [ ] Page Design
 - [ ] Connect to database?
 
-### Setting
+### Setting (Additional/Optional)
 **About:** different custom features I Want on my app
 - [ ] Custom fonts, header coloartion, (TBA)
 - [ ] Interface that allow me to set a nickname, clear my information
