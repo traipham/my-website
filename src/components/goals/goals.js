@@ -71,7 +71,7 @@ export const GoalDisplay = (props) => {
     const handleRemoveBtnOnClick = async (e) =>{
         const indexToDelete = props.index-1;
 
-        const deletePost = await axios.delete('http://localhost:5000/goals/delete/1', { data: { index: indexToDelete } } );
+        const deletePost = await axios.delete('/goals/delete/1', { data: { index: indexToDelete } } );
         // console.log(deletePost);
         if(deletePost.status === 200){
             props.afterRemovalDisplay(indexToDelete);
@@ -122,7 +122,7 @@ class Goals extends React.Component {
 
     componentDidMount(){
         setTimeout(async () => {
-            const arrGoal = await axios.get('http://localhost:5000/goals/').then((res) => {return res.data[0].goals});
+            const arrGoal = await axios.get('/goals/').then((res) => {return res.data[0].goals});
             console.log(arrGoal);
             let goalsCount = 1;
             arrGoal.forEach((post) => {
@@ -142,7 +142,7 @@ class Goals extends React.Component {
     displayGoalsFunc(){
         // Get goals from database
         setTimeout(async () =>{
-            const arrGoal = await axios.get('http://localhost:5000/goals/').then((res) => { return res.data[0].goals });
+            const arrGoal = await axios.get('/goals/').then((res) => { return res.data[0].goals });
             const post = arrGoal[arrGoal.length-1];
             // Set and display current goal
             this.setState({

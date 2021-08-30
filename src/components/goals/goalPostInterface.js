@@ -45,7 +45,7 @@ export const GoalInterface = (props) => {
         }
         // SOME COMMENT HERE
         // Use add goal post route
-        const success = await axios.post('http://localhost:5000/goals/addGoal', goalPost);
+        const success = await axios.post('/goals/addGoal', goalPost);
         console.log(success);
 
         // Send information back to parent component
