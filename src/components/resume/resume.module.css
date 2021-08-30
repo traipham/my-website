@@ -10,6 +10,7 @@
 }
 
 .focus-btn{
+    display: inline-block;
     background-color: lightgreen;
     height: fit-content;
     width: fit-content;

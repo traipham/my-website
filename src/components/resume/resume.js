@@ -54,6 +54,7 @@ class Resume extends React.Component {
                 <div className={styles.container} id='container'>
                     <DisplayResume />
                     <button type='button' className={styles['focus-btn']} id='focus-btn' onClick={this.focusFunc}>Focus</button>
+                    <p>(Zoom in and click focus to see pdf clearer)</p>
                 </div>
                 <button type="button" className="upload-btn" >Upload</button>
                 <button type="button" className="download-btn">Download</button>
