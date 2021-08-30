@@ -6,7 +6,7 @@
 .pnp.js
 /mdb
 /server/node_modules
-./lock.json
+./yarn.lock
 .env
 /server/.env
 # testing
