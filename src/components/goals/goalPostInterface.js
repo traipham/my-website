@@ -43,7 +43,7 @@ export const GoalInterface = (props) => {
             content: contentInp,
             tagColor: tagColorInp
         }
-
+        // SOME COMMENT HERE
         // Use add goal post route
         const success = await axios.post('http://localhost:5000/goals/addGoal', goalPost);
         console.log(success);
