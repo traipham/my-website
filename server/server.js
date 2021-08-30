@@ -16,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.CONNECTION_URI;
+
 // URI is where database is stored, the properties set in the 2nd argument is to make it easier to access MongoDB
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
