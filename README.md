@@ -85,4 +85,4 @@
 
 ### Credit
 Matteo Bruni https://github.com/matteobruni/tsparticles 
-- I'm planning to use tsparticles for a small confetti effect
+- I'm planning to use tsparticles libary created by MAtteo Bruni for a small confetti effect
