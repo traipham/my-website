@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import styles from './random.module.css';
 import genshin from './genshin_impact.png';
 import Display from './display.component.js';
@@ -98,7 +97,7 @@ class Random extends React.Component{
         return(
             <div className={styles['random-page']}>
                 <div className={styles.heading}>
-                    <h1 className="header">Random Items</h1>
+                    <h1 className="header">Leave a Note for Me!</h1>
                     <button type="button" className={styles['color-btn']} id="change-color-btn" onClick={this.setPageColor}>Change Page Color</button>
                 </div>
                 <br/>
