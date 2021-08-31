@@ -63,7 +63,7 @@ export const DisplayBlogPost = (props) => {
         const indexToDelete = props.index - 1;
 
         // Delete post at index
-        const success = await axios.delete('http://localhost:5000/blog/delete/1', { data: { index: indexToDelete }});
+        const success = await axios.delete('/blog/delete/1', { data: { index: indexToDelete }});
 
         // Reload page when deleted successfully
         if(success.status === 200){
@@ -160,7 +160,7 @@ class Blog extends React.Component {
     componentDidMount(){
         // GET blog document in mongo
         setTimeout(async () => {
-            const posts = await axios.get('http://localhost:5000/blog/').then((res) => { return res.data[0].blogPosts });
+            const posts = await axios.get('/blog/').then((res) => { return res.data[0].blogPosts });
             console.log(posts);
             let counter = 1;
             posts.forEach((post) => {
@@ -185,7 +185,7 @@ class Blog extends React.Component {
      */
     async displayBlogPostFunc(){
         setTimeout( async() => {
-            const posts = await axios.get('http://localhost:5000/blog/').then((res) => { return res.data[0].blogPosts });
+            const posts = await axios.get('/blog/').then((res) => { return res.data[0].blogPosts });
             console.log(posts);
             const post = posts[posts.length-1];
             this.setState({

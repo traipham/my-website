@@ -51,8 +51,8 @@ class Interest extends React.Component {
      */
     componentDidMount(){
         setTimeout(async ()=>{
-            const arrAcadInterest = await axios.get('http://localhost:5000/interest/').then((res) => { return res.data[0].academicInterests });
-            const arrPersInterest = await axios.get('http://localhost:5000/interest/').then((res) => { return res.data[0].personalInterests });
+            const arrAcadInterest = await axios.get('/interest/').then((res) => { return res.data[0].academicInterests });
+            const arrPersInterest = await axios.get('/interest/').then((res) => { return res.data[0].personalInterests });
 
             console.log(arrAcadInterest);
             let acadCount = 1;
@@ -95,7 +95,7 @@ class Interest extends React.Component {
     displayInterestFunc(typeOfInterest){
         setTimeout(async () => {
             if (typeOfInterest === 'Academic') {
-                const arrAcadInterest = await axios.get('http://localhost:5000/interest/').then((res) => {return res.data[0].academicInterests})
+                const arrAcadInterest = await axios.get('/interest/').then((res) => {return res.data[0].academicInterests})
                 const post = arrAcadInterest[arrAcadInterest.length -1];
                 console.log(post);
                 this.setState({
@@ -108,7 +108,7 @@ class Interest extends React.Component {
                     }]
                 })
             } else if (typeOfInterest === 'Personal') {
-                const arrPersInterest = await axios.get('http://localhost:5000/interest/').then((res) => { return res.data[0].personalInterests })
+                const arrPersInterest = await axios.get('/interest/').then((res) => { return res.data[0].personalInterests })
                 const post = arrPersInterest[arrPersInterest.length - 1];
                 console.log(post);
                 this.setState({
@@ -159,7 +159,7 @@ class Interest extends React.Component {
             const idToDelete = this.state.academicInterest[index].id
             // console.log(this.state.academicInterest[index].interest);
 
-            const success = await axios.delete('http://localhost:5000/interest/delete/acad/1', { data: { _id: idToDelete } });
+            const success = await axios.delete('/interest/delete/acad/1', { data: { _id: idToDelete } });
             console.log(success);
 
             if (success.status === 200) {
@@ -187,7 +187,7 @@ class Interest extends React.Component {
             const index = e.target.id.slice(8, e.target.id.length);
             const idToDelete = this.state.personalInterest[index].id
 
-            const success = await axios.delete('http://localhost:5000/interest/delete/personal/1', { data: { _id: idToDelete } });
+            const success = await axios.delete('/interest/delete/personal/1', { data: { _id: idToDelete } });
             console.log(success);
 
             if (success.status === 200) {

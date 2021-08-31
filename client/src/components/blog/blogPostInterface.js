@@ -72,7 +72,7 @@ const BlogPostInterface = (props) => {
         }
 
         // Route to add blog post
-        const success = await axios.post('http://localhost:5000/blog/addPost', fd, config)
+        const success = await axios.post('/blog/addPost', fd, config)
         
         console.log(success);
         if (success.status === 200){

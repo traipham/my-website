@@ -58,9 +58,9 @@ class AddInterestInterface extends React.Component {
         // Add interest to database of correct section
         let success = {};
         if(this.state.typeOfInterest === 'Academic') {
-            success = await axios.post('http://localhost:5000/interest/addAcadInterest', interestPost)
+            success = await axios.post('/interest/addAcadInterest', interestPost)
         } else if (this.state.typeOfInterest === 'Personal') {
-            success = await axios.post('http://localhost:5000/interest/addPersonalInterest', interestPost)
+            success = await axios.post('/interest/addPersonalInterest', interestPost)
         }
         console.log(success);
 

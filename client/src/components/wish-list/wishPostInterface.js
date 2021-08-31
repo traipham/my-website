@@ -107,7 +107,7 @@ const WishPostInterface = (props) => {
             }
         }
 
-        const success = await axios.post('http://localhost:5000/wish-list/addWish', fd, config);
+        const success = await axios.post('/wish-list/addWish', fd, config);
         
         console.log(success);
         // If successful send to wish page
