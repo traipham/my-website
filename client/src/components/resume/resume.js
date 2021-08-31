@@ -1,6 +1,7 @@
 import React from "react";
 import styles from './resume.module.css';
-import { Document, Page } from 'react-pdf';
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
+import resumePDF from './resume.pdf';
 import DisplayResume from "./pdf.component";
 const linkedin = <a href="https://www.linkedin.com/in/trai-pham-4a1272198/">Linkedin</a>
 
@@ -52,7 +53,9 @@ class Resume extends React.Component {
                 <p id="p-experience">--experience here--</p>
                 <hr id="h-line"></hr>
                 <div className={styles.container} id='container'>
-                    <DisplayResume />
+                    <a to=""></a>
+                    <img src="new_resume.jpg"/>
+                    <DisplayResume/>
                     <button type='button' className={styles['focus-btn']} id='focus-btn' onClick={this.focusFunc}>Focus</button>
                     <p>(Zoom in and click focus to see pdf clearer)</p>
                 </div>

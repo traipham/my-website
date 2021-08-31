@@ -1,6 +1,6 @@
 import React from 'react'
 import resumePDF from './resume.pdf';
-import { Document, Page } from 'react-pdf';
+import { Document, Page } from 'react-pdf/dist/umd/entry.webpack';
 import styles from './resume.module.css';
 
 export default function DisplayResume(){
