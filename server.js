@@ -17,17 +17,34 @@ app.use(cors());
 // allow us to parse json, we're sending and recieving server
 app.use(express.json());
 
+// Router to different collection defined by files in router folders
+const goalsRouter = require('./server/routers/goals');
+const blogRouter = require('./server/routers/blog');
+const interestRouter = require('./server/routers/interest');
+const wishListRouter = require('./server/routers/wish-list');
+
+// const resumePage = require('./client/src/components/resume/resume')
+// Using these routers
+// app.use('/resume', resumePage)
+
+app.use('/goals', goalsRouter);
+app.use('/blog', blogRouter);
+app.use('/interest', interestRouter);
+app.use('/wish-list', wishListRouter);
+
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "/client/build")));
 
     app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, "client", "build"))
+        res.sendFile(path.join(__dirname, "client", "build", 'index.html'))
     })
 } else {
     app.get('/', (req, res) => {
         res.send("development running!")
     })
 }
+
+
 
 const uri = process.env.MONGODB_URI;
 
@@ -44,18 +61,6 @@ connection.once('open', () => {
 
     console.log("MongoDB database connection established successfully!");
 })
-
-// Router to different collection defined by files in router folders
-const goalsRouter = require('./server/routers/goals');
-const blogRouter = require('./server/routers/blog');
-const interestRouter = require('./server/routers/interest');
-const wishListRouter = require('./server/routers/wish-list');
-
-// Using these routers
-app.use('/goals', goalsRouter);
-app.use('/blog', blogRouter);
-app.use('/interest', interestRouter);
-app.use('/wish-list', wishListRouter);
 
 // This is how we start a server with a port
 app.listen(port, () => {
