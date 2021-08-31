@@ -8,6 +8,10 @@
 /client/node_modules
 .env
 /server/.env
+
+# build 
+/client/build
+
 # testing
 /coverage
 
