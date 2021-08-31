@@ -3,6 +3,7 @@ const cors = require('cors');
 // const Grid = require('gridfs-stream');
 // Help us connect to MongoDB database
 const mongoose = require('mongoose');
+const path = require('path');
 
 // allows us to have environment variable in .env file
 require('dotenv').config();
@@ -12,10 +13,23 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors());
+
 // allow us to parse json, we're sending and recieving server
 app.use(express.json());
 
-const uri = process.env.CONNECTION_URI;
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "/client/build")));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname + "client", "build", "index.html"))
+    })
+} else {
+    app.get('/', (req, res) => {
+        res.send("development running!")
+    })
+}
+
+const uri = process.env.MONGODB_URI;
 
 // URI is where database is stored, the properties set in the 2nd argument is to make it easier to access MongoDB
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
@@ -32,10 +46,10 @@ connection.once('open', () => {
 })
 
 // Router to different collection defined by files in router folders
-const goalsRouter = require('./routers/goals');
-const blogRouter = require('./routers/blog');
-const interestRouter = require('./routers/interest');
-const wishListRouter = require('./routers/wish-list');
+const goalsRouter = require('./server/routers/goals');
+const blogRouter = require('./server/routers/blog');
+const interestRouter = require('./server/routers/interest');
+const wishListRouter = require('./server/routers/wish-list');
 
 // Using these routers
 app.use('/goals', goalsRouter);
