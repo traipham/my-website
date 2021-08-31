@@ -3,8 +3,10 @@ import styles from './resume.module.css';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import resumePDF from './resume.pdf';
 import DisplayResume from "./pdf.component";
-const linkedin = <a href="https://www.linkedin.com/in/trai-pham-4a1272198/">Linkedin</a>
-
+import NewResume from "./new_resume.jpg"
+const Linkedin = <a href="https://www.linkedin.com/in/trai-pham-4a1272198/">Linkedin</a>
+const GitHub = <a href="https://github.com/traipham">GitHub</a>
+const HandShake = <a href="https://ucsd.joinhandshake.com/users/18070890">HandShake</a>
 /**
  * Name of Component: Resume
  * 
@@ -35,9 +37,11 @@ class Resume extends React.Component {
     render(){
         return (
             <div className={styles.page}>
-                <h1>Resume</h1>
-                <p>This page will contain my <b>resume</b></p>
-                {linkedin}
+                <h1>About Me</h1>
+                <p>This page will contain my <b>resume</b> and other sources</p>
+                {Linkedin}<br/><br/>
+                {GitHub}<br/><br/>
+                {HandShake}
                 <h3>Personal Description</h3>
                 <p id="my-description"> 
                     Hi! My name is Trai Pham and I am currently an undergraduate studying at the University of California San Diego. 
@@ -53,9 +57,9 @@ class Resume extends React.Component {
                 <p id="p-experience">--experience here--</p>
                 <hr id="h-line"></hr>
                 <div className={styles.container} id='container'>
-                    <a to=""></a>
-                    <img src="new_resume.jpg"/>
-                    <DisplayResume/>
+                    <h2 id={styles['resume-header']}>Resume</h2>
+                    <img src={NewResume} id={styles['resumePdf']} alt="resume" width="750px" height="980px"/>
+                    {/* <DisplayResume/> */}
                     <button type='button' className={styles['focus-btn']} id='focus-btn' onClick={this.focusFunc}>Focus</button>
                     <p>(Zoom in and click focus to see pdf clearer)</p>
                 </div>

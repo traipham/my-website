@@ -6,7 +6,14 @@
     display: flex;
     flex-direction: row;
     width: fit-content;
-    margin: auto
+    /* justify-content: space-between;
+    align-content: space-between; */
+    /* margin: auto */
+}
+
+#resume-header{
+    /* position: absolute; */
+    margin-right: 50px;
 }
 
 .focus-btn{
@@ -18,6 +25,7 @@
     border-radius: 5px;
     margin-left: 10px;
 }
+
 .focus-btn:hover{
     box-shadow: 0 5px 5px 0 rgba(0,0,0,0.24), 0 0px 10px 0 green;
 }
@@ -27,7 +35,6 @@
 }
 
 /****Pdf display component*****/
-.resumePdf{
-    width: 80%;
-    height: 100%;
-}
+/* #resumePdf{
+    margin: auto;
+} */
