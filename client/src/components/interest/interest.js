@@ -104,6 +104,7 @@ class Interest extends React.Component {
                     academicInterest:[...this.state.academicInterest, {
                         interest: post.interest,
                         date: post.date,
+                        id: post._id,
                         index: this.state.academicInterest.length
                     }]
                 })
@@ -117,6 +118,7 @@ class Interest extends React.Component {
                     personalInterest: [...this.state.personalInterest, {
                         interest: post.interest,
                         date: post.date, 
+                        id: post._id,
                         index: this.state.personalInterest.length
                     }]
                 })
@@ -187,6 +189,7 @@ class Interest extends React.Component {
             const index = e.target.id.slice(8, e.target.id.length);
             console.log("index to delete: " + index)
             const idToDelete = this.state.personalInterest[index].id
+            console.log(this.state.personalInterest)
             console.log("id to delete: " + idToDelete)
             const success = await axios.delete('/interest/delete/personal/1', { data: { _id: idToDelete } });
             console.log(success);
