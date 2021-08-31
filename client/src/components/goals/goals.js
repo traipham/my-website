@@ -122,7 +122,7 @@ class Goals extends React.Component {
 
     componentDidMount(){
         setTimeout(async () => {
-            const arrGoal = await axios.get('/goals/').then((res) => {return res.data[0].goals});
+            const arrGoal = await axios.get('/goals/posts/').then((res) => {return res.data[0].goals});
             console.log(arrGoal);
             let goalsCount = 1;
             arrGoal.forEach((post) => {
@@ -142,7 +142,7 @@ class Goals extends React.Component {
     displayGoalsFunc(){
         // Get goals from database
         setTimeout(async () =>{
-            const arrGoal = await axios.get('/goals/').then((res) => { return res.data[0].goals });
+            const arrGoal = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
             const post = arrGoal[arrGoal.length-1];
             // Set and display current goal
             this.setState({
@@ -168,8 +168,8 @@ class Goals extends React.Component {
 
     afterRemovalDisplay(indexToDelete){
         let arrWish = this.state.goals;
-        arrWish.splice(indexToDelete, 1);
-        for(let i = indexToDelete; i < arrWish.length; i++){
+        arrWish.splice(indexToDelete+1, 1);
+        for(let i = indexToDelete+1; i < arrWish.length; i++){
             arrWish[i].index -= 1;
         }
         this.setState({

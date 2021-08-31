@@ -26,7 +26,7 @@ const upload = multer({ storage });
 /**
  * GET all wishes 
  */
-router.route('/').get((req, res) => {
+router.route('/posts').get((req, res) => {
     WishList.find()
         .then((wish) => {
             // intialize interest collection ( use db.createCollection() ) next time

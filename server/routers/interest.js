@@ -13,7 +13,7 @@ const interestHelper = new InterestHelper();
 /**
  * GET all interests 
  */
-router.route('/').get((req, res) => {
+router.route('/posts').get((req, res) => {
 
     Interest.find()
         .then((interest) => {

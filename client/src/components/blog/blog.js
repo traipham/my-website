@@ -160,7 +160,7 @@ class Blog extends React.Component {
     componentDidMount(){
         // GET blog document in mongo
         setTimeout(async () => {
-            const posts = await axios.get('/blog/').then((res) => { return res.data[0].blogPosts });
+            const posts = await axios.get('/blog/posts/').then((res) => { return res.data[0].blogPosts });
             console.log(posts);
             let counter = 1;
             posts.forEach((post) => {
@@ -185,7 +185,7 @@ class Blog extends React.Component {
      */
     async displayBlogPostFunc(){
         setTimeout( async() => {
-            const posts = await axios.get('/blog/').then((res) => { return res.data[0].blogPosts });
+            const posts = await axios.get('/blog/posts/').then((res) => { return res.data[0].blogPosts });
             console.log(posts);
             const post = posts[posts.length-1];
             this.setState({

@@ -10,7 +10,7 @@ let goalsHelper = new GoalsHelper();
 /**
  * GET all goals
  */
-router.route('/').get((req, res) => {
+router.route('/posts').get((req, res) => {
     Goals.find()
         .then(goal => {
             // If goals collection does not exist, create one

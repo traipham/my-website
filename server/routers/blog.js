@@ -30,7 +30,7 @@ var upload = multer({ storage });
 /**
  * GET all blog post 
  */
-router.route('/').get((req, res) => {
+router.route('/posts').get((req, res) => {
 
     Blog.find()
         .then((blog) => {

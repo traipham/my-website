@@ -49,7 +49,7 @@ export const WishDisplay = (props) => {
         // Log result msg
         console.log(success.data)
         if(success.status === 200){
-            props.removeWish(indexToDelete);
+            props.removeWish(indexToDelete+1);
             // window.location.reload();
         } 
     }
@@ -132,7 +132,7 @@ class WishList extends React.Component {
     componentDidMount(){
         // Get array of wishes
         setTimeout(async () => {
-            const arrWishes = await axios.get('/wish-list/').then((res) => { return res.data[0].wishes });
+            const arrWishes = await axios.get('/wish-list/posts').then((res) => { return res.data[0].wishes });
             console.log(arrWishes);
             let indexCount = 1;
             arrWishes.forEach(wish => {
@@ -161,7 +161,7 @@ class WishList extends React.Component {
     async displayWishFunc(){
         // Set state of recently added post
         setTimeout(async () => {
-            const arrWishes = await axios.get('/wish-list/').then((res) => { return res.data[0].wishes });
+            const arrWishes = await axios.get('/wish-list/posts').then((res) => { return res.data[0].wishes });
             const addWish = arrWishes[arrWishes.length - 1];
             this.setState({
                 addBtn: false,
