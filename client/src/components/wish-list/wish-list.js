@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styles from './wish-list.module.css';
 import defaultImg from './shield-hero-chibi.jpg'
+import Loading from '../loading/loading';
 import PropTypes from 'prop-types';
 import  WishPostInterface from './wishPostInterface';
 import axios from 'axios';
@@ -109,6 +110,7 @@ class WishList extends React.Component {
         this.state={
             addBtn: false,
             noWish: true,
+            loading: false,
             displayWish: [{
                 title: 'Default title',
                 tag: 'Personal',
@@ -125,12 +127,17 @@ class WishList extends React.Component {
         this.displayAddWishInterface = this.displayAddWishInterface.bind(this);
         this.displayWishFunc = this.displayWishFunc.bind(this);
         this.closeInterface = this.closeInterface.bind(this);
+        this.displayLoading = this.displayLoading.bind(this);
     }
     /**
      * Get data from mongo and update information when component first mounts (when reload)
      */
     componentDidMount(){
         // Get array of wishes
+        this.setState({
+            ...this.state,
+            loading: true
+        })
         setTimeout(async () => {
             const arrWishes = await axios.get('/wish-list/posts').then((res) => { return res.data[0].wishes });
             console.log(arrWishes);
@@ -139,6 +146,7 @@ class WishList extends React.Component {
                 this.setState({
                     addBtn: false,
                     noWish: false,
+                    loading: false,
                     displayWish: [...this.state.displayWish, {
                         title: wish.title,
                         tag: wish.tag,
@@ -150,7 +158,7 @@ class WishList extends React.Component {
                     }]
                 })
             });
-        }, 100)
+        })
     }
 
     /**
@@ -161,13 +169,19 @@ class WishList extends React.Component {
     displayWishFunc(){
         // Set state of recently added post
         let arrWishes = {};
+        this.setState({
+            ...this.state,
+            addBtn: false,
+            noWish: false,
+            loading: true
+        })
         setTimeout(async () => {
             arrWishes = await axios.get('/wish-list/posts').then((res) => { return res.data[0].wishes });
             console.log(arrWishes);
             const addWish = arrWishes[arrWishes.length - 1];
             this.setState({
-                addBtn: false,
-                noWish: false,
+                ...this.state,
+                loading: false,
                 displayWish: [...this.state.displayWish, {
                     title: addWish.title,
                     tag: addWish.tag,
@@ -179,7 +193,7 @@ class WishList extends React.Component {
                 }]
 
             })
-        }, 300);
+        });
 
         // Make "Add a wish" button visible
         document.getElementById('add-wish').style.visibility = 'visible';
@@ -204,6 +218,23 @@ class WishList extends React.Component {
             addBtn: false
         });
         document.getElementById('add-wish').style.visibility = 'visible';
+    }
+
+    displayLoading(){
+        let dotNum = 0;
+        setInterval(()=>{
+                if (this.state.loading) {
+                const dot = ' .';
+                setTimeout(() => {
+                    document.getElementById('loading-msg').innerHTML = 'Loading' + dot.repeat(dotNum);
+                }, 100)
+                // console.log(document.getElementById('loading-msg').innerHTML);
+                dotNum++;
+                if(dotNum === 4){
+                    dotNum = 0;
+                }
+            }
+        }, 500)
     }
 
     /**
@@ -240,6 +271,12 @@ class WishList extends React.Component {
                 <button type='button' className='add-btn' id='add-wish' style={{visibility: 'visible'}} onClick={this.setStateAddButton}>Add a Wish</button>
                 {
                     this.displayAddWishInterface()
+                }
+                <div className="container" id="loading-container">
+                    <p id="loading-msg">Loading</p>
+                </div>
+                {
+                    this.displayLoading()
                 }
                 <div className="display-container" id={styles["wish-display-container"]}>
                     {
