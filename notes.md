@@ -14,3 +14,11 @@
     4. 
     5. Have comment/note section on right side appear
     6. Type notes on bottom right, and pin on top right
+
+*8/31/2021*
+- Exit out of interest interface when user don't want to input
+- Exit out of goal interface
+- Exit out of blog interface
+- Remove upload and download button for resume
+- Loading screen
+- Click me welcome message on home
