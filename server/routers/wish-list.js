@@ -15,7 +15,7 @@ const wishListHelper = new WishListHelper();
 const storage = multer.diskStorage({
     // Location of files to store
     destination: (req, file, cb) => {
-        cb(null, './server/routers/uploads')
+        cb(null, './uploads')
     },
     // Naming of each file placed in folder
     filename: (req, file, cb) => {
@@ -76,7 +76,7 @@ router.route('/addWish').post(upload.single('image'), (req, res) => {
         }
     } else {
         img = {
-            data: fs.readFileSync(path.join('./server/routers/uploads/' + req.file.filename)),
+            data: fs.readFileSync(path.join('./uploads/' + req.file.filename)),
             contentType: req.file.mimetype
         }
         addWish = {
