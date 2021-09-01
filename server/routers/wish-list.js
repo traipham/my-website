@@ -7,13 +7,15 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 
+//RANDOM COMMENT HERE
+
 const wishListHelper = new WishListHelper();
 
 // Create storage for images
 const storage = multer.diskStorage({
     // Location of files to store
     destination: (req, file, cb) => {
-        cb(null, 'uploads')
+        cb(null, './server/routers/uploads')
     },
     // Naming of each file placed in folder
     filename: (req, file, cb) => {
@@ -74,7 +76,7 @@ router.route('/addWish').post(upload.single('image'), (req, res) => {
         }
     } else {
         img = {
-            data: fs.readFileSync(path.join('./uploads/' + req.file.filename)),
+            data: fs.readFileSync(path.join('./server/routers/uploads/' + req.file.filename)),
             contentType: req.file.mimetype
         }
         addWish = {

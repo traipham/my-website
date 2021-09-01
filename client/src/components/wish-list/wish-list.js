@@ -158,10 +158,12 @@ class WishList extends React.Component {
      * 
      * @param {*} imgFile image file that will be displayed if inputted
      */
-    async displayWishFunc(){
+    displayWishFunc(){
         // Set state of recently added post
+        let arrWishes = {};
         setTimeout(async () => {
-            const arrWishes = await axios.get('/wish-list/posts').then((res) => { return res.data[0].wishes });
+            arrWishes = await axios.get('/wish-list/posts').then((res) => { return res.data[0].wishes });
+            console.log(arrWishes);
             const addWish = arrWishes[arrWishes.length - 1];
             this.setState({
                 addBtn: false,
@@ -177,7 +179,7 @@ class WishList extends React.Component {
                 }]
 
             })
-        }, 300)
+        }, 300);
 
         // Make "Add a wish" button visible
         document.getElementById('add-wish').style.visibility = 'visible';
