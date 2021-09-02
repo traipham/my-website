@@ -2,7 +2,8 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import styles from './blog.module.css';
 import BlogPostInterface from "./blogPostInterface";
-import PropTypes from 'prop-types'
+import Loading from '../loading/loading';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 /**
@@ -59,6 +60,7 @@ export const DisplayBlogPost = (props) => {
      * @returns
      */
     async function handleRemoveBtn() {
+        props.removeDisplayLoading();
         // Get index of post
         const indexToDelete = props.index - 1;
 
@@ -143,6 +145,7 @@ class Blog extends React.Component {
 
         this.state = {
             addBtn: false,
+            loading: false,
             posts:[{
                 content: 'default content',
                 location: 'default location',
@@ -155,9 +158,15 @@ class Blog extends React.Component {
         this.setStateAddButton = this.setStateAddButton.bind(this);
         this.displayAddBlogPostInterface = this.displayAddBlogPostInterface.bind(this);
         this.displayBlogPostFunc = this.displayBlogPostFunc.bind(this);
+        this.displayLoading = this.displayLoading.bind(this);
+        this.removeDisplayLoading = this.removeDisplayLoading.bind(this);
     }
 
     componentDidMount(){
+        this.setState({
+            ...this.state,
+            loading: true
+        })
         // GET blog document in mongo
         setTimeout(async () => {
             const posts = await axios.get('/blog/posts/').then((res) => { return res.data[0].blogPosts });
@@ -166,6 +175,7 @@ class Blog extends React.Component {
             posts.forEach((post) => {
                 this.setState({
                     addBtn: false,
+                    loading: false,
                     posts: [...this.state.posts, {
                         content: post.content,
                         location: post.location,
@@ -184,12 +194,17 @@ class Blog extends React.Component {
      * @returns
      */
     async displayBlogPostFunc(){
+        this.setState({
+            ...this.state,
+            loading: true
+        })
         setTimeout( async() => {
             const posts = await axios.get('/blog/posts/').then((res) => { return res.data[0].blogPosts });
             console.log(posts);
             const post = posts[posts.length-1];
             this.setState({
                 addBtn: false,
+                loading: false,
                 posts: [...this.state.posts, {
                     content: post.content,
                     location: post.location,
@@ -212,11 +227,32 @@ class Blog extends React.Component {
     }
 
     /**
-     * Displays the interface for inputting new blog posts
+     * Mount loading component to parent component
+     * @returns Loading component
+     */
+    displayLoading() {
+        if (this.state.loading) {
+            return <Loading loading={this.state.loading} />
+        }
+    }
+
+    /**
+     * Set state for loading when removing goal
+     */
+    removeDisplayLoading() {
+        this.setState({
+            ...this.state,
+            loading: true
+        })
+    }
+
+    /**
+     * Displays the interface for inputting new blog posts and hide add button
      * @returns JSX element of input form
      */
     displayAddBlogPostInterface(){
         if (this.state.addBtn){
+            document.getElementById('blog-add-btn').style.visibility = "hidden";
             return <BlogPostInterface index={this.state.posts.length} displayBlogPostFunc={this.displayBlogPostFunc}/>
         }
     }
@@ -226,15 +262,18 @@ class Blog extends React.Component {
             <div className={styles.page}>
                 <h1>My Blog</h1>
                 <h2 style={{ float: 'right'}}>Feedback. . .</h2>
-                <button type="button" className="add-post-btn" onClick={this.setStateAddButton} style={{ visibility: 'visible'}}>Add Post</button>
+                <button type="button" className="add-post-btn" id="blog-add-btn" onClick={this.setStateAddButton} style={{ visibility: 'visible'}}>Add Post</button>
                 {
                     this.displayAddBlogPostInterface()
+                }
+                {
+                    this.displayLoading()
                 }
                 <div className="container" id={styles["post-container"]}>
                     {
                         this.state.posts.slice(1).map((post) =>{
                             // console.log(post);
-                            return <DisplayBlogPost key={"post-"+post.index} content={post.content} location={post.location} image={post.image} date={post.date} index={post.index}/>
+                            return <DisplayBlogPost key={"post-"+post.index} content={post.content} location={post.location} image={post.image} date={post.date} index={post.index} removeDisplayLoading={this.removeDisplayLoading}/>
                         })
                     }
                 </div>

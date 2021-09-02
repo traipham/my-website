@@ -3,15 +3,16 @@ import styles from './goals.module.css';
 import PropTypes from 'prop-types';
 import GoalInterface from "./goalPostInterface";
 import axios from 'axios';
+import Loading from '../loading/loading';
 /**
  * TODO: Remove a goal functionality
  */
 
 
 /**
+ * What each goal display will look like based on this design
  * 
- * @param {*} props 
- * @returns 
+ * @param {*} props - interfaction between parent and child
  */
 export const GoalDisplay = (props) => {
     let textColor = 'black';
@@ -69,8 +70,9 @@ export const GoalDisplay = (props) => {
      * @param {*} e - event object for onClick of remove button 
      */
     const handleRemoveBtnOnClick = async (e) =>{
-        const indexToDelete = props.index-1;
+        props.removeDisplayLoading();
 
+        const indexToDelete = props.index-1;
         const deletePost = await axios.delete('/goals/delete/1', { data: { index: indexToDelete } } );
         // console.log(deletePost);
         if(deletePost.status === 200){
@@ -99,6 +101,9 @@ GoalDisplay.propTypes = {
     content: PropTypes.string.isRequired
 }
 
+/**
+ * Goals page component
+ */
 class Goals extends React.Component {
     // const [removeInterface, setInterfaceRemove ] = useState(false);
     constructor(props){
@@ -112,15 +117,25 @@ class Goals extends React.Component {
                 date: new Date(),
                 index: 0
             }],
+            loading: false,
             removeInterface: true
         }
 
         this.displayInterface = this.displayInterface.bind(this);
         this.displayGoalsFunc = this.displayGoalsFunc.bind(this);
         this.afterRemovalDisplay = this.afterRemovalDisplay.bind(this);
+        this.displayLoading = this.displayLoading.bind(this);
+        this.removeDisplayLoading = this.removeDisplayLoading.bind(this);
     }
 
+    /**
+     * Get goals from database and set state for display
+     */
     componentDidMount(){
+        this.setState({
+            ...this.state,
+            loading: true
+        })
         setTimeout(async () => {
             const arrGoal = await axios.get('/goals/posts/').then((res) => {return res.data[0].goals});
             console.log(arrGoal);
@@ -128,6 +143,7 @@ class Goals extends React.Component {
             arrGoal.forEach((post) => {
                 this.setState({
                     ...this.state,
+                    loading: false,
                     goals:[...this.state.goals, {
                         content: post.content,
                         tagColor: post.tagColor,
@@ -139,14 +155,22 @@ class Goals extends React.Component {
         }, 100)
     }
 
+    /**
+     * Set state of newly/recently added goal to display
+     */
     displayGoalsFunc(){
         // Get goals from database
+        this.setState({
+            ...this.state,
+            loading: true
+        })
         setTimeout(async () =>{
             const arrGoal = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
             const post = arrGoal[arrGoal.length-1];
             // Set and display current goal
             this.setState({
                 removeInterface: true,
+                loading: false,
                 goals:[...this.state.goals, {
                     content: post.content,
                     tagColor: post.tagColor,
@@ -158,6 +182,9 @@ class Goals extends React.Component {
         document.getElementById('add-goals-btn').style.visibility = 'visible';
     }
 
+    /**
+     * Set state to add interface and hides add button
+     */
     displayInterface(){
         this.setState({
             ...this.state,
@@ -166,6 +193,30 @@ class Goals extends React.Component {
         document.getElementById('add-goals-btn').style.visibility = 'hidden';
     }
 
+    /**
+     * Mount loading component to parent component
+     * @returns Loading component
+     */
+    displayLoading() {
+        if (this.state.loading) {
+            return <Loading loading={this.state.loading} />
+        }
+    }
+
+    /**
+     * Set state for loading when removing goal
+     */
+    removeDisplayLoading(){
+        this.setState({
+            ...this.state,
+            loading: true
+        })
+    }
+
+    /**
+     * Set a new array state without deleted goal
+     * @param {*} indexToDelete - index of goal that w'ere going to delete 
+     */
     afterRemovalDisplay(indexToDelete){
         let arrWish = this.state.goals;
         arrWish.splice(indexToDelete+1, 1);
@@ -174,6 +225,7 @@ class Goals extends React.Component {
         }
         this.setState({
             ...this.state,
+            loading: false,
             goals: arrWish
         })
     }
@@ -186,10 +238,13 @@ class Goals extends React.Component {
                 {
                     this.state.removeInterface ? null : <GoalInterface displayGoalsFunc={this.displayGoalsFunc}/>
                 }
+                {
+                    this.displayLoading()
+                }
                 <div className={styles["goals-container"]} id="goals-container">
                     {
                         this.state.goals.slice(1).map((goal) => {
-                            return <GoalDisplay key={"goal-" + goal.index} afterRemovalDisplay={this.afterRemovalDisplay} content={goal.content} tagColor={goal.tagColor} index={goal.index} date={goal.date}/>
+                            return <GoalDisplay key={"goal-" + goal.index} afterRemovalDisplay={this.afterRemovalDisplay} content={goal.content} tagColor={goal.tagColor} index={goal.index} date={goal.date} removeDisplayLoading={this.removeDisplayLoading}/>
                         })
                     }
                 </div>
