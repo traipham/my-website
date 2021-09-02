@@ -11,7 +11,7 @@
 .add-wish{
     visibility: hidden;
     color: rgb(0, 0, 0);
-    background-color: rgb(76, 109, 187);
+    background-color: rgb(241, 84, 36);
     position: fixed;
     /* position: sticky;
     top: 0; */
@@ -21,7 +21,7 @@
     letter-spacing: 2px;
     border: 2px solid rgb(0, 0, 0);
     border-radius: 5px;
-    box-shadow: 1px 2px 10px rgb(77, 51, 226);
+    box-shadow: 1px 2px 10px rgb(224, 143, 36);
     padding: 10px;
     margin-left: 10px;
 
