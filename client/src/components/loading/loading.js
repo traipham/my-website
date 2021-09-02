@@ -1,37 +1,52 @@
 import React from 'react'
 import styles from './loading.css';
 
+
+let loadingId = 0;
 export default class Loading extends React.Component{
     constructor(props){
         super(props)
-        // this.setState({
-        //     display: true
+
+        // this.state({
+        //     display: false
         // })
         
-    // this.changeLoadMsg = this.changeLoadMsg.bind(this); 
+    // this.displayLoading = this.displayLoading.bind(this); 
+    }
+
+    componentWillUnmount(){
+        clearInterval(loadingId);
     }
 
     componentDidMount(){
-        if (this.props.loading) {
-            let dotNum = 0;
-            setInterval(() => {
+        console.log('loading Mounted!');
+        document.getElementById('loading-container').style.display = "block";
+        let dotNum = 0;
+        loadingId = setInterval(() => {
+            if (this.props.loading) {
                 const dot = ' .';
-                setTimeout(() => {
-                    document.getElementById('loading-msg').innerHTML = 'Loading' + dot.repeat(dotNum);
-                }, 200)
+                document.getElementById('loading-msg').innerHTML = 'Loading' + dot.repeat(dotNum);
                 // console.log(document.getElementById('loading-msg').innerHTML);
                 dotNum++;
                 if (dotNum === 4) {
                     dotNum = 0;
                 }
-            }, 1000)
-        }
+            } else {
+                document.getElementById('loading-msg').innerHTML = 'Loading'
+                document.getElementById('loading-container').style.display = "none";
+                clearInterval(loadingId);
+                console.log("Successfully stopped interval!");
+            }
+        }, 300)
     }
 
     render(){
         return(
-            <div className="container" id="loading-container">
-                <p id="loading-msg">Loading</p>
+            <div>
+                <div className='loading' id="loading-container" >
+                    <p id="loading-msg">Loading</p>
+                    <p id="warning-msg">(don't click anything please!)</p>
+                </div>
             </div>
         )
     }

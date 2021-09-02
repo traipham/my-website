@@ -1,0 +1,27 @@
+#loading-container{
+    display: block;
+    margin: auto;
+    left: 0; right: 0;
+    text-align: center;
+    position: fixed;
+}
+
+#loading-msg{
+    font-weight: 900;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-decoration: underline;
+    text-shadow: 3px 3px 6px rgb(136, 136, 136);
+    color: white;
+    width:fit-content;
+    margin: auto;
+    background-color: black;
+}
+
+#warning-msg{
+    font-weight: bold;
+    background-color: white;
+    margin: auto;
+    width: fit-content;
+}
