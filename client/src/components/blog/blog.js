@@ -185,6 +185,7 @@ class Blog extends React.Component {
                     }]
                 })
             })
+            document.getElementById('blog-add-btn').style.visibility = "visible";
         })
     }
 
@@ -213,6 +214,7 @@ class Blog extends React.Component {
                     date: post.date,
                 }]
             })
+            document.getElementById('blog-add-btn').style.visibility = "visible";
         }, 300);
     }
     
@@ -262,7 +264,7 @@ class Blog extends React.Component {
             <div className={styles.page}>
                 <h1>My Blog</h1>
                 <h2 style={{ float: 'right'}}>Feedback. . .</h2>
-                <button type="button" className="add-post-btn" id="blog-add-btn" onClick={this.setStateAddButton} style={{ visibility: 'visible'}}>Add Post</button>
+                <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>
                 {
                     this.displayAddBlogPostInterface()
                 }

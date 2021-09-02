@@ -8,6 +8,19 @@
     flex-flow: row wrap;
     max-width: 50%;
 }
+.add-post-btn{
+    visibility: hidden;
+    position: fixed;
+    border: 2px solid black;
+    border-radius: 5px;
+    box-shadow: 1px 2px 10px rgb(77, 51, 226);
+    background-color: plum;
+    font-size: large;
+    font-family: Impact, fantasy;
+    letter-spacing: 2px;
+    padding: 10px;
+    margin-left: 10px;
+}
 
 /***Blog-Interface-Style***/
 #post-interface-container{
