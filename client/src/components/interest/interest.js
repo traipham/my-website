@@ -231,6 +231,7 @@ class Interest extends React.Component {
                             this.state.addAcadBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} /> : null
                         }
                     </div>
+                    <button type="button" className="add-btn" id="add-academic-interest" onClick={this.setAddAcadBtn}>Add</button>
                     <ul className="acad-list">
                         {
                             this.state.academicInterest.slice(1).map((interest)=>{
@@ -243,7 +244,6 @@ class Interest extends React.Component {
                             })
                         }
                     </ul>
-                    <button type="button" className="add-btn" id="add-academic-interest" onClick={this.setAddAcadBtn}>Add</button>
                     <p>
                         I'm very flexible with what I want to do professionally. I want to be able to gain all types of experience.
                         I want to learn many new concepts/subjects within the field of computer science and technology. The advancement
@@ -258,6 +258,7 @@ class Interest extends React.Component {
                             this.state.addPersBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} /> : null
                         }
                     </div>
+                    <button type="button" className="add-btn" id="add-personal-interest" onClick={this.setAddPersBtn}>Add</button>
                     <ul className="pers-list">
                         {
                             this.state.personalInterest.slice(1).map((interest) => {
@@ -270,7 +271,6 @@ class Interest extends React.Component {
                             })
                         }
                     </ul>
-                    <button type="button" className="add-btn" id="add-personal-interest" onClick={this.setAddPersBtn}>Add</button>
                 </div>
             </div>
         )
