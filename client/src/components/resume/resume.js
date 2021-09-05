@@ -37,7 +37,7 @@ class Resume extends React.Component {
     render(){
         return (
             <div className={styles.page}>
-                <h1>About Me</h1>
+                <h1 className={styles["header"]}>About Me</h1>
                 <p>This page will contain my <b>resume</b> and other sources</p>
                 {Linkedin}<br/><br/>
                 {GitHub}<br/><br/>

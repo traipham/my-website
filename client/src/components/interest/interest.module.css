@@ -1,8 +1,19 @@
 /***Interest-Page-Style***/
-.page {
-  background-color: hotpink ;
-  display: flex;
-  flex-direction: column;
+.interest-page {
+  background-color: #ffffffd0;
+  padding: 20px;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.header{
+    background-color: rgb(220, 20, 60);
+    margin-left: auto; margin-right: auto;
+    padding: 20px;
+    border: 3px black;
+    border-style: double;
+    border-radius: 5px;
+    text-align: center;
 }
 
 #add-interest-interface{

@@ -275,7 +275,7 @@ class WishList extends React.Component {
     render(){
         return (
             <div className={styles.page} id="wish-page">
-                <h1>My Wishes</h1>
+                <h1 className={styles["header"]} id="wishlist-header">My Wishes</h1>
                 <button type='button' className={styles['add-wish']} id='add-wish' onClick={this.setStateAddButton}>Add a Wish</button>
                 {
                     this.displayAddWishInterface()

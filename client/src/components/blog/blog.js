@@ -240,7 +240,7 @@ class Blog extends React.Component {
     render(){
         return (
             <div className={styles.page}>
-                <h1>My Blog</h1>
+                <h1 className={styles["header"]} id="blog-header">My Blog</h1>
                 <h2 style={{ float: 'right'}}>Feedback. . .</h2>
                 <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>
                 {

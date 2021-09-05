@@ -1,6 +1,18 @@
 .page {
-    background-color: lawngreen;
+    background-color: #fdfdfd;
+    padding: 20px;
 }
+
+.header{
+    background-color: rgb(220, 20, 60);
+    margin-left: auto; margin-right: auto;
+    padding: 20px;
+    border: 3px black;
+    border-style: double;
+    border-radius: 5px;
+    text-align: center;
+}
+
 .goals-container{
     display: flex;
     flex-direction: row;
@@ -8,6 +20,8 @@
     /* justify-content: space-around;  */
     align-items: flex-start; /*So that flex items don't have the same height*/
     align-content: flex-start;
+    /* width: fit-content; */
+    border-style: outset;
 }
 /*** Content Interface Styling ***/
 .content-interface {

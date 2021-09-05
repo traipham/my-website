@@ -50,15 +50,15 @@ function Home() {
 
     return(
         <div className="home">
-            <h2 className="heading" onClick={homeBtn}>Trai's Website</h2>
+            {/* <h2 className="heading" onClick={homeBtn}>Trai's Website</h2> */}
             <div className="header">
-                <nav>
-                    <button type="button" className="home-btn" id="home-btn" onClick={homeBtn}>Home</button>
-                    <Link to="/resume"><button className="resume" onClick={handleClick}>Resume</button></Link>
-                    <Link to="/interest"><button className="interest" onClick={handleClick}>Interest</button></Link>
-                    <Link to="/blog"><button className="blog" onClick={handleClick}>Blog</button></Link>
-                    <Link to="/wish-list"><button className="wish-list" onClick={handleClick}>Wish List</button></Link>
-                    <Link to="/goals"><button className="goals" onClick={handleClick}>Goals</button></Link>
+                <nav className='pages-nav'>
+                    <button type="button" id="home-btn" id="home-btn" onClick={homeBtn}>Home</button>
+                    <Link id={styles['resume-link']} to="/resume"><button id="resume" onClick={handleClick}>Resume</button></Link>
+                    <Link id={styles['interest-link']} to="/interest"><button id="interest" onClick={handleClick}>Interest</button></Link>
+                    <Link id={styles['blog-link']} to="/blog"><button id="blog" onClick={handleClick}>Blog</button></Link>
+                    <Link id={styles['wish-list-link']} to="/wish-list"><button id="wish-list" onClick={handleClick}>Wish List</button></Link>
+                    <Link id={styles['goals-link']} to="/goals"><button id="goals" onClick={handleClick}>Goals</button></Link>
                     {/* <Link to="/random"><button className="random" onClick={handleClick}>Leave a Note</button></Link>
                     <Link to="/setting"><button className="setting" onClick={handleClick}>Setting</button></Link> */}
                 </nav>

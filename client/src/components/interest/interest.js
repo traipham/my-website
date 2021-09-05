@@ -221,9 +221,8 @@ class Interest extends React.Component {
 
     render(){
         return (
-            <div className={styles.page} id="interest-page">
-                <h1 className="title">Interests</h1>
-                <p>This will contain a list of my interest</p>
+            <div className={styles['interest-page']} id="interest-page">
+                <h1 className={styles["header"]}>Interests</h1>
                 <div className={styles['interest-container']} id="academic-int-container">
                     <h3>Academic/Career Interest</h3>
                     <div className="interface-container" id="academic-interest-interface">
