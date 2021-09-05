@@ -13,33 +13,6 @@ import axios from 'axios';
  */
 export const DisplayBlogPost = (props) => {
 
-    const postStyle = {
-        // display: 'flex',
-        // flexWrap:'wrap',
-        // justifyContent: "space-between",
-        // alignContent: "space-around",
-        backgroundColor: 'white',
-        border: '1px solid black',
-        borderRadius: '5px',
-        // width: 'fit-content',
-        maxWidth: 200,
-        width: 200,
-        height: 'fit-content',
-        margin: 10,
-        padding: 10
-    }
-
-    const indexStyle = {
-        display: "inline-block",
-        float: 'right',
-        margin: '0 0 0 auto',
-        border: '1px solid red',
-        borderRadius: 5,
-        padding: 5,
-        width: 'fit-content',
-        height: 'fit-content',
-    }
-
     const dateStyle = {
         border: '2px solid black',
         padding: 5,
@@ -86,7 +59,7 @@ export const DisplayBlogPost = (props) => {
             // else return jsx img element 
         } else {
             let imgB64 = Buffer.from(props.image.data).toString('base64')
-            return <img src={`data:image/jpeg;base64,${imgB64}`} id="post-image" width="200px" height="200px" />;
+            return <img className={styles["post-img"]} src={`data:image/jpeg;base64,${imgB64}`} id="post-image" width="200px" height="200px" />;
         }
     }
     /**
@@ -104,19 +77,24 @@ export const DisplayBlogPost = (props) => {
     }
 
     return(
-        <div className="container" id="post-container" style={postStyle} onMouseOver={containerOnHover} onMouseOut={containerMouseOut}>
-            <button type="button" className="btn" id={"blog-btn-" + props.index} onClick={handleRemoveBtn} style={btnStyle}>Remove</button>
-            <h4 className="header" id="index" style={indexStyle}>{props.index}</h4>
-            <h3 className="header" id="date" style={dateStyle}>{props.date.toString().slice(0,10)}</h3>
-            {
-                imageExist()
-            }
-            {/* <img src={`data:image/jpeg;base64,${imgB64}`} id="post-image" width="200px" height="200px"/> */}
-            <br/>
-            <p id="content">"{props.content}"</p>
-            <br/>
-            <hr/>
-            <p id="location"><b>Location: </b><i>{props.location}</i></p>
+        <div className={styles["post-container"]} id="post-container" onMouseOver={containerOnHover} onMouseOut={containerMouseOut}>
+            <div className={styles["post"]}>
+                <button type="button" className="btn" id={"blog-btn-" + props.index} onClick={handleRemoveBtn} style={btnStyle}>Remove</button>
+                <div className={styles['arrow-pointer']} >
+                    <h4 className={styles['post-index']} id="index">{props.index}</h4>
+                </div>
+                <h3 className={styles['post-date']} id="date" >{props.date.toString().slice(0, 10)}</h3>
+                <div className={styles['img-container']} id={'post-img-container-'+ props.index}>
+                    {
+                        imageExist()
+                    }
+                </div>
+                {/* <img src={`data:image/jpeg;base64,${imgB64}`} id="post-image" width="200px" height="200px"/> */}
+                <br />
+                <p className={styles['post-content']} id="content">"{props.content}"</p>
+                <hr className={styles['post-divider']}/>
+                <p className={styles['post-location']} id="location"><b>Location: </b><i>{props.location}</i></p>
+            </div>
         </div>
     )
 }
