@@ -29,6 +29,9 @@ export const WishDisplay = (props) => {
     const handleMouseOver = (e) =>{
         document.getElementById("remove-wish-" + props.index).style.display = 'inline-block';
         document.getElementById("remove-wish-" + props.index).style.visibility = 'visible';
+        setTimeout(() => {
+            document.getElementById("remove-wish-" + props.index).style.transform = 'scale(1,1)';
+        },100)
     }
     
     /**
@@ -38,6 +41,9 @@ export const WishDisplay = (props) => {
     const handleMouseOut = (e) => {
         document.getElementById("remove-wish-" + props.index).style.display = 'none';
         document.getElementById("remove-wish-" + props.index).style.visibility = 'hidden';
+        setTimeout(() => {
+            document.getElementById("remove-wish-" + props.index).style.transform = 'scale(0,0)';
+        },100)
     }
 
     /**
@@ -45,15 +51,18 @@ export const WishDisplay = (props) => {
      * @param {*} e - event object for onClick event of remove button
      */
     const removeWishOnClickBtn = async (e) => {
-        props.displayLoading();
-        const indexToDelete = props.index - 1;
-        const success = await axios.delete('/wish-list/delete/1', { data: { index: indexToDelete} });
-        // Log result msg
-        console.log(success.data)
-        if(success.status === 200){
-            props.removeWish(indexToDelete+1);
-            // window.location.reload();
-        } 
+        if(window.confirm('Are you sure you want to delete this post?')){
+            props.displayLoading();
+            const indexToDelete = props.index - 1;
+            const success = await axios.delete('/wish-list/delete/1', { data: { index: indexToDelete } });
+            // Log result msg
+            console.log(success.data)
+            if (success.status === 200) {
+                props.removeWish(indexToDelete + 1);
+            }
+        } else {
+            console.log('Do not remove post!')
+        }
     }
 
     /**

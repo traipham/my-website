@@ -155,4 +155,6 @@ Each Input style
     display: none;
     background-color: red;
     visibility: hidden;
+    transform: scale(0,0);
+    transition: all 0.5s ease-in;
 }
