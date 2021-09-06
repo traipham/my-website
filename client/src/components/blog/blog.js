@@ -138,6 +138,7 @@ class Blog extends React.Component {
         this.displayBlogPostFunc = this.displayBlogPostFunc.bind(this);
         this.displayLoading = this.displayLoading.bind(this);
         this.removeDisplayLoading = this.removeDisplayLoading.bind(this);
+        this.removeInterface = this.removeInterface.bind(this);
     }
 
     componentDidMount(){
@@ -207,6 +208,17 @@ class Blog extends React.Component {
     }
 
     /**
+     * Set state of addBtn to false to not display interface
+     */
+    removeInterface(){
+        this.setState({
+            ...this.state,
+            addBtn: false,
+        })
+        document.getElementById('blog-add-btn').style.visibility = "visible";
+    }
+
+    /**
      * Mount loading component to parent component
      * @returns Loading component
      */
@@ -233,7 +245,7 @@ class Blog extends React.Component {
     displayAddBlogPostInterface(){
         if (this.state.addBtn){
             document.getElementById('blog-add-btn').style.visibility = "hidden";
-            return <BlogPostInterface index={this.state.posts.length} displayBlogPostFunc={this.displayBlogPostFunc}/>
+            return <BlogPostInterface index={this.state.posts.length} displayBlogPostFunc={this.displayBlogPostFunc} removeInterface={this.removeInterface}/>
         }
     }
 

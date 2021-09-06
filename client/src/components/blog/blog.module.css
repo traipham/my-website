@@ -49,10 +49,19 @@
     margin: auto;
     z-index: 10000; 
     left: 0; right: 0;
-    border: 1px solid black;
+    border: 3px solid black;
     border-radius: 5px;
     width:fit-content;
-    background-color:rgba(38, 0, 255, 0.562);
+    background-color:rgba(38, 0, 255, 0.945);
+}
+
+.remove-btn{
+    position: absolute;
+    top: 2px; right: 3px;
+    size: 5px;
+    background-color: red;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 #header{
@@ -67,7 +76,7 @@
     align-content: space-between;
     border: 1px solid black;
     border-radius: 0px 0px 5px 5px;
-    background-color: rgba(172, 255, 47, 0.842);
+    background-color: rgba(121, 251, 98, 0.938);
     max-width: 400px;
     margin: auto;
 }

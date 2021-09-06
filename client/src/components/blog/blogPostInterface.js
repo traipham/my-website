@@ -41,7 +41,7 @@ const BlogPostInterface = (props) => {
      * Set state content to content input
      * @param {*} e - event object of onChange event for content input 
      */
-    const onChangeContent = (e) =>{
+    const onChangeContent = (e) => {
         setContentInp(e.target.value);
     }
 
@@ -49,8 +49,18 @@ const BlogPostInterface = (props) => {
      * Set state of location to input location
      * @param {*} e - event object of onChange event for Location input
      */
-    const onChangeLocation = (e) =>{
+    const onChangeLocation = (e) => {
         setLocationInp(e.target.value);
+    }
+
+    /**
+     * calls function from parent component to remove interface
+     * @param {*} e - event object for onClick event for remove button 
+     */
+    const handleOnClickRemoveBtn = (e) => {
+        e.preventDefault();
+
+        props.removeInterface();
     }
 
     /**
@@ -84,6 +94,7 @@ const BlogPostInterface = (props) => {
 
     return (
         <div className="container" id={styles["post-interface-container"]}>
+            <button className={styles['remove-btn']} id='remove-interface' onClick={handleOnClickRemoveBtn}>X</button>
             <h4 id={styles["header"]}><b>Create a Post</b></h4>
             <form method="POST" id={styles["post-interface-form"]} onSubmit={handleSubmit} encType="multipart/form-data">
                 {/**
