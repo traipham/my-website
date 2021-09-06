@@ -114,7 +114,7 @@ Each Input style
     border: 5px solid black;
     border-radius: 5px;
     background-color: whitesmoke;
-    box-shadow: 20px 20px rgba(0,0,0,.15);
+    box-shadow: 20px 20px #002f4931;
     width: fit-content;
     height: fit-content;
     padding: 10px;
@@ -125,7 +125,14 @@ Each Input style
 
 #wish-container:hover{
     border-radius: 50% 50% 50% 50% / 5% 5% 5% 5% ;
-    box-shadow: 10px 10px rgba(0,0,0,.25);
+    box-shadow: 10px 10px #fcc04963;
+}
+
+.img{
+    display: block;
+    margin-right: auto; margin-left: auto;
+    border: 2px solid gray;
+    border-radius: 5px;
 }
 
 #title-tag-container{

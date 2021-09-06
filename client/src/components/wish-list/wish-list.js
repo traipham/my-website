@@ -65,7 +65,7 @@ export const WishDisplay = (props) => {
             return
         } else {
             let imgB64 = Buffer.from(props.img.data).toString('base64');
-            return <img src={`data:image/jpeg;base64,${imgB64}`} className="img" id="wish-img" width="200px" height="200px" />;
+            return <img src={`data:image/jpeg;base64,${imgB64}`} className={styles["img"]} id="wish-img" width="200px" height="200px" />;
         }
     }
 
