@@ -17,8 +17,13 @@ export const GoalDisplay = (props) => {
     }
 
     useEffect(() => {
+        // console.log(props.index);
         setTimeout(()=>{
-            document.getElementById("goal-container" + props.index).style.backgroundColor = props.tagColor;
+            if (document.getElementById("goal-container" + props.index) === null){
+                console.log('null at index: ' + props.index)
+            } else {
+                document.getElementById("goal-container" + props.index).style.backgroundColor = props.tagColor;
+            }
         }, 300)
         document.getElementById("goal-container" + props.index).style.color = textColor;
         document.getElementById("index-" + props.index).style.border = "1px solid " + textColor;
@@ -208,7 +213,7 @@ class Goals extends React.Component {
             loading: false,
             goals: arrWish
         })
-        console.log(this.state.goals);
+        // console.log(this.state.goals);
     }
 
     render() {
@@ -225,6 +230,7 @@ class Goals extends React.Component {
                 <div className={styles["goals-container"]} id="goals-container">
                     {
                         this.state.goals.slice(1).map((goal) => {
+                            console.log('parent state index: ' + goal.index)
                             return <GoalDisplay key={"goal-" + goal.index} afterRemovalDisplay={this.afterRemovalDisplay} content={goal.content} tagColor={goal.tagColor} index={goal.index} date={goal.date} removeDisplayLoading={this.removeDisplayLoading}/>
                         })
                     }
