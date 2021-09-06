@@ -20,7 +20,7 @@
     /* justify-content: space-around;  */
     align-items: flex-start; /*So that flex items don't have the same height*/
     align-content: flex-start;
-    /* width: fit-content; */
+    width: fit-content;
     border-style: outset;
 }
 /*** Content Interface Styling ***/
@@ -33,6 +33,7 @@
     background-color: gold;
     border: solid black 5px;
     border-radius: 10px;
+    z-index: 2;
 }
 
 .inp-container{
@@ -53,11 +54,42 @@
     margin: 0 auto;
     background-color: rgb(1, 230, 1);
 }
+
+
 /***Display-content-styling***/
-#goal-container{
-    background-color: lawngreen;
+
+.goal-post{
+    color: white;
+    overflow-wrap: break-word;
+    border: 2px solid black;
+    border-radius: 0px 20px;
+    width: 200px;
+    max-width: 250px;
+    padding: 10px;
+    background-color: #003049;
+    margin: 10px;
+    transform: scale(1,1);
+    transition: all 1s ease-in;
+}
+
+.goal-post:hover{
+    width: 250px;
+    transform: scale(1.25,1.25);
+    z-index: 1;
+}
+
+.delete-btn{
     border: 2px solid black;
     border-radius: 5px;
+    background-color: red;
+    float: right;
+    visibility: hidden;
+}
+
+.index{
+    float: left;
+    border-radius: 5px;
     width: fit-content;
-    padding: 10px;
+    padding: 5px;
+    margin-right: 10px;
 }

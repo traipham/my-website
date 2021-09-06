@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from './goals.module.css';
 import PropTypes from 'prop-types';
 import GoalInterface from "./goalPostInterface";
 import axios from 'axios';
 import Loading from '../loading/loading';
-/**
- * TODO: Remove a goal functionality
- */
-
 
 /**
  * What each goal display will look like based on this design
@@ -19,35 +15,14 @@ export const GoalDisplay = (props) => {
     if(parseInt(props.tagColor.slice(1,3), 16) < 100){
         textColor= 'white'
     }
-    // Container style
-    const styleContainer = {
-        color: textColor,
-        overflowWrap: 'break-word',
-        border: "2px solid black",
-        borderRadius: "5px",
-        width: "300px",
-        maxWidth: '200px',
-        padding: "10px",
-        backgroundColor: props.tagColor,
-        margin: '10px'
-    }
-    // Delete button style
-    const deleteBtnStyle = {
-        border: '2px solid black',
-        borderRadius: '5px',
-        backgroundColor: 'red',
-        float: 'right',
-        visibility: 'hidden'
-    }
-    // Index style
-    const styleIndex = {
-        float: 'left',
-        border: "1px solid " + textColor,
-        borderRadius: "5px",
-        width: 'fit-content',
-        padding: '5px',
-        marginRight: '10px'
-    }
+
+    useEffect(() => {
+        setTimeout(()=>{
+            document.getElementById("goal-container" + props.index).style.backgroundColor = props.tagColor;
+        }, 300)
+        document.getElementById("goal-container" + props.index).style.color = textColor;
+        document.getElementById("index-" + props.index).style.border = "1px solid " + textColor;
+    })
 
     /**
      * Make button visible when hovering over post
@@ -83,9 +58,9 @@ export const GoalDisplay = (props) => {
     }
 
     return(
-        <div className='container' id={"goal-container" + props.index} style={styleContainer} onMouseOver={handleMouseOver} onMouseOut={handleOutMouse}>
-            <button type="button" className="delete-btn" id={"goal-delete-btn-" + props.index} style={deleteBtnStyle} onClick={handleRemoveBtnOnClick}>X</button>
-            <h4 id="index" style={styleIndex}>{props.index}</h4>
+        <div className={styles['goal-post']} id={"goal-container" + props.index} onMouseOver={handleMouseOver} onMouseOut={handleOutMouse}>
+            <button type="button" className={styles["delete-btn"]} id={"goal-delete-btn-" + props.index} onClick={handleRemoveBtnOnClick}>X</button>
+            <h4 className={styles['index']} id={"index-"+ props.index} >{props.index}</h4>
             <h3 id="date" styke={{display: 'inline'}}>{props.date.toString().slice(0, 10)}</h3>
             <hr/>
             <p id="content">{props.content}</p>
