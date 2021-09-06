@@ -3,6 +3,10 @@
     padding: 20px;
 }
 
+.page-container{
+    border-style: outset;
+}
+
 .container{
     display: flex;
     flex-direction: row;

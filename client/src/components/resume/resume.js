@@ -38,33 +38,35 @@ class Resume extends React.Component {
         return (
             <div className={styles.page}>
                 <h1 className={styles["header"]}>About Me</h1>
-                <p>This page will contain my <b>resume</b> and other sources</p>
-                {Linkedin}<br/><br/>
-                {GitHub}<br/><br/>
-                {HandShake}
-                <h3>Personal Description</h3>
-                <p id="my-description"> 
-                    Hi! My name is Trai Pham and I am currently an undergraduate studying at the University of California San Diego. 
-                    I'm pursuing the B.S. in Computer Science. I'm Vietnamese, born and raised for 5 years in Vietnam, until my family
-                    decided to move the United States to start a new life. Academically speaking, I've attended 3 different Elementary schools,
-                    due to familial and financial adversity. Fortunately, I was able to spend my middle and high school years in the same area, 
-                    which was the city of Garden Grove. I attended Doig Intermediate for middle school. I went to Santiago for high school. I've 
-                    learned a lot in highschool, enrolling in numerous AP classes, participated in many clubs, and played Football all throughout highschool.
-                    High school was a place where I learned a lot about self-discipline as well as perseverance. I was academically honored a long side
-                    being a role model in football. Presently, I've graduated from highschool and now I am going into my next year of undergrad. 
-                </p>
-                <h3>Programing/Computer Experience</h3>
-                <p id="p-experience">--experience here--</p>
-                <hr id="h-line"></hr>
-                <div className={styles.container} id='container'>
-                    <h2 id={styles['resume-header']}>Resume</h2>
-                    <img src={NewResume} id={styles['resumePdf']} alt="resume" width="750px" height="980px"/>
-                    {/* <DisplayResume/> */}
-                    <button type='button' className={styles['focus-btn']} id='focus-btn' onClick={this.focusFunc}>Focus</button>
-                    <p>(Zoom in and click focus to see pdf clearer)</p>
+                <div className={styles['page-container']}>
+                    <p>This page will contain my <b>resume</b> and other sources</p>
+                    {Linkedin}<br /><br />
+                    {GitHub}<br /><br />
+                    {HandShake}
+                    <h3>Personal Description</h3>
+                    <p id="my-description">
+                        Hi! My name is Trai Pham and I am currently an undergraduate studying at the University of California San Diego.
+                        I'm pursuing the B.S. in Computer Science. I'm Vietnamese, born and raised for 5 years in Vietnam, until my family
+                        decided to move the United States to start a new life. Academically speaking, I've attended 3 different Elementary schools,
+                        due to familial and financial adversity. Fortunately, I was able to spend my middle and high school years in the same area,
+                        which was the city of Garden Grove. I attended Doig Intermediate for middle school. I went to Santiago for high school. I've
+                        learned a lot in highschool, enrolling in numerous AP classes, participated in many clubs, and played Football all throughout highschool.
+                        High school was a place where I learned a lot about self-discipline as well as perseverance. I was academically honored a long side
+                        being a role model in football. Presently, I've graduated from highschool and now I am going into my next year of undergrad.
+                    </p>
+                    <h3>Programing/Computer Experience</h3>
+                    <p id="p-experience">--experience here--</p>
+                    <hr id="h-line"></hr>
+                    <div className={styles.container} id='container'>
+                        <h2 id={styles['resume-header']}>Resume</h2>
+                        <img src={NewResume} id={styles['resumePdf']} alt="resume" width="750px" height="980px" />
+                        {/* <DisplayResume/> */}
+                        <button type='button' className={styles['focus-btn']} id='focus-btn' onClick={this.focusFunc}>Focus</button>
+                        <p>(Zoom in and click focus to see pdf clearer)</p>
+                    </div>
+                    <button type="button" className="upload-btn" >Upload</button>
+                    <button type="button" className="download-btn">Download</button>
                 </div>
-                <button type="button" className="upload-btn" >Upload</button>
-                <button type="button" className="download-btn">Download</button>
             </div>
         )
     }
