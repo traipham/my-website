@@ -4,13 +4,17 @@
 }
 
 .header{
-    background-color: rgb(220, 20, 60);
+    background-color: rgb(103, 89, 136);
+    color:rgb(255, 255, 255);
     margin-left: auto; margin-right: auto;
     padding: 20px;
     border: 3px black;
     border-style: double;
     border-radius: 5px;
     text-align: center;
+    font-family: Varela Round;
+    font-style: oblique;
+    letter-spacing: 2px;
 }
 
 .goals-container{

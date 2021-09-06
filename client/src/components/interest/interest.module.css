@@ -7,13 +7,28 @@
 }
 
 .header{
-    background-color: rgb(220, 20, 60);
+    background-color: rgb(103, 89, 136);
+    color:rgb(255, 255, 255);
     margin-left: auto; margin-right: auto;
     padding: 20px;
     border: 3px black;
     border-style: double;
     border-radius: 5px;
     text-align: center;
+    font-family: Varela Round;
+    font-style: oblique;
+    letter-spacing: 2px;
+}
+
+.interest-container{
+  margin-bottom: 10px;
+  border: 2px solid black;
+  box-shadow: 4px 4px 4px 0px rgba(90, 80, 80, 0.561);
+  transition: all 0.5s ease-in;
+}
+
+.interest-container:hover{
+  box-shadow: 4px 4px 3px 4px #fcbf49;
 }
 
 #add-interest-interface{
@@ -52,4 +67,13 @@
 #interest-submit-btn{
   background-color: rgba(10, 212, 10, 0.781);
   margin: 10px;
+}
+
+.remove-btn{
+  position: absolute;
+  background-color: red;
+  border: 2px solid black;
+  border-radius: 5px;
+  top: 10px; right: 10px;
+  /* float: right; */
 }
