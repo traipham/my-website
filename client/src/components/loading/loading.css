@@ -13,10 +13,10 @@
     letter-spacing: 3px;
     text-decoration: underline;
     text-shadow: 3px 3px 6px rgb(136, 136, 136);
-    color: white;
+    color: rgb(2, 0, 0);
     width:fit-content;
     margin: auto;
-    background-color: black;
+    /* background-color: black; */
 }
 
 #warning-msg{
