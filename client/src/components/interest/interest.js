@@ -42,6 +42,8 @@ class Interest extends React.Component {
         this.displayInterestFunc = this.displayInterestFunc.bind(this);
         this.deleteAcadBtnOnClick = this.deleteAcadBtnOnClick.bind(this);
         this.deletePersBtnOnClick = this.deletePersBtnOnClick.bind(this);
+        this.removeAcadInterface = this.removeAcadInterface.bind(this);
+        this.persRemoveInterface = this.persRemoveInterface.bind(this);
         // this.handleOnMouseOverInterest = this.handleOnMouseOverInterest.bind(this);
         // this.handleOnMouseOutInterest = this.handleOnMouseOutInterest.bind(this);
     }
@@ -150,6 +152,20 @@ class Interest extends React.Component {
         })
     }
 
+    persRemoveInterface(){
+        this.setState({
+            ...this.state,
+            addPersBtn: false,
+        })
+    }
+
+    removeAcadInterface(){
+        this.setState({
+            ...this.state,
+            addAcadBtn: false,
+        })
+    }
+
     /**
      * Delete academic interest and change state
      * @param {*} e - event object for onClick of delete button 
@@ -227,7 +243,7 @@ class Interest extends React.Component {
                     <h3>Academic/Career Interest</h3>
                     <div className="interface-container" id="academic-interest-interface">
                         {
-                            this.state.addAcadBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} /> : null
+                            this.state.addAcadBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} removeInterface={this.removeAcadInterface}/> : null
                         }
                     </div>
                     <button type="button" className="add-btn" id="add-academic-interest" onClick={this.setAddAcadBtn}>Add</button>
@@ -250,11 +266,11 @@ class Interest extends React.Component {
                         era. It sounds cliche, but I enjoy working with technology.
                     </p>
                 </div>
-                <div id="personal-interest-container">
+                <div className={styles['interest-container']} id="personal-interest-container">
                     <h3>Personal Interest</h3>
                     <div className="interface-container" id="personal-interest-interface">
                         {
-                            this.state.addPersBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} /> : null
+                            this.state.addPersBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} removeInterface={this.persRemoveInterface}/> : null
                         }
                     </div>
                     <button type="button" className="add-btn" id="add-personal-interest" onClick={this.setAddPersBtn}>Add</button>

@@ -16,6 +16,7 @@ class AddInterestInterface extends React.Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleOnChangeInterest = this.handleOnChangeInterest.bind(this);
+        this.handleOnClickRemoveBtn = this.handleOnClickRemoveBtn.bind(this);
     }
 
     componentDidMount() {
@@ -41,6 +42,12 @@ class AddInterestInterface extends React.Component {
             ...this.state,
             interest: e.target.value
         })
+    }
+
+    handleOnClickRemoveBtn(e){
+        e.preventDefault();
+
+        this.props.removeInterface();
     }
 
     /**
@@ -77,6 +84,7 @@ class AddInterestInterface extends React.Component {
         return (
             <div className={styles.addInterface}>
                 <div className="container">
+                    <button className={styles['remove-btn']} id='remove-interface' onClick={this.handleOnClickRemoveBtn}>X</button>
                     <h4>Add a new {this.state.typeOfInterest} Interest</h4>
                     <hr />
                     <form onSubmit={this.handleSubmit}>
