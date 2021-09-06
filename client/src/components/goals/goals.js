@@ -45,15 +45,20 @@ export const GoalDisplay = (props) => {
      * @param {*} e - event object for onClick of remove button 
      */
     const handleRemoveBtnOnClick = async (e) =>{
-        props.removeDisplayLoading();
+        if(window.confirm("Are you sure you want to delete this goal?")){
+            props.removeDisplayLoading();
 
-        const indexToDelete = props.index-1;
-        const deletePost = await axios.delete('/goals/delete/1', { data: { index: indexToDelete } } );
-        // console.log(deletePost);
-        if(deletePost.status === 200){
-            props.afterRemovalDisplay(indexToDelete);
+            const indexToDelete = props.index - 1;
+            const deletePost = await axios.delete('/goals/delete/1', { data: { index: indexToDelete } });
+            // console.log(deletePost);
+            if (deletePost.status === 200) {
+                console.log('Deleted at index: ' + indexToDelete);
+                props.afterRemovalDisplay(indexToDelete);
+            } else {
+                console.log(deletePost.data);
+            }
         } else {
-            console.log(deletePost.data);
+            console.log("Don't delete this goal!")
         }
     }
 
@@ -203,6 +208,7 @@ class Goals extends React.Component {
             loading: false,
             goals: arrWish
         })
+        console.log(this.state.goals);
     }
 
     render() {
