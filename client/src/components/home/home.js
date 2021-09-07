@@ -9,7 +9,7 @@ function Home() {
         display: "block"
     }
 
-    function homeBtn() {
+    const homeBtn = () => {
         window.location = "/"
         document.getElementById('welcome-container').style.display = "block";
     }
@@ -17,7 +17,7 @@ function Home() {
     /**
      * Display welcome message when in home page
      */
-    function handleWelcomePage() {
+    const handleWelcomePage = () => {
         // Get current path and check what page we're on
         const pathName = window.location.pathname.toString();
         console.log(pathName);
@@ -35,7 +35,6 @@ function Home() {
     const handleClick = (e) =>{
         document.getElementById('welcome-container').style.display = "none";
     }
-
     /**
      * DIsplay a msg ( will update! )
      * @param {*} e - event object for onClcik of Welcome button 
@@ -51,9 +50,10 @@ function Home() {
     return(
         <div className="home">
             {/* <h2 className="heading" onClick={homeBtn}>Trai's Website</h2> */}
-            <div className="header">
+            <div className="header" >
                 <nav className='pages-nav'>
                     <button type="button" id="home-btn" id="home-btn" onClick={homeBtn}>Home</button>
+                    <p id="header-msg"> Hover over Me! </p>
                     <Link id={styles['resume-link']} to="/resume"><button id="resume" onClick={handleClick}>Resume</button></Link>
                     <Link id={styles['interest-link']} to="/interest"><button id="interest" onClick={handleClick}>Interest</button></Link>
                     <Link id={styles['blog-link']} to="/blog"><button id="blog" onClick={handleClick}>Blog</button></Link>
