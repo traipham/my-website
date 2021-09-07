@@ -253,13 +253,13 @@ class Blog extends React.Component {
         return (
             <div className={styles.page}>
                 <h1 className={styles["header"]} id="blog-header">My Blog</h1>
-                <h2 style={{ float: 'right'}}>Feedback. . .</h2>
+                {
+                    this.displayLoading()
+                }
+                <h2 className={styles['post-comments']} id='blog-comments'>Feedback. . .</h2>
                 <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>
                 {
                     this.displayAddBlogPostInterface()
-                }
-                {
-                    this.displayLoading()
                 }
                 <div className="container" id={styles["post-container"]}>
                     {

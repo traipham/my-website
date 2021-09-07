@@ -42,12 +42,16 @@
     z-index: 2;
 }
 
+.post-comments{
+    float: right;
+}
+
 /***Blog-Interface-Style***/
 #post-interface-container{
     visibility: visible;
-    position: absolute;
+    position: fixed;
     margin: auto;
-    z-index: 10000; 
+    z-index: 3; 
     left: 0; right: 0;
     border: 3px solid black;
     border-radius: 5px;
