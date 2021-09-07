@@ -87,20 +87,6 @@
   top: 0px;
 }
 
-#resume{
-  display: inline-block;
-  top: 10px;
-  position: relative;
-  opacity: 0;
-}
-
-#wish-list{
-  display: inline-block;
-  top: 10px;
-  position: relative;
-  opacity: 0;
-}
-
 #setting{ 
   position: absolute;
   right: 0%;
