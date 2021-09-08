@@ -71,6 +71,7 @@
 #post-interface-container{
     visibility: visible;
     position: fixed;
+    top: 15%;
     margin: auto;
     z-index: 3; 
     left: 0; right: 0;

@@ -104,7 +104,7 @@ const BlogPostInterface = (props) => {
                     <label id="label-img" htmlFor="input-img"><b>Select Image (not required) :</b></label>
                     <br/>
                     <input type="file" id="input-img" name="image" accept="image/*" onChange={handleSelectImage}></input>
-                    <img className="post-img" id="blog-img" src="#" alt="preview image" height="250px" width="250px"></img>
+                    <img className="post-img" id="blog-img" src="#" alt="preview image" height="200px" width="200px"></img>
                 </div>
 
                 {/**
