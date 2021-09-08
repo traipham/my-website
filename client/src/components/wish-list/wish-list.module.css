@@ -5,7 +5,7 @@
 }
 
 .header{
-    background-color: rgb(103, 89, 136);
+    background: radial-gradient(rgba(141, 149, 170, 0.959) 5%, rgb(103, 89, 136)50%);
     color:rgb(255, 255, 255);
     margin-left: auto; margin-right: auto;
     padding: 20px;
@@ -16,6 +16,26 @@
     font-family: Varela Round;
     font-style: oblique;
     letter-spacing: 2px;
+    position: relative;
+    transition: all 2s ease;
+    z-index: 1;
+}
+
+.header::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(rgb(103, 89, 136) 25%,rgba(141, 149, 170, 0.781));
+  z-index: -1;
+  transition: all 0.5s linear;
+  opacity: 0;
+}
+
+.header:hover::before {
+  opacity: 1;
 }
 
 #wish-display-container{
