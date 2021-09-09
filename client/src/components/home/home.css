@@ -1,6 +1,7 @@
 .heading {
   text-align: center;
   background-color: #D62828;
+  width: fit-content; height: fit-content;
 }
 .home {
   background-color: #003049;
@@ -100,6 +101,7 @@
 
 #welcome-container{
   background-color: lightblue;
+  /* width: fit-content; height: fit-content; */
 }
 #click-me-btn{
   text-align: center;
@@ -110,10 +112,35 @@
   box-shadow:rgba(0, 0, 0, 0.774) 0px 0px 15px;
   padding: 10px;
   margin: 10px;
+  animation-name: quick-btn-animate; 
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 #welcome-msg{
   text-align: center;
 }
+
 #btn-container{
   text-align: center;
+  height: 100%;
+}
+
+
+
+@keyframes quick-btn-animate{
+  0%{
+    transform: translate(0,0);
+  }
+  35%{
+    transform: translate(-100%, 0);
+  }
+  70%{
+    transform: translate(100%, 0);
+  }
+  100%{
+    transform: translate(0,0);
+  }
 }

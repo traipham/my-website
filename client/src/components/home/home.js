@@ -5,6 +5,7 @@ import styles from './home.css';
 
 function Home() {
 
+
     const styleWelcome = {
         display: "block"
     }
@@ -66,7 +67,7 @@ function Home() {
             {
                 handleWelcomePage()
             }
-            <div className="home-container" id="welcome-container" style={styleWelcome}>
+            <div className="home-container" id="welcome-container" style={styleWelcome} >
                 <h2 id="welcome-msg"><b>Welcome to my Page!</b></h2>
                 <div className="home-container" id="btn-container">
                     <button type="button" className="btn-btn" id="click-me-btn" onClick={handleWelcomeBtnOnClick}><b>Click Me!</b></button>
