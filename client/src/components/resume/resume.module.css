@@ -59,6 +59,47 @@
     margin-right: 50px;
 }
 
+.img-container{
+    border: 5px solid black;
+    border-radius: 0px 10px 10px 10px;
+    float: left;
+    margin-right: 20px; margin-left: 20px;
+}
+
+#gradient-border{
+    position: relative;
+    padding: 1px;
+    margin-left: 20%;
+    margin-right: 5%;
+    /* position: relative; */
+    background: linear-gradient(to right, rgba(255, 0, 0, 0.897), rgba(0, 0, 0, 0.349));
+    transition: all 2s ease-in-out;
+    z-index: 1;
+}
+
+#gradient-border::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to right,rgb(68, 133, 16) 25%,rgba(231, 19, 19, 0.781));
+  z-index: -1;
+  transition: all 0.5s linear;
+  opacity: 0;
+}
+#gradient-border:hover::before{
+    opacity: 1;
+}
+
+#my-description-container{
+    background: rgb(255, 255, 255);
+    text-align: justify;
+    margin: 10px;
+    padding: 10px;
+}
+
 .focus-btn{
     display: inline-block;
     background-color: lightgreen;
