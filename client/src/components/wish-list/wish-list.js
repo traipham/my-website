@@ -81,7 +81,7 @@ export const WishDisplay = (props) => {
     }
 
     return(
-        <div className={styles['display-container']} id='wish-container' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+        <div className={styles['display-container']} id={styles['wish-container-'+props.index]} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             <button type="button" className={styles["remove-btn"]} id={"remove-wish-"+props.index} onClick={removeWishOnClickBtn}><b>Remove this Wish</b></button>
             <p className="index" id={styles["wish-num"]}><b>Wish #: </b><i>{props.index}</i></p>
             <p className="date" id="wish-date"><b>Date: </b>{props.date.toString().slice(0,10)}</p>
@@ -301,7 +301,7 @@ class WishList extends React.Component {
                             if(this.state.noWish || this.state.addBtn){
                                 return;
                             } else {
-                                return <WishDisplay key={"wish-" + wish.index} removeWish={this.setRemoveWish} index={wish.index}  title={wish.title} description={wish.description} tag={wish.tag} img={wish.img} rating={wish.rating} date={wish.date} displayLoading={this.removeDisplayLoading}/>
+                                return <WishDisplay key={"wish-" + wish.index} id={"wish-"+wish.index} removeWish={this.setRemoveWish} index={wish.index}  title={wish.title} description={wish.description} tag={wish.tag} img={wish.img} rating={wish.rating} date={wish.date} displayLoading={this.removeDisplayLoading}/>
                             }
                     //***TEST STATE VALUES WHEN SUBMIT ***/
 
