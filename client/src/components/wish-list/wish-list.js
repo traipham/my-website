@@ -71,6 +71,8 @@ export const WishDisplay = (props) => {
      */
     const imageExist = () => {
         if(props.img === undefined){
+            // document.getElementById('wish-container').style.flex = '';
+            console.log('No image exist for wish #: ' + props.index);
             return
         } else {
             let imgB64 = Buffer.from(props.img.data).toString('base64');
@@ -79,7 +81,7 @@ export const WishDisplay = (props) => {
     }
 
     return(
-        <div className="container" id={styles['wish-container']} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+        <div className={styles['display-container']} id='wish-container' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             <button type="button" className={styles["remove-btn"]} id={"remove-wish-"+props.index} onClick={removeWishOnClickBtn}><b>Remove this Wish</b></button>
             <p className="index" id={styles["wish-num"]}><b>Wish #: </b><i>{props.index}</i></p>
             <p className="date" id="wish-date"><b>Date: </b>{props.date.toString().slice(0,10)}</p>

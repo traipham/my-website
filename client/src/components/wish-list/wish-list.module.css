@@ -43,7 +43,9 @@
     flex-direction: row;
     flex-wrap: wrap;
     border-style: outset;
-    
+}
+#wish-display-container > * {
+    flex: 1 1 auto;
 }
 
 .add-wish{
@@ -129,7 +131,7 @@ Each Input style
 
 
 /***Wish-display-component***/
-#wish-container{
+.display-container{
     /* visibility: hidden; */
     border: 5px solid black;
     border-radius: 5px;
@@ -143,7 +145,7 @@ Each Input style
     transition: all .4s ease;
 }
 
-#wish-container:hover{
+.display-container:hover{
     border-radius: 50% 50% 50% 50% / 5% 5% 5% 5% ;
     box-shadow: 10px 10px #fcc04963;
 }
