@@ -144,3 +144,90 @@
     transform: translate(0,0);
   }
 }
+
+/***WELCOME-MSG-DISPLAY***/
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 70%; height: fit-content;
+  margin-left: auto; margin-right: auto;
+  margin-top: 20px;
+}
+
+.container > *{
+  flex: 1 1 auto;
+  display: inline-block;
+  text-align: center;
+  background: rgb(253, 253, 253);
+}
+
+.container > #l-1{
+  animation-name: welcome-animate;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.container > #l-2{
+
+  animation-name: welcome-animate;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.container > #l-3{
+  animation-name: welcome-animate;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.container > #l-4{
+  animation-name: welcome-animate;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.container > #l-5{
+  animation-name: welcome-animate;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.container > #l-6{
+  animation-name: welcome-animate;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 2.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.container > #l-7{
+  animation-name: welcome-animate;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes welcome-animate{
+  from{
+    opacity: 1;
+    /* background: linear-gradient(to left, salmon 40%, rgb(219, 234, 240) 10%) right;
+    background-size: 300%; */
+  }
+  to{ 
+    opacity: 0.9;
+    /* background-position: left; */
+    transform: scale(1.5);
+  }
+}

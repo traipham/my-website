@@ -5,6 +5,7 @@ import resumePDF from './resume.pdf';
 import DisplayResume from "./pdf.component";
 import Me from './Me.jpg';
 import NewResume from "./new_resume.jpg"
+
 const Linkedin = <a href="https://www.linkedin.com/in/trai-pham-4a1272198/">Linkedin</a>
 const GitHub = <a href="https://github.com/traipham">GitHub</a>
 const HandShake = <a href="https://ucsd.joinhandshake.com/users/18070890">HandShake</a>
