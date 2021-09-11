@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import styles from './blogDisplay.css';
+import React from 'react';
+import styles from './blogDisplay.module.css';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 

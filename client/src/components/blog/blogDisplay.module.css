@@ -87,13 +87,13 @@
     } */
 
 .arrow-pointer:before {
-        content: '';
-        position: absolute;
-        right: -12px;
-        bottom: 0;
-        width: 0;
-        height: 0;
-        border-left: 12.0px solid  #f6b02d;
-        border-top: 12.0px solid transparent;
-        border-bottom: 12.0px solid transparent;
-    }
+    content: '';
+    position: absolute;
+    right: -12px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 12.0px solid  #f6b02d;
+    border-top: 12.0px solid transparent;
+    border-bottom: 12.0px solid transparent;
+}

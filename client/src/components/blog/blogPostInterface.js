@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import styles from './blog.module.css';
+import styles from './blogPostInterface.module.css';
 import axios from 'axios';
 
 /**
@@ -95,7 +95,9 @@ const BlogPostInterface = (props) => {
     return (
         <div className="container" id={styles["post-interface-container"]}>
             <button className={styles['remove-btn']} id='remove-interface' onClick={handleOnClickRemoveBtn}>X</button>
-            <h4 id={styles["header"]}><b>Create a Post</b></h4>
+            <div id={styles["header-container"]}>
+                <h4 id={styles["header"]}><b>Create a Post</b></h4>
+            </div>
             <form method="POST" id={styles["post-interface-form"]} onSubmit={handleSubmit} encType="multipart/form-data">
                 {/**
                  * Input Image
