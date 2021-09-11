@@ -1,0 +1,31 @@
+/*** Content Interface Styling ***/
+.content-interface {
+    position: absolute;
+    margin: auto;
+    left: 0; right: 0;
+    width:fit-content;
+    padding: 20px;
+    background-color: gold;
+    border: solid black 5px;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.inp-container{
+    margin: 10px;
+}
+
+#add-content{
+    margin-right: 10px;
+}
+
+#add-color{
+    margin-right: 10px;
+}
+
+.submit-btn {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    background-color: rgb(1, 230, 1);
+}

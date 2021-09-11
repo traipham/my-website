@@ -3,7 +3,6 @@ import styles from './blog.module.css';
 import BlogPostInterface from "./blogPostInterface";
 import DisplayBlogPost from "./blogDisplay";
 import Loading from '../loading/loading';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 
 

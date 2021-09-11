@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import styles from './goals.module.css';
+import styles from './goalsPostInterface.module.css';
 
 /**
  * This file will be where I learn about Hooks and component functions. I learned how to transfer information
