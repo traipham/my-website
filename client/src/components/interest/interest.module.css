@@ -41,15 +41,35 @@
   opacity: 1;
 }
 
+
 .interest-container{
   margin-bottom: 10px;
   border: 2px solid black;
   box-shadow: 4px 4px 4px 0px rgba(90, 80, 80, 0.561);
+  background: url('./image/Me_and_Croft.jpeg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+
   transition: all 0.5s ease-in;
 }
 
 .interest-container:hover{
   box-shadow: 4px 4px 3px 4px #fcbf49;
+}
+
+.list-container{
+  background: rgba(128, 128, 128, 0.596);
+  box-shadow: 1px 1px 5px 2px rgba(230, 220, 220, 0.493);
+}
+
+.desc-container{
+  background: rgba(128, 128, 128, 0.596);
+  box-shadow: 1px 1px 5px 2px rgba(230, 220, 220, 0.493);
+  text-align: justify;
+  margin: auto;
+  width: 50%; 
+  padding: 5px;
 }
 
 .interest-date{

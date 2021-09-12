@@ -247,24 +247,28 @@ class Interest extends React.Component {
                         }
                     </div>
                     <button type="button" className="add-btn" id="add-academic-interest" onClick={this.setAddAcadBtn}>Add</button>
-                    <ul className="acad-list">
-                        {
-                            this.state.academicInterest.slice(1).map((interest)=>{
-                                return (
-                                    <li key={"a-li-"+interest.index} id={'acad-interest-'+interest.index}>
-                                        {interest.interest} // <b>{interest.date.toString().slice(0,10)}</b>
-                                        <button type="button" className={styles["delete-btn"]} id={'del-btn-' + interest.index} onClick={this.deleteAcadBtnOnClick}>X</button>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                    <p>
-                        I'm very flexible with what I want to do professionally. I want to be able to gain all types of experience.
-                        I want to learn many new concepts/subjects within the field of computer science and technology. The advancement
-                        of technology would be extremely beneficial for everyone, in which I wish to be a part of building the new technological
-                        era. It sounds cliche, but I enjoy working with technology.
-                    </p>
+                    <div className={styles["list-container"]}>
+                        <ul className="acad-list">
+                            {
+                                this.state.academicInterest.slice(1).map((interest) => {
+                                    return (
+                                        <li key={"a-li-" + interest.index} id={'acad-interest-' + interest.index}>
+                                            {interest.interest} // <b>{interest.date.toString().slice(0, 10)}</b>
+                                            <button type="button" className={styles["delete-btn"]} id={'del-btn-' + interest.index} onClick={this.deleteAcadBtnOnClick}>X</button>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
+                    <div className={styles["desc-container"]}>
+                        <p>
+                            I'm very flexible with what I want to do professionally. I want to be able to gain all types of experience.
+                            I want to learn many new concepts/subjects within the field of computer science and technology. The advancement
+                            of technology would be extremely beneficial for everyone, in which I wish to be a part of building the new technological
+                            era. It sounds cliche, but I enjoy working with technology.
+                        </p>
+                    </div>
                 </div>
                 <div className={styles['interest-container']} id="personal-interest-container">
                     <h3>Personal Interest</h3>
@@ -274,18 +278,20 @@ class Interest extends React.Component {
                         }
                     </div>
                     <button type="button" className="add-btn" id="add-personal-interest" onClick={this.setAddPersBtn}>Add</button>
-                    <ul className="pers-list">
-                        {
-                            this.state.personalInterest.slice(1).map((interest) => {
-                                return (
-                                    <li key={"p-li-" + interest.index} id={'pers-interest-' + interest.index}>
-                                        {interest.interest} // <b>{interest.date.toString().slice(0, 10)}</b>
-                                        <button type="button" className={styles["delete-btn"]} id={'del-btn-' + interest.index} onClick={this.deletePersBtnOnClick}>X</button>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
+                    <div className={styles['list-container']}>
+                        <ul className="pers-list">
+                            {
+                                this.state.personalInterest.slice(1).map((interest) => {
+                                    return (
+                                        <li key={"p-li-" + interest.index} id={'pers-interest-' + interest.index}>
+                                            {interest.interest} // <b>{interest.date.toString().slice(0, 10)}</b>
+                                            <button type="button" className={styles["delete-btn"]} id={'del-btn-' + interest.index} onClick={this.deletePersBtnOnClick}>X</button>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
         )
