@@ -238,10 +238,11 @@ class Interest extends React.Component {
     render(){
         return (
             <div className={styles['interest-page']} id="interest-page">
+
                 <h1 className={styles["header"]}>Interests</h1>
                 <div className={styles['interest-container']} id="academic-int-container">
                     <h3>Academic/Career Interest</h3>
-                    <div className="interface-container" id="academic-interest-interface">
+                    <div className={styles["interface-container"]} id="academic-interest-interface">
                         {
                             this.state.addAcadBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} removeInterface={this.removeAcadInterface}/> : null
                         }
@@ -272,7 +273,7 @@ class Interest extends React.Component {
                 </div>
                 <div className={styles['interest-container']} id="personal-interest-container">
                     <h3>Personal Interest</h3>
-                    <div className="interface-container" id="personal-interest-interface">
+                    <div className={styles["interface-container"]} id="personal-interest-interface">
                         {
                             this.state.addPersBtn ? <AddInterestInterface displayInterestFunc={this.displayInterestFunc} whichBtn={this.state.whichBtn} removeInterface={this.persRemoveInterface}/> : null
                         }

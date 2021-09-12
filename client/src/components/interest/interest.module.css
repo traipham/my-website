@@ -54,6 +54,10 @@
   transition: all 0.5s ease-in;
 }
 
+.interface-container{
+  color: black;
+}
+
 .interest-container:hover{
   box-shadow: 4px 4px 3px 4px #fcbf49;
 }
