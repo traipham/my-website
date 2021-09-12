@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import styles from './wish-list.module.css';
+import styles from './wishPostInterface.module.css';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
