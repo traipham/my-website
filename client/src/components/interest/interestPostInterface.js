@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import styles from './interest.module.css';
+import styles from './interestPostInterface.module.css';
 
 /**
  * Add Interest Interface child Component
@@ -82,10 +82,10 @@ class AddInterestInterface extends React.Component {
 
     render() {
         return (
-            <div className={styles.addInterface}>
-                <div className="container">
+            <div className={styles['addInterface']}>
+                <div className={styles["container"]}>
                     <button className={styles['remove-btn']} id='remove-interface' onClick={this.handleOnClickRemoveBtn}>X</button>
-                    <h4>Add a new {this.state.typeOfInterest} Interest</h4>
+                    <h4 className={styles['header']}>Add a new {this.state.typeOfInterest} Interest</h4>
                     <hr />
                     <form onSubmit={this.handleSubmit}>
                         <label className="label" id="label-interest" htmlFor="input-interest"><b>Interest: </b></label>
