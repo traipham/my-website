@@ -59,24 +59,11 @@ const DisplayBlogPost = (props) => {
             return <img className={styles["post-img"]} src={`data:image/jpeg;base64,${imgB64}`} id="post-image" width="200px" height="200px" />;
         }
     }
-    /**
-     * Display remove button when hovered over post
-     */
-    function containerOnHover() {
-        document.getElementById(`blog-btn-${props.index}`).style.visibility = 'visible';
-    }
-
-    /**
-     * Hide remove button when not hovered over post
-     */
-    function containerMouseOut() {
-        document.getElementById(`blog-btn-${props.index}`).style.visibility = 'hidden';
-    }
 
     return (
-        <div className={styles["post-container"]} id="post-container" onMouseOver={containerOnHover} onMouseOut={containerMouseOut}>
+        <div className={styles["post-container"]} id="post-container">
             <div className={styles["post"]}>
-                <button type="button" className="btn" id={"blog-btn-" + props.index} onClick={handleRemoveBtn} style={btnStyle}>Remove</button>
+                <button type="button" className={styles["remove-btn"]} id={"blog-btn-" + props.index} onClick={handleRemoveBtn}>Remove</button>
                 <div className={styles['arrow-pointer']} >
                     <h4 className={styles['post-index']} id="index">{props.index}</h4>
                 </div>

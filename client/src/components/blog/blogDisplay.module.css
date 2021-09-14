@@ -23,11 +23,12 @@
 }
 
 .post-date{
-    border: 2px solid black;
+    border: 2px black;
     border-style: dotted;
     border-radius: 5px;
     background-color: #f6b02d;
     padding: 5px;
+    margin-top: 40px;
     width: fit-content;
 }
 
@@ -96,4 +97,58 @@
     border-left: 12.0px solid  #f6b02d;
     border-top: 12.0px solid transparent;
     border-bottom: 12.0px solid transparent;
+}
+
+.remove-btn{
+    background-color: rgba(255, 55, 55, 0.733);
+    border: 2px solid black;
+    border-radius: 5px;
+    font-weight: bold;
+    float: left;
+    padding: 5px;
+    opacity: 0;
+    /* visibility: hidden; */
+    /* margin-bottom: 10px; */
+
+    transition: all 1s ease-in-out;
+}
+
+.post-container:hover .remove-btn{
+    /* transform: scale(2); */
+    animation-name: remove-btn-animate;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-direction: normal;
+
+
+    opacity: 1;
+}
+/**Remove-btn-animation: Appear and rumble**/
+@keyframes remove-btn-animate {
+    0%{
+        opacity: 0; 
+        transform: rotate(0deg);
+    }
+    50%{
+        opacity: 1;
+        transform: rotate(360deg);
+    }
+    75%{
+        transform: scale(0.5);
+    }
+    85%{
+        transform: scale(1);
+    }
+    90%{
+        transform: translate(0px, -5px);
+    }
+    95%{
+        transform: translate(0px, 2px);
+    }
+    97%{
+        transform: translate(0px, -1px);
+    }
+    100%{
+        transform: translate(0px, 0px);
+    }
 }
