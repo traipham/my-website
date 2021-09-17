@@ -2,9 +2,10 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import styles from './home.css';
 import WelcomeDisplay from './welcomeMsg.js';
+import OnClickConfetti from './confetti';
 
 function Home() {
-
+    const [welcome, setWelcome] = useState(false);
 
     const styleWelcome = {
         display: "block"
@@ -41,13 +42,20 @@ function Home() {
      * @param {*} e - event object for onClcik of Welcome button 
      */
     const handleWelcomeBtnOnClick = (e) =>{
-        window.alert(
-            "WELCOME! This is my own personal website and is my first website built entirely by me from the ground up!\n\n" + 
-            "Feel free to look around, but please don't submit any input. You can click on the buttons to check out the interface.\n\n" +
-             "I'll make a new welcome format soon!"
-            )
+        setWelcome(true);
+
+        document.getElementById('click-me-btn').style.boxShadow = "rgba(0, 0, 0, 0.774) 0px 0px 0px 0px";
+        document.getElementById('click-me-btn').style.padding = "12px";
+        document.getElementById('click-me-btn').style.background = "lightgreen";
     }
 
+    const resetConfetti = (e) =>{
+        setWelcome(false);
+
+        document.getElementById('click-me-btn').style.boxShadow = "rgba(0, 0, 0, 0.774) 6px 5px 1px 5px";
+        document.getElementById('click-me-btn').style.padding = "10px";
+        document.getElementById('click-me-btn').style.background = "rgba(255, 255, 255)";
+    }
     return(
         <div className="home">
             {/* <h2 className="heading" onClick={homeBtn}>Trai's Website</h2> */}
@@ -73,6 +81,9 @@ function Home() {
                 <div className="home-container" id="btn-container">
                     <button type="button" className="btn-btn" id="click-me-btn" onClick={handleWelcomeBtnOnClick}><b>Click Me!</b></button>
                 </div>
+                {
+                    welcome ? <OnClickConfetti resetConfetti={resetConfetti}/> : null
+                }
             </div>
         </div>
     )

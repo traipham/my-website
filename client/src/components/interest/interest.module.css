@@ -89,6 +89,12 @@
   /* visibility: hidden; */
 }
 
+ul li{
+  text-shadow: 2px 2px black;
+  font-size: large;
+  letter-spacing: 1px;
+}
+
 ul li:hover {
   background-color: #fcc049af;
 }

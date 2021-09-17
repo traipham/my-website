@@ -254,7 +254,7 @@ class Interest extends React.Component {
                                 this.state.academicInterest.slice(1).map((interest) => {
                                     return (
                                         <li key={"a-li-" + interest.index} id={'acad-interest-' + interest.index}>
-                                            {interest.interest} // <b>{interest.date.toString().slice(0, 10)}</b>
+                                            <b>{interest.interest}</b> // <b>{interest.date.toString().slice(0, 10)}</b>
                                             <button type="button" className={styles["delete-btn"]} id={'del-btn-' + interest.index} onClick={this.deleteAcadBtnOnClick}>X</button>
                                         </li>
                                     )
@@ -285,7 +285,7 @@ class Interest extends React.Component {
                                 this.state.personalInterest.slice(1).map((interest) => {
                                     return (
                                         <li key={"p-li-" + interest.index} id={'pers-interest-' + interest.index}>
-                                            {interest.interest} // <b>{interest.date.toString().slice(0, 10)}</b>
+                                            <b>{interest.interest}</b> // <b>{interest.date.toString().slice(0, 10)}</b>
                                             <button type="button" className={styles["delete-btn"]} id={'del-btn-' + interest.index} onClick={this.deletePersBtnOnClick}>X</button>
                                         </li>
                                     )

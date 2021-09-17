@@ -119,7 +119,7 @@ class Goals extends React.Component {
 
     /**
      * Set a new array state without deleted goal
-     * @param {*} indexToDelete - index of goal that w'ere going to delete 
+     * @param {int} indexToDelete - index of goal that w'ere going to delete 
      */
     afterRemovalDisplay(indexToDelete){
         let arrWish = this.state.goals;
