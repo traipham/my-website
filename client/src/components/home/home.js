@@ -68,8 +68,8 @@ function Home() {
                     <Link id={styles['blog-link']} to="/blog"><button id="blog" onClick={handleClick}>Blog</button></Link>
                     <Link id={styles['wish-list-link']} to="/wish-list"><button id="wish-list" onClick={handleClick}>Wish List</button></Link>
                     <Link id={styles['goals-link']} to="/goals"><button id="goals" onClick={handleClick}>Goals</button></Link>
-                    {/* <Link to="/random"><button className="random" onClick={handleClick}>Leave a Note</button></Link>
-                    <Link to="/setting"><button className="setting" onClick={handleClick}>Setting</button></Link> */}
+                    {/* <Link id={styles['random-link']} to="/random"><button id="random" onClick={handleClick}>Leave a Note</button></Link> */}
+                    {/*<Link to="/setting"><button className="setting" onClick={handleClick}>Setting</button></Link> */}
                 </nav>
             </div>
             {
