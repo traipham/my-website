@@ -165,9 +165,7 @@ class Goals extends React.Component {
                     </Reward>
                 </div>
                 <h1 className={styles['header']} id="goals-header">Goals</h1>
-                {
-                    this.displayAddBtn()
-                }
+                <button type="button" className="add-interface-btn" id="add-goals-btn" style={{ visibility: 'visible' }} onClick={this.displayInterface}>Add Goals</button>
                 {
                     this.state.removeInterface ? null : <GoalInterface displayGoalsFunc={this.displayGoalsFunc}/>
                 }

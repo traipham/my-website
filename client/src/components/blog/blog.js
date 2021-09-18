@@ -34,6 +34,7 @@ class Blog extends React.Component {
         this.displayAddBlogPostInterface = this.displayAddBlogPostInterface.bind(this);
         this.displayBlogPostFunc = this.displayBlogPostFunc.bind(this);
         this.displayLoading = this.displayLoading.bind(this);
+        this.displayAddBtn = this.displayAddBtn.bind(this);
         this.removeDisplayLoading = this.removeDisplayLoading.bind(this);
         this.removeInterface = this.removeInterface.bind(this);
     }
@@ -124,6 +125,19 @@ class Blog extends React.Component {
     displayLoading() {
         if (this.state.loading) {
             return <Loading loading={this.state.loading} />
+        }
+    }
+
+    /**
+     * This will display the add button if we're in development, but not production
+     * @returns void
+     */
+    displayAddBtn() {
+        console.log(process.env.NODE_ENV);
+        if(process.env.NODE_ENV === 'development'){
+            return <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>;
+        } else {
+            console.log("Status: Production (can not add)");
         }
     }
 
