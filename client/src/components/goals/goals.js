@@ -28,6 +28,7 @@ class Goals extends React.Component {
 
         this.displayInterface = this.displayInterface.bind(this);
         this.displayGoalsFunc = this.displayGoalsFunc.bind(this);
+        this.displayAddBtn = this.displayAddBtn.bind(this);
         this.afterRemovalDisplay = this.afterRemovalDisplay.bind(this);
         this.displayLoading = this.displayLoading.bind(this);
         this.removeDisplayLoading = this.removeDisplayLoading.bind(this);
@@ -120,6 +121,15 @@ class Goals extends React.Component {
         })
     }
 
+    displayAddBtn(){
+        console.log(process.env.NODE_ENV);
+        if (process.env.NODE_ENV === 'development') {
+            return <button type="button" className="add-interface-btn" id="add-goals-btn" style={{ visibility: 'visible' }} onClick={this.displayInterface}>Add Goals</button>;
+        } else {
+            console.log("Status: Production (can not add)")
+        }
+    }
+
     /**
      * Set a new array state without deleted goal
      * @param {int} indexToDelete - index of goal that w'ere going to delete 
@@ -155,7 +165,9 @@ class Goals extends React.Component {
                     </Reward>
                 </div>
                 <h1 className={styles['header']} id="goals-header">Goals</h1>
-                <button type="button" className="add-interface-btn" id="add-goals-btn" style={{visibility: 'visible'}} onClick={this.displayInterface}>Add Goals</button>
+                {
+                    this.displayAddBtn()
+                }
                 {
                     this.state.removeInterface ? null : <GoalInterface displayGoalsFunc={this.displayGoalsFunc}/>
                 }
