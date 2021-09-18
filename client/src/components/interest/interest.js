@@ -1,4 +1,5 @@
 import React from "react";
+import Reward from 'react-rewards';
 import styles from './interest.module.css';
 import PropTypes from 'prop-types';
 import AddInterestInterface from './interestPostInterface';
@@ -84,6 +85,7 @@ class Interest extends React.Component {
                     }]
                 })
             })
+            this.reward.rewardMe();
         })
         setTimeout(() => {
             console.log(this.state);
@@ -238,7 +240,18 @@ class Interest extends React.Component {
     render(){
         return (
             <div className={styles['interest-page']} id="interest-page">
-
+                <div className={styles['reward']} id="reward-container">
+                    <Reward
+                        ref={(ref) => { this.reward = ref }}
+                        type='emoji'
+                        config={{
+                            zIndex: 10000,
+                            spread: 180
+                        }}
+                    >
+                        <p id="reward"></p>
+                    </Reward>
+                </div>
                 <h1 className={styles["header"]}>Interests</h1>
                 <div className={styles['interest-container']} id="academic-int-container">
                     <h3>Academic/Career Interest</h3>

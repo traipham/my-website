@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Reward from 'react-rewards';
 import styles from './goals.module.css';
 import GoalInterface from "./goalsPostInterface";
 import GoalDisplay from './goalsDisplay';
@@ -56,6 +57,7 @@ class Goals extends React.Component {
                     }]
                 })
             })
+            this.reward.rewardMe();
         }, 100)
     }
 
@@ -84,6 +86,7 @@ class Goals extends React.Component {
             })
         }, 300)
         document.getElementById('add-goals-btn').style.visibility = 'visible';
+        this.reward.rewardMe();
     }
 
     /**
@@ -132,12 +135,25 @@ class Goals extends React.Component {
             loading: false,
             goals: arrWish
         })
+        this.reward.rewardMe();
         // console.log(this.state.goals);
     }
 
     render() {
         return (
             <div className={styles.page}>
+                <div className={styles['reward']} id="reward-container">
+                    <Reward
+                        ref={(ref) => { this.reward = ref }}
+                        type='emoji'
+                        config={{
+                            zIndex: 10000,
+                            spread: 180
+                        }}
+                    >
+                        <p id="reward"></p>
+                    </Reward>
+                </div>
                 <h1 className={styles['header']} id="goals-header">Goals</h1>
                 <button type="button" className="add-interface-btn" id="add-goals-btn" style={{visibility: 'visible'}} onClick={this.displayInterface}>Add Goals</button>
                 {

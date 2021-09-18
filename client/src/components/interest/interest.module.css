@@ -6,6 +6,10 @@
   flex-direction: column; */
 }
 
+.reward{
+  text-align: center;
+}
+
 .header{
   background: radial-gradient(rgba(141, 149, 170, 0.959) 5%, rgb(103, 89, 136)50%);
   color:rgb(255, 255, 255);

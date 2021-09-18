@@ -84,7 +84,8 @@
 .pages-nav:hover #wish-list,
 .pages-nav:hover #interest,
 .pages-nav:hover #blog,
-.pages-nav:hover #goals{
+.pages-nav:hover #goals,
+.pages-nav:hover #random{
   opacity: 1;
   top: 0px;
 }

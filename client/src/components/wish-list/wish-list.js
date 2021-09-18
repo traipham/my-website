@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import Reward from 'react-rewards';
 import styles from './wish-list.module.css';
 import Loading from '../loading/loading';
 import WishDisplay from './wishDisplay';
@@ -69,8 +70,10 @@ class WishList extends React.Component {
                 })
             });
             document.getElementById('add-wish').style.visibility = 'visible';
+            this.reward.rewardMe();
         })
     }
+
 
     /**
      * set state values, and transfer state info to display Component
@@ -109,6 +112,7 @@ class WishList extends React.Component {
 
         // Make "Add a wish" button visible
         document.getElementById('add-wish').style.visibility = 'visible';
+        this.reward.rewardMe();
     }
 
     /**
@@ -133,7 +137,7 @@ class WishList extends React.Component {
     }
 
     displayLoading(){
-        if(this.state.loading){
+        if(this.state.loading){ 
             return <Loading loading={this.state.loading} />
         }
     }
@@ -176,11 +180,24 @@ class WishList extends React.Component {
             loading: false,
             displayWish: arrWishes
         })
+        this.reward.rewardMe();
     }
 
     render(){
         return (
             <div className={styles.page} id="wish-page">
+                <div className={styles['reward']} id="reward-container">
+                    <Reward
+                        ref={(ref) => { this.reward = ref }}
+                        type='emoji'
+                        config={{
+                            zIndex:10000,
+                            spread: 180
+                        }}
+                    >    
+                        <p id="reward"></p>
+                    </Reward>
+                </div>
                 <h1 className={styles["header"]} id="wishlist-header">My Wishes</h1>
                 <button type='button' className={styles['add-wish']} id='add-wish' onClick={this.setStateAddButton}>Add a Wish</button>
                 {

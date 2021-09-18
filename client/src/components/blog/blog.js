@@ -1,4 +1,5 @@
 import React from "react";
+import Reward from 'react-rewards';
 import styles from './blog.module.css';
 import BlogPostInterface from "./blogPostInterface";
 import DisplayBlogPost from "./blogDisplay";
@@ -61,6 +62,7 @@ class Blog extends React.Component {
                 })
             })
             document.getElementById('blog-add-btn').style.visibility = "visible";
+            this.reward.rewardMe();
         })
     }
 
@@ -90,6 +92,7 @@ class Blog extends React.Component {
                 }]
             })
             document.getElementById('blog-add-btn').style.visibility = "visible";
+            this.reward.rewardMe();
         }, 300);
     }
     
@@ -132,6 +135,7 @@ class Blog extends React.Component {
             ...this.state,
             loading: true
         })
+        this.reward.rewardMe();
     }
 
     /**
@@ -148,6 +152,18 @@ class Blog extends React.Component {
     render(){
         return (
             <div className={styles.page}>
+                <div className={styles['reward']} id="reward-container">
+                    <Reward
+                        ref={(ref) => { this.reward = ref }}
+                        type='emoji'
+                        config={{
+                            zIndex: 10000,
+                            spread: 180
+                        }}
+                    >
+                        <p id="reward"></p>
+                    </Reward>
+                </div>
                 <h1 className={styles["header"]} id="blog-header">My Blog</h1>
                 {
                     this.displayLoading()

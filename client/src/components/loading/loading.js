@@ -1,4 +1,5 @@
 import React from 'react'
+import Reward from 'react-rewards';
 import styles from './loading.css';
 
 
@@ -16,9 +17,11 @@ export default class Loading extends React.Component{
 
     componentWillUnmount(){
         clearInterval(loadingId);
+        console.log('loading dismount');
     }
 
     componentDidMount(){
+        this.reward.punishMe();
         console.log('loading Mounted!');
         document.getElementById('loading-container').style.display = "block";
         let dotNum = 0;
@@ -40,12 +43,18 @@ export default class Loading extends React.Component{
         }, 300)
     }
 
+
     render(){
         return(
             <div>
                 <div className='loading' id="loading-container" >
+                    <Reward
+                        ref={(ref) => { this.reward = ref }}
+                        type='emoji'
+                    >       
                     <p id="loading-msg">Loading</p>
                     <p id="warning-msg">(don't click anything please!)</p>
+                    </Reward>
                 </div>
             </div>
         )

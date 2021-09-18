@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './random.module.css';
 import genshin from './genshin_impact.png';
 import Display from './display.component.js';
+
+import Reward from 'react-rewards';
 /**
  * Favorite Game with stat objects
  */
@@ -30,6 +32,7 @@ class Random extends React.Component{
         this.setName = this.setName.bind(this);
         this.setPageColor = this.setPageColor.bind(this);
         this.setPrintGame = this.setPrintGame.bind(this);
+        this.fetchSomeData = this.fetchSomeData.bind(this);
 
         // State
         this.state = {
@@ -42,6 +45,10 @@ class Random extends React.Component{
             pageColor: orange,
             printGameStat: false
         }
+    }
+
+    componentDidMount(){
+        this.reward.rewardMe();
     }
 
     setPrintGame() {
@@ -90,6 +97,10 @@ class Random extends React.Component{
         alert("THIS WORKS!");
     }
 
+    fetchSomeData(){
+        this.reward.rewardMe();
+    }
+
     render(){
         // const propsOfRandom = JSON.stringify(this.props);
         // console.log("This is the props of random object " + propsOfRandom);
@@ -117,6 +128,12 @@ class Random extends React.Component{
                     }
                 </div>
                 <Display testFunc={this.testFunc}/>
+                <Reward
+                    ref={(ref) => { this.reward = ref }}
+                    type='emoji'
+                >
+                    <button onClick={this.fetchSomeData}>Reward</button>
+                </Reward>
             </div>
         )
     }
