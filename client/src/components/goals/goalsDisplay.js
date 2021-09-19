@@ -75,9 +75,9 @@ const GoalDisplay = (props) => {
     }
 
     return (
-        <div className={styles["container"]} id="outter-container" onClick={flipGoal}>
+        <div className={styles["container"]} id="outter-container">
             <div className={styles["container-inner"]} id={"post-inner-" + props.index}>
-                <div className={styles['goal-post']} id={"goal-container" + props.index} onMouseOver={handleMouseOver} onMouseOut={handleOutMouse}>
+                <div className={styles['goal-post']} id={"goal-container" + props.index} onMouseOver={handleMouseOver} onMouseOut={handleOutMouse} onClick={flipGoal}>
                     <button type="button" className={styles["delete-btn"]} id={"goal-delete-btn-" + props.index} onClick={handleRemoveBtnOnClick}>X</button>
                     <h4 className={styles['index']} id={"index-" + props.index} >{props.index}</h4>
                     <h3 id="date" styke={{ display: 'inline' }}>{props.date.toString().slice(0, 10)}</h3>
@@ -85,6 +85,7 @@ const GoalDisplay = (props) => {
                     <p id="content">{props.content}</p>
                 </div>
                 <div className={styles["container-update"]} id="post-update">
+                    <button className="flip" id={"flip-btn-" + props.index} onClick={flipGoal}>FLIP</button>
                     <form>
                         <label className="update" id="update-goal">Update this goal</label>
                         <input type="text" className="new-goal" id="inp-goal" htmlFor="update"></input>
