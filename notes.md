@@ -22,3 +22,9 @@
 - Remove upload and download button for resume
 - Loading screen
 - Click me welcome message on home
+
+*9/19/2021*
+- Fix Database structure
+  - Right now it's a singlue document for each collection: blogs, goals, interests, and wishlists
+  - If document reaches a certain number, create a new document
+  - document _id will increase by 1
