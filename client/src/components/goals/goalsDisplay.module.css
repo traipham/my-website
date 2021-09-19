@@ -1,4 +1,19 @@
 /***Display-goals-styling***/
+
+.container{
+    width: fit-content;
+    height: fit-content;
+}
+
+.container-inner{
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    text-align: center;
+    transition: all 0.8s ease-in-out;
+    transform-style: preserve-3d;
+}
+
 .goal-post{
     color: white;
     overflow-wrap: break-word;
@@ -12,6 +27,21 @@
     transform: scale(1,1);
     transition: all 0.5s ease-in;
 }
+
+.goal-post, .container-update{
+    /* position: absolute;  */
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+
+.container-update{
+    position: absolute;
+    top: 50px;
+    border: 1px solid black;
+    color: black;
+    transform: rotateY(180deg);
+}
+
 
 .goal-post:hover{
     width: 250px;

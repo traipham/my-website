@@ -65,13 +65,34 @@ const GoalDisplay = (props) => {
         }
     }
 
+    const flipGoal = (e) =>{
+        console.log('flip it');
+        if (document.getElementById('post-inner-' + props.index).style.transform == "rotateY(180deg)") {
+            document.getElementById('post-inner-' + props.index).style.transform = "rotateY(0deg)";
+        } else {
+            document.getElementById('post-inner-' + props.index).style.transform = "rotateY(180deg)";
+        }
+    }
+
     return (
-        <div className={styles['goal-post']} id={"goal-container" + props.index} onMouseOver={handleMouseOver} onMouseOut={handleOutMouse}>
-            <button type="button" className={styles["delete-btn"]} id={"goal-delete-btn-" + props.index} onClick={handleRemoveBtnOnClick}>X</button>
-            <h4 className={styles['index']} id={"index-" + props.index} >{props.index}</h4>
-            <h3 id="date" styke={{ display: 'inline' }}>{props.date.toString().slice(0, 10)}</h3>
-            <hr />
-            <p id="content">{props.content}</p>
+        <div className={styles["container"]} id="outter-container" onClick={flipGoal}>
+            <div className={styles["container-inner"]} id={"post-inner-" + props.index}>
+                <div className={styles['goal-post']} id={"goal-container" + props.index} onMouseOver={handleMouseOver} onMouseOut={handleOutMouse}>
+                    <button type="button" className={styles["delete-btn"]} id={"goal-delete-btn-" + props.index} onClick={handleRemoveBtnOnClick}>X</button>
+                    <h4 className={styles['index']} id={"index-" + props.index} >{props.index}</h4>
+                    <h3 id="date" styke={{ display: 'inline' }}>{props.date.toString().slice(0, 10)}</h3>
+                    <hr />
+                    <p id="content">{props.content}</p>
+                </div>
+                <div className={styles["container-update"]} id="post-update">
+                    <form>
+                        <label className="update" id="update-goal">Update this goal</label>
+                        <input type="text" className="new-goal" id="inp-goal" htmlFor="update"></input>
+
+                        <button type="submit" className="submit-btn" id="goal-update">Update</button>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }
