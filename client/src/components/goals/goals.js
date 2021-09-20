@@ -31,6 +31,7 @@ class Goals extends React.Component {
         this.displayAddBtn = this.displayAddBtn.bind(this);
         this.afterRemovalDisplay = this.afterRemovalDisplay.bind(this);
         this.displayLoading = this.displayLoading.bind(this);
+        this.updateGoalDisplay = this.updateGoalDisplay.bind(this);
         this.removeDisplayLoading = this.removeDisplayLoading.bind(this);
     }
 
@@ -85,9 +86,31 @@ class Goals extends React.Component {
                     index: arrGoal.length
                 }]
             })
-        }, 300)
+        }, 800)
         document.getElementById('add-goals-btn').style.visibility = 'visible';
         this.reward.rewardMe();
+    }
+
+    updateGoalDisplay(indexToUpdate){
+        
+        this.setState({
+            ...this.state,
+            loading: true
+        })
+        setTimeout( async() => {
+            const arrGoal = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
+            const updatedGoal = arrGoal[indexToUpdate-1];
+            console.log(updatedGoal.content);
+            let stateGoals = this.state.goals;
+            stateGoals[indexToUpdate].content = updatedGoal.content;
+            stateGoals[indexToUpdate].date = updatedGoal.date;
+            this.setState({
+                removeInterface: true,
+                loading: false,
+                goals: stateGoals,
+            })
+        }, 300)
+        console.log(this.state.goals);
     }
 
     /**
@@ -176,7 +199,7 @@ class Goals extends React.Component {
                     {
                         this.state.goals.slice(1).map((goal) => {
                             console.log('parent state index: ' + goal.index)
-                            return <GoalDisplay key={"goal-" + goal.index} afterRemovalDisplay={this.afterRemovalDisplay} content={goal.content} tagColor={goal.tagColor} index={goal.index} date={goal.date} removeDisplayLoading={this.removeDisplayLoading}/>
+                            return <GoalDisplay key={"goal-" + goal.index} afterRemovalDisplay={this.afterRemovalDisplay} content={goal.content} tagColor={goal.tagColor} index={goal.index} date={goal.date} removeDisplayLoading={this.removeDisplayLoading} updateGoalDisplay={this.updateGoalDisplay}/>
                         })
                     }
                 </div>

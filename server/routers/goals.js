@@ -112,8 +112,8 @@ router.route('/update/:id').post((req, res) => {
     const goalPostPrevIndex = req.body.prevIndex;
 
     const updateContent = req.body.content;
-    const updateTagColor = req.body.tagColor;
-    const updateIndex = req.body.index;
+    // const updateTagColor = req.body.tagColor;
+    // const updateIndex = req.body.index;
     const updateDate = new Date;
     Goals.findById(req.params.id)
         .then((post) => {
@@ -121,8 +121,8 @@ router.route('/update/:id').post((req, res) => {
             post.goals.forEach((gPost) => {
                 if(String(gPost._id) === goalPostId){
                     gPost.content = updateContent;
-                    gPost.tagColor = updateTagColor;
-                    gPost.index = updateIndex;
+                    // gPost.tagColor = updateTagColor;
+                    // gPost.index = updateIndex;
                     gPost.date = updateDate;
 
                     post.save()

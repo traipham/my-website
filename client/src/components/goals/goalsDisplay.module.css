@@ -24,14 +24,21 @@
     position: absolute;
     display: flex;
     flex-direction: row;
+    align-items: center;
     /* justify-content: space-around;
     align-content: space-around;
     flex: 1 1 20px ; */
-    padding: 10px;
-    top: 50px; right: 20px;
+    top: 0%;
     border: 1px solid black;
+    /* padding-top: 20px; padding-bottom: 20px; */
+    max-width: 250px;
     transform: rotateY(180deg);
     z-index: 1;
+}
+
+.flip{
+    height: inherit;
+    padding-left: 20px; padding-right: 20px;
 }
 
 .goal-post{

@@ -49,7 +49,10 @@
     flex-wrap: wrap;
     /* justify-content: space-around;  */
     align-items: flex-start; /*So that flex items don't have the same height*/
-    align-content: flex-start;
+    align-content: space-between;
+    justify-content: flex-start;
+    gap: 15px;
     width: fit-content;
+    padding: 10px;
     border-style: outset;
 }

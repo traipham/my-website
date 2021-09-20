@@ -9,6 +9,9 @@ import axios from 'axios';
  * @param {*} props - interfaction between parent and child
  */
 const GoalDisplay = (props) => {
+
+    const [upContent, setUpContent] = useState('');
+
     let textColor = 'black';
     if (parseInt(props.tagColor.slice(1, 3), 16) < 100) {
         textColor = 'white'
@@ -65,6 +68,34 @@ const GoalDisplay = (props) => {
         }
     }
 
+    const updateContent = (e) => {
+        setUpContent(e.target.value);
+    }
+
+    const handleUpdatePost = async(e) => {
+        e.preventDefault();
+
+        const arrGoal = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
+        const currGoal = arrGoal[props.index-1];
+        console.log("current Goal: " + JSON.stringify(currGoal));
+        const update = {
+            _id: currGoal._id,
+            content: upContent
+        };
+
+        const success = await axios.post("/goals/update/1", update);
+        console.log(success);
+
+        if(success.status === 200){
+            // const newArr = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
+            // console.log(newArr);
+            props.updateGoalDisplay(props.index);
+            flipGoal();
+        } else {
+            console.log(success.data);
+        }
+    }
+
     const flipGoal = (e) =>{
         console.log('flip it');
         if (document.getElementById('post-inner-' + props.index).style.transform == "rotateY(180deg)") {
@@ -72,6 +103,10 @@ const GoalDisplay = (props) => {
         } else {
             document.getElementById('post-inner-' + props.index).style.transform = "rotateY(180deg)";
         }
+        const height = document.getElementById('goal-container' + props.index).clientHeight;
+        setTimeout(() => {
+            document.getElementById("post-update-" + props.index).style.height = `${height}px`;
+        }, 100)
     }
 
     return (
@@ -84,11 +119,11 @@ const GoalDisplay = (props) => {
                     <hr />
                     <p id="content">{props.content}</p>
                 </div>
-                <div className={styles["container-update"]} id="post-update">
-                    <button className="flip" id={"flip-btn-" + props.index} onClick={flipGoal}>FLIP</button>
-                    <form>
+                <div className={styles["container-update"]} id={"post-update-" + props.index}>
+                    <button className={styles["flip"]} id={"flip-btn-" + props.index} onClick={flipGoal}>FLIP</button>
+                    <form onSubmit={handleUpdatePost}>
                         <label className="update" id="update-goal">Update this goal</label>
-                        <input type="text" className="new-goal" id="inp-goal" htmlFor="update"></input>
+                        <textarea type="text" className="new-goal" id="inp-goal" htmlFor="update" rows="5" cols="20" onChange={updateContent}></textarea>
 
                         <button type="submit" className="submit-btn" id="goal-update">Update</button>
                     </form>
