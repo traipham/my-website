@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import styles from './home.css';
 import WelcomeDisplay from './welcomeMsg.js';
 import OnClickConfetti from './confetti';
+import Particles from 'react-tsparticles';
 
+import house from './house-icon.jpg';
 function Home() {
     const [welcome, setWelcome] = useState(false);
 
@@ -61,8 +63,7 @@ function Home() {
             {/* <h2 className="heading" onClick={homeBtn}>Trai's Website</h2> */}
             <div className="header" >
                 <nav className='pages-nav'>
-                    <button type="button" id="home-btn" id="home-btn" onClick={homeBtn}>Home</button>
-                    <p id="header-msg"> Hover over Me! </p>
+                    <button type="button" id="home-btn" id="home-btn" onClick={homeBtn}><img src={house} width="30px" height="30px" /></button>
                     <Link id={styles['resume-link']} to="/resume"><button id="resume" onClick={handleClick}>Resume</button></Link>
                     <Link id={styles['interest-link']} to="/interest"><button id="interest" onClick={handleClick}>Interest</button></Link>
                     <Link id={styles['blog-link']} to="/blog"><button id="blog" onClick={handleClick}>Blog</button></Link>
@@ -70,6 +71,7 @@ function Home() {
                     <Link id={styles['goals-link']} to="/goals"><button id="goals" onClick={handleClick}>Goals</button></Link>
                     {/* <Link id={styles['random-link']} to="/random"><button id="random" onClick={handleClick}>Leave a Note</button></Link> */}
                     {/*<Link to="/setting"><button className="setting" onClick={handleClick}>Setting</button></Link> */}
+                    <p id="header-msg"> Hover over Me! </p>
                 </nav>
             </div>
             {

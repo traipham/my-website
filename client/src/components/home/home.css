@@ -1,19 +1,33 @@
+/* **TSPARTICLES STYLING**
+#tsparticles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+} */
+
+/** PAGE STYLING**/
 .heading {
   text-align: center;
   background-color: #D62828;
   width: fit-content; height: fit-content;
 }
 .home {
-  background-color: #003049;
+  background-color: #002f49;
+  box-shadow: 2px 2px 5px 0px;
   padding: 20px;
+  /* width: 100%; height: 100%; */
 }
 
 .pages-nav{
-  display: block;
+  display: flex;
+  flex-direction: row;
   position: relative;
   background-color: #fcbf49;
-  border-radius: 5px;
+  border-radius: 50px;
   border-style: groove;
+  margin:auto;
+  text-align: center;
+  width: fit-content;
   padding: 10px;
 }
 
@@ -37,16 +51,18 @@
   font-family: 'Chicle', cursive;
   font-size: 40px;
   letter-spacing: 20px;
-  margin: auto; right: 35%;
-  position: absolute;
+  margin: auto; right: 10%;
+  /* position: absolute; */
+  vertical-align: baseline;
   opacity: 1;
   z-index: 2;
-  transition: all 0.5s ease-in;
+  transition: all 0.3s ease-in-out;
 }
 
 .pages-nav:hover #header-msg{
   opacity: 0; 
-  right: 0%;
+  position: absolute;
+  visibility: hidden;
 }
 
 #wish-list,
@@ -56,9 +72,10 @@
 #setting,
 #goals,
 #random { 
-  display: inline-block;
+  display: none;
   background-color: #eae2b7;
   border-radius: 10px;
+  font-size: 20px;
   margin-right: 20px;
   opacity: 0;
   padding-left: 10px; padding-right: 10px;
@@ -86,6 +103,7 @@
 .pages-nav:hover #blog,
 .pages-nav:hover #goals,
 .pages-nav:hover #random{
+  display: inline-block;
   opacity: 1;
   top: 0px;
 }
@@ -102,7 +120,7 @@
 */
 
 #welcome-container{
-  background-color: lightblue;
+  background-color: rgb(173, 216, 230);
   /* width: fit-content; height: fit-content; */
 }
 #click-me-btn{
