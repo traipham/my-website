@@ -8,7 +8,7 @@ const OnClickConfetti = (props) => {
     // console.log(width, height);
     return( 
         <div>
-            <NewConfetti numberOfPieces={400} initialVelocityY={10} friction={0.97} recycle={false} tweenDuration={8000} onConfettiComplete={props.resetConfetti}/>
+            <NewConfetti numberOfPieces={300} initialVelocityY={10} friction={1} recycle={false} tweenDuration={5000} onConfettiComplete={props.resetConfetti}/>
         </div>
     )
 }
