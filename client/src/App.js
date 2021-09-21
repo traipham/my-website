@@ -14,42 +14,54 @@ import Random from './components/random/random.js';
 
 const option = {
   fpsLimit: 60,
-  background: {
-    color: "#0b032d"
-  },
-  backgroundMode: {
-    enable: true
-  },
+  fullScreen: { enable: true },
   particles: {
-    color: {
-      value: ["#f67e7d", "#843b62", "#621940"]
+    number: {
+      value: 20
     },
-    links: {
-      color: "#ffb997",
-      enable: true
+    color: {
+      value: ["#5bc0eb", "#fde74c", "#9bc53d", "#e55934", "#fa7921"]
+    },
+    shape: {
+      type: "circle"
+    },
+    opacity: {
+      value: 0.5
+    },
+    size: {
+      value: 400,
+      random: {
+        enable: true,
+        minimumValue: 200
+      }
     },
     move: {
       enable: true,
-      speed: 6
+      speed: 10,
+      direction: "top",
+      outMode: "destroy"
+    }
+  },
+  interactivity: {
+    detectsOn: "canvas",
+    events: {
+      resize: true
+    }
+  },
+  detectRetina: true,
+  emitters: {
+    direction: "top",
+    position: {
+      x: 50,
+      y: 100
+    },
+    rate: {
+      delay: 0.8,
+      quantity: 2
     },
     size: {
-      value: 5,
-      random: {
-        enable: true,
-        minimumValue: 1
-      },
-      animation: {
-        enable: true,
-        speed: 2.5,
-        minimumValue: 1
-      }
-    },
-    opacity: {
-      value: 0.8,
-      random: {
-        enable: true,
-        minimumValue: 0.4
-      }
+      width: 100,
+      height: 10
     }
   }
 }
@@ -67,7 +79,7 @@ const particlesLoaded = (container) => {
 function App() {
   return (
     <Router>
-      {/* <Particles id="tsparticles" init={particlesInit} loaded={particlesLoaded} options={option} /> */}
+      <Particles id="tsparticles" init={particlesInit} loaded={particlesLoaded} options={option} />
       <Home />
       <Switch> 
         <Route path="/resume" component={Resume}/>

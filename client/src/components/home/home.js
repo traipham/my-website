@@ -79,13 +79,13 @@ function Home() {
             }
             <div className="home-container" id="welcome-container" style={styleWelcome} >
                 <WelcomeDisplay />
-                <h2 id="welcome-msg"><b>Welcome to my Page!</b></h2>
-                <div className="home-container" id="btn-container">
-                    <button type="button" className="btn-btn" id="click-me-btn" onClick={handleWelcomeBtnOnClick}><b>Click Me!</b></button>
+                {/* <h2 id="welcome-msg"><b>TO MY PAGE!</b></h2> */}
+                <div className="btn-container" id="clickme-container">
+                    <Link to="/resume"><button type="button" className="btn-btn" id="click-me-btn" onClick={handleWelcomeBtnOnClick}><b>Click Me!</b></button></Link>
                 </div>
-                {
-                    welcome ? <OnClickConfetti resetConfetti={resetConfetti}/> : null
-                }
+                {/* {
+                    welcome ? <OnClickConfetti resetConfetti={resetConfetti}/> : null // Confetti display on click
+                } */}
             </div>
         </div>
     )

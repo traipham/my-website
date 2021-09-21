@@ -33,7 +33,6 @@ const WelcomeDisplay = (props) =>{
             <div id="l-7">
                 <p>E</p>
             </div>
-
         </div >
     )
 }
