@@ -5,11 +5,14 @@ import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import resumePDF from './resume.pdf';
 import DisplayResume from "./pdf.component";
 import Me from './Me.jpg';
-import NewResume from "./new_resume.jpg"
+import NewResume from "./new_resume.jpg";
+import LinkedinGif from "./linkedin_gif.gif";
+import GithubGif from "./github_gif.gif";
+import HandshakeIcon from "./handshake_icon.png";
 
-const Linkedin = <a href="https://www.linkedin.com/in/trai-pham-4a1272198/">Linkedin</a>
-const GitHub = <a href="https://github.com/traipham">GitHub</a>
-const HandShake = <a href="https://ucsd.joinhandshake.com/users/18070890">HandShake</a>
+const Linkedin = <a href="https://www.linkedin.com/in/trai-pham-4a1272198/" ><img src={LinkedinGif} width="40px" height="40px" />   Linkedin</a>
+const GitHub = <a href="https://github.com/traipham"><img src={GithubGif} width="40px" height="40px" />   GitHub</a>
+const HandShake = <a href="https://ucsd.joinhandshake.com/users/18070890"><img id={styles["handshake_icon"]} src={HandshakeIcon} width="40px" height="40px" />   HandShake</a>
 /**
  * Name of Component: Resume
  * 
@@ -44,7 +47,6 @@ class Resume extends React.Component {
                 <Confetti />
                 <h1 className={styles["header"]}>About Me</h1>
                 <div className={styles['page-container']}>
-                    <p>This page will contain my <b>resume</b> and other sources</p>
                     {Linkedin}<br /><br />
                     {GitHub}<br /><br />
                     {HandShake}

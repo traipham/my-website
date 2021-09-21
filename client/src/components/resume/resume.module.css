@@ -3,11 +3,26 @@
     padding: 20px;
 }
 
+/**Social Media Icon**/
+#handshake_icon{
+    animation: handshake_icon_animate 1s ease-in-out 0.5s infinite alternate none;
+}
+
+@keyframes handshake_icon_animate {
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(0);
+    }
+}
+
 .page-container{
     border-style: outset;
     background: linear-gradient(to top left, rgb(73, 141, 250),  rgb(253, 253, 253));
 }
 
+/**Resume container**/
 .container{
     display: flex;
     flex-direction: row;

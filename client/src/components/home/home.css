@@ -82,7 +82,7 @@
   padding-top: 10px; padding-bottom: 10px;
   /* position: relative; */
   position: absolute;
-  top: 10%;   
+  top: 10%; right: 50%; 
   visibility: hidden;
   transition: all 0.5s ease-in-out;
 }

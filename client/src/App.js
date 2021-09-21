@@ -56,7 +56,7 @@ const option = {
       y: 100
     },
     rate: {
-      delay: 0.8,
+      delay: 1,
       quantity: 2
     },
     size: {
