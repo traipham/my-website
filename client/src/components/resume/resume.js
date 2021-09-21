@@ -47,9 +47,6 @@ class Resume extends React.Component {
                 <Confetti />
                 <h1 className={styles["header"]}>About Me</h1>
                 <div className={styles['page-container']}>
-                    {Linkedin}<br /><br />
-                    {GitHub}<br /><br />
-                    {HandShake}
                     <h3>Personal Description</h3>
                     <div className={styles['img-container']}>
                         <img src={Me} width='200px' height='200px' />
@@ -70,8 +67,10 @@ class Resume extends React.Component {
                     </div>
                     <br/>
                     <br/>
-                    <h3>Programing/Computer Experience</h3>
-                    <p id="p-experience">--experience here--</p>
+                    <h3>Contact Info</h3>
+                    {Linkedin}<br /><br />
+                    {GitHub}<br /><br />
+                    {HandShake}
                     <hr id="h-line"></hr>
                     <div className={styles.container} id='container'>
                         <h2 id={styles['resume-header']}>Resume</h2>
