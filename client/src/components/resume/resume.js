@@ -1,5 +1,6 @@
 import React from "react";
 import styles from './resume.module.css';
+import Confetti from './confetti';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import resumePDF from './resume.pdf';
 import DisplayResume from "./pdf.component";
@@ -26,6 +27,7 @@ class Resume extends React.Component {
         this.focusFunc = this.focusFunc.bind(this);
     }
 
+
     componentDidUpdate(){
         window.location.reload();
     }
@@ -39,6 +41,7 @@ class Resume extends React.Component {
     render(){
         return (
             <div className={styles.page}>
+                <Confetti />
                 <h1 className={styles["header"]}>About Me</h1>
                 <div className={styles['page-container']}>
                     <p>This page will contain my <b>resume</b> and other sources</p>
