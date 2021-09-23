@@ -27,7 +27,7 @@
   border-style: groove;
   margin:auto;
   text-align: center;
-  width: 50%;
+  width: fit-content;
   padding: 20px;
 }
 
