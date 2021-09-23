@@ -37,6 +37,40 @@ const WishDisplay = (props) => {
     }
 
     /**
+     * Flip to back side of post where you can update 
+     * @param {*} e 
+     */
+    const clickToUpdate = (e) => {
+        document.getElementById("wish-display-" + props.index).style.transform = "scale(0)";
+        document.getElementById('wish-container-' + props.index).style.transform = "scale(0)"
+        setTimeout(() => {
+            document.getElementById("wish-display-" + props.index).style.display = "none";
+            document.getElementById("wish-update-" + props.index).style.display = "inline-block";
+            setTimeout(() => {
+                document.getElementById('wish-container-' + props.index).style.transform = "scale(1)"
+                document.getElementById("wish-update-" + props.index).style.transform = "scale(1)";
+            }, 100)
+        }, 500)
+    }
+
+    /**
+     * Go back to original wish post
+     * @param {*} e 
+     */
+    const clickToGoBack = (e) => {
+        document.getElementById("wish-update-" + props.index).style.transform = "scale(0)";
+        document.getElementById('wish-container-' + props.index).style.transform = "scale(0)"
+        setTimeout(() => {
+            document.getElementById("wish-update-" + props.index).style.display = "none";
+            document.getElementById("wish-display-" + props.index).style.display = "inline-block";
+            setTimeout(() => {
+                document.getElementById('wish-container-' + props.index).style.transform = "scale(1)"
+                document.getElementById("wish-display-" + props.index).style.transform = "scale(1)";
+            },100);
+        }, 400);
+    }
+
+    /**
      * Remove wish at index
      * @param {*} e - event object for onClick event of remove button
      */
@@ -71,19 +105,25 @@ const WishDisplay = (props) => {
     }
 
     return (
-        <div className={styles['display-container']} id={styles['wish-container-' + props.index]} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-            <button type="button" className={styles["remove-btn"]} id={"remove-wish-" + props.index} onClick={removeWishOnClickBtn}><b>Remove this Wish</b></button>
-            <p className="index" id={styles["wish-num"]}><b>Wish #: </b><i>{props.index}</i></p>
-            <p className="date" id="wish-date"><b>Date: </b>{props.date.toString().slice(0, 10)}</p>
-            <div className="header-grp" id={styles['title-tag-container']}>
-                <h3 className="title" id={styles['wish-title']}>{props.title}</h3>
-                <p className="tag" id="wish-tag">Tag: <i>{props.tag}</i></p>
+        <div className={styles['display-container']} id={'wish-container-' + props.index} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+            <div className={styles["display-content"]} id={"wish-display-" + props.index} onClick={clickToUpdate}>
+                <button type="button" className={styles["remove-btn"]} id={"remove-wish-" + props.index} onClick={removeWishOnClickBtn}><b>Remove this Wish</b></button>
+                <p className="index" id={styles["wish-num"]}><b>Wish #: </b><i>{props.index}</i></p>
+                <p className="date" id="wish-date"><b>Date: </b>{props.date.toString().slice(0, 10)}</p>
+                <div className="header-grp" id={styles['title-tag-container']}>
+                    <h3 className="title" id={styles['wish-title']}>{props.title}</h3>
+                    <p className="tag" id="wish-tag">Tag: <i>{props.tag}</i></p>
+                </div>
+                {
+                    imageExist()
+                }
+                <p className="description" id="wish-description">{props.description}</p>
+                <p><b>Rating:</b> {props.rating}</p>
             </div>
-            {
-                imageExist()
-            }
-            <p className="description" id="wish-description">{props.description}</p>
-            <p><b>Rating:</b> {props.rating}</p>
+            <div className={styles["update-container"]} id={"wish-update-"+props.index} onClick={clickToGoBack}>
+                <label>Title</label>
+                <input className="update-inp-title" id="update-title" placeholder="Update title"></input>
+            </div>
         </div>
     )
 }

@@ -154,7 +154,7 @@ router.route('/update/:id').post((req, res) => {
     const updateImg = req.body.img;
     const updateTag = req.body.tag;
     const updateRating = req.body.rating;
-    const updateIndex = req.body.index;
+    // const updateIndex = req.body.index;
     const updateDate = new Date();
 
     WishList.findById(req.params.id)
@@ -163,7 +163,7 @@ router.route('/update/:id').post((req, res) => {
                 if(String(post._id) === wishId){
                     post.title = updateTitle;
                     post.description = updateDescription;
-                    post.img = updateImg;
+                    // post.img = updateImg;
                     post.tag = updateTag;
                     post.rating = updateRating;
                     post.index = updateIndex;
