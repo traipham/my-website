@@ -51,13 +51,6 @@ function Home() {
         document.getElementById('click-me-btn').style.background = "lightgreen";
     }
 
-    const resetConfetti = (e) =>{
-        setWelcome(false);
-
-        document.getElementById('click-me-btn').style.boxShadow = "rgba(0, 0, 0, 0.774) 6px 5px 1px 5px";
-        document.getElementById('click-me-btn').style.padding = "10px";
-        document.getElementById('click-me-btn').style.background = "rgba(255, 255, 255)";
-    }
     return(
         <div className="home">
             {/* <h2 className="heading" onClick={homeBtn}>Trai's Website</h2> */}

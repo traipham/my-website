@@ -73,9 +73,10 @@
 #goals,
 #random { 
   /* display: none; */
-  background-color: #eae2b7;
+  background: rgba(0, 0, 0, 0.301);
   border-radius: 10px;
   font-size: 20px;
+  font-family: 'Luckiest Guy', cursive;
   margin-right: 20px;
   opacity: 0;
   padding-left: 10px; padding-right: 10px;
@@ -96,6 +97,7 @@
 #random:hover {
   padding-right: 25px; padding-left: 25px;
   background-color: lightgreen;
+  letter-spacing: 2px;
 }
 
 
@@ -138,7 +140,7 @@
   color: rgb(0, 128, 0);
   background: rgb(255, 255, 255);
   font-size: 50px;
-  font-family: 	Copperplate;
+  font-family: 'Bowlby One SC', cursive, sans-serif;
   border-radius: 5px;
   box-shadow:rgba(0, 0, 0, 0.774) 6px 5px 1px 2px;
   padding: 10px;
@@ -184,7 +186,7 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 70%; height: fit-content;
+  width: 90%; height: fit-content;
   margin-left: auto; margin-right: auto;
   margin-top: 30px;
   margin-bottom: 50px;
@@ -194,7 +196,9 @@
   flex: 1 1 auto;
   display: inline-block;
   text-align: center;
-  font-size: 20px;
+  font-family: 'Monoton', cursive;
+  font-weight: 400;
+  font-size: 30px;
   background: rgb(253, 253, 253);
 }
 
