@@ -74,7 +74,6 @@ const DisplayBlogPost = (props) => {
                     }
                 </div>
                 {/* <img src={`data:image/jpeg;base64,${imgB64}`} id="post-image" width="200px" height="200px"/> */}
-                <br />
                 <p className={styles['post-content']} id="content">"{props.content}"</p>
                 <hr className={styles['post-divider']} />
                 <p className={styles['post-location']} id="location"><b>Location: </b><i>{props.location}</i></p>

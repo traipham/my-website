@@ -5,7 +5,7 @@ const WelcomeDisplay = (props) =>{
 
 
     return(
-        <div className="container" id="welcome-container">
+        <div className={styles["container"]} id="welcome-container">
             <div id="l-1">
                 <p>W</p>
             </div>

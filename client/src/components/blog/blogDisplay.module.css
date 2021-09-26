@@ -27,6 +27,8 @@
     border-style: dotted;
     border-radius: 5px;
     background-color: #f6b02d;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 25px;
     padding: 5px;
     margin-top: 40px;
     width: fit-content;
@@ -36,6 +38,9 @@
     display: inline-block;
     margin: 0 0 0 auto;
     border-radius: 5px;
+    font-family: 'Denk One', sans-serif;
+    font-size: 25px;
+    font-weight: 100;
     padding: 5px;
     width: fit-content;
     height: fit-content;
@@ -58,6 +63,8 @@
 
 .post-content{
     background-color: #ffe17e;
+    font-family: 'Give You Glory', cursive, sans-serif;
+    font-weight: 800;
 }
 
 .post-divider{
@@ -69,11 +76,13 @@
 
 .post-location{
     background-color: #ffe17e;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 25px;
 }
 
 .arrow-pointer {
-    width: 25px;
-    height: 25px;
+    width: fit-content;
+    height: fit-content;
     background:  #f6b02d;
     position: relative;
     float: right;
@@ -90,13 +99,13 @@
 .arrow-pointer:before {
     content: '';
     position: absolute;
-    right: -12px;
-    bottom: 0;
-    width: 0;
-    height: 0;
-    border-left: 12.0px solid  #f6b02d;
-    border-top: 12.0px solid transparent;
-    border-bottom: 12.0px solid transparent;
+    right: -15px;
+    bottom: 8px;
+    width: fit-content;
+    height: fit-content;
+    border-left: 15.0px solid  #f6b02d;
+    border-top: 15.0px solid transparent;
+    border-bottom: 15.0px solid transparent;
 }
 
 .remove-btn{
