@@ -151,7 +151,7 @@ router.route('/update/:id').post((req, res) => {
 
     const updateTitle = req.body.title;
     const updateDescription = req.body.description;
-    const updateImg = req.body.img;
+    // const updateImg = req.body.img;
     const updateTag = req.body.tag;
     const updateRating = req.body.rating;
     // const updateIndex = req.body.index;

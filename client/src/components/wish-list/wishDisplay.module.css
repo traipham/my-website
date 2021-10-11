@@ -6,7 +6,7 @@
     border-radius: 5px;
     background-color: whitesmoke;
     box-shadow: 20px 20px #002f4931;
-    width: fit-content;
+    width: 100%;
     height: fit-content;
     padding: 10px;
     margin: 20px;
@@ -57,7 +57,23 @@
 /***UPDATE-COMPONENT STYLE***/
 .update-container{
     display: none;
+    flex-direction: column;
     width: 100%;
+    height: fit-content;
     transform: scale(0);
     transition: all 0.5s ease-in-out;
+}
+
+.update-container > input {
+    width: 70%;
+    height: 20px;
+}
+.update-container > label {
+    margin-top: 10px;
+    width: fit-content;
+}
+.update-container > button {
+    width: fit-content;
+    margin-left: auto; margin-right: auto;
+    margin-top: 30px;
 }

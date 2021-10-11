@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './wishDisplay.module.css'
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -11,6 +11,8 @@ import axios from 'axios';
  */
 const WishDisplay = (props) => {
     // console.log("This is the idea of this Wish: " + props.index);
+
+    const [inpClick, setInpClick] = useState(false);
 
     /**
      * Make button visible when hovering over post
@@ -45,7 +47,7 @@ const WishDisplay = (props) => {
         document.getElementById('wish-container-' + props.index).style.transform = "scale(0)"
         setTimeout(() => {
             document.getElementById("wish-display-" + props.index).style.display = "none";
-            document.getElementById("wish-update-" + props.index).style.display = "inline-block";
+            document.getElementById("wish-update-" + props.index).style.display = "flex";
             setTimeout(() => {
                 document.getElementById('wish-container-' + props.index).style.transform = "scale(1)"
                 document.getElementById("wish-update-" + props.index).style.transform = "scale(1)";
@@ -58,16 +60,29 @@ const WishDisplay = (props) => {
      * @param {*} e 
      */
     const clickToGoBack = (e) => {
-        document.getElementById("wish-update-" + props.index).style.transform = "scale(0)";
-        document.getElementById('wish-container-' + props.index).style.transform = "scale(0)"
-        setTimeout(() => {
-            document.getElementById("wish-update-" + props.index).style.display = "none";
-            document.getElementById("wish-display-" + props.index).style.display = "inline-block";
+        // get tag 
+        let tag = e.target.tagName.toLowerCase()
+        console.log(tag);
+        // flip back only if user click on empty space of div
+        if(tag == "form")
+        {
+            setInpClick(false);
+            document.getElementById("wish-update-" + props.index).style.transform = "scale(0)";
+            document.getElementById('wish-container-' + props.index).style.transform = "scale(0)"
             setTimeout(() => {
-                document.getElementById('wish-container-' + props.index).style.transform = "scale(1)"
-                document.getElementById("wish-display-" + props.index).style.transform = "scale(1)";
-            },100);
-        }, 400);
+                document.getElementById("wish-update-" + props.index).style.display = "none";
+                document.getElementById("wish-display-" + props.index).style.display = "inline-block";
+                setTimeout(() => {
+                    document.getElementById('wish-container-' + props.index).style.transform = "scale(1)"
+                    document.getElementById("wish-display-" + props.index).style.transform = "scale(1)";
+                }, 100);
+            }, 400);
+        }
+    }
+
+    const onClickInput = (e) => 
+    {
+        setInpClick(true);
     }
 
     /**
@@ -120,10 +135,20 @@ const WishDisplay = (props) => {
                 <p className="description" id="wish-description">{props.description}</p>
                 <p><b>Rating:</b> {props.rating}</p>
             </div>
-            <div className={styles["update-container"]} id={"wish-update-"+props.index} onClick={clickToGoBack}>
-                <label>Title</label>
+            <form className={styles["update-container"]} id={"wish-update-"+props.index} onClick={clickToGoBack}>
+                <label for="update-title">Title: </label>
                 <input className="update-inp-title" id="update-title" placeholder="Update title"></input>
-            </div>
+                <label for="update-description">Description: </label>
+                <textarea className="update-inp-desc" id="update-description" onClick={onClickInput} placeHolder="Update description" rows="10" cols="50"></textarea>
+                {
+                    !inpClick ? <p>Hello world</p> : null
+                }
+                <label for="update-tag">Tag: </label>
+                <input className="update-inp-tag" id="update-tag" placeHolder="Update tag"></input>
+                <label for="update-rating">Rating: </label>
+                <input className="update-inp-rating" id="update-rating" placeHolder="Update rating"></input>
+                <button type="submit" className="update-btn" id="update-wish-btn">Update</button>
+            </form>
         </div>
     )
 }

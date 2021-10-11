@@ -18,18 +18,6 @@
   /* width: 100%; height: 100%; */
 }
 
-.pages-nav{
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  background-color: #fcbf49;
-  border-radius: 50px;
-  border-style: groove;
-  margin:auto;
-  text-align: center;
-  width: fit-content;
-  padding: 20px;
-}
 
 #home-btn{
   background-color:tomato;
@@ -59,6 +47,19 @@
   transition: all 0.3s ease-out;
 }
 
+.pages-nav{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  background-color: #fcbf49;
+  border-radius: 50px;
+  border-style: groove;
+  margin:auto;
+  text-align: center;
+  width: fit-content;
+  padding: 20px;
+}
+
 .pages-nav:hover #header-msg{
   opacity: 0; 
   position: absolute;
@@ -81,11 +82,14 @@
   opacity: 0;
   padding-left: 10px; padding-right: 10px;
   padding-top: 10px; padding-bottom: 10px;
-  /* position: relative; */
   position: absolute;
-  top: 10%; right: 50%; 
   visibility: hidden;
-  transition: all 0.5s ease-in-out;
+  top: 0%; right: 20%;
+
+  transition: opacity 0.5s ease-in-out;
+  transition: top 0.5s ease-in-out;
+  transition: right 0.5s ease-in-out;
+  transition: padding-right,padding-left,background-color,letter-spacing 0.5s ease-in-out;
 }
 
 #wish-list:hover,
@@ -107,10 +111,31 @@
 .pages-nav:hover #blog,
 .pages-nav:hover #goals,
 .pages-nav:hover #random{
-  position: relative;
-  visibility: visible;
   opacity: 1;
   top: 0px; right: 0%;
+  position: relative;
+  visibility: visible;
+}
+
+/* #resume{
+  animation-name: button_appear_animate; 
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+} */
+@keyframes button_appear_animate
+{
+  0%
+  {
+    display: inline-block;
+  }
+  100%
+  {
+    opacity: 1;
+    top: 0px; right: 0%;
+  }
 }
 
 #setting{ 
