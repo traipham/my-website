@@ -1,0 +1,27 @@
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.container{
+    width: 200px; height: 100px;
+    border: 2px solid black;
+}
+
+#dif{
+    width: 200px; height: 500px;
+}
+
+.fit-container{
+    display: flex;
+    width: 500px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-shrink: 1 1 auto;
+}
+
+.fit-container > * {
+    flex: 1 1 auto;
+}

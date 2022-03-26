@@ -43,16 +43,22 @@ const WishDisplay = (props) => {
      * @param {*} e 
      */
     const clickToUpdate = (e) => {
-        document.getElementById("wish-display-" + props.index).style.transform = "scale(0)";
-        document.getElementById('wish-container-' + props.index).style.transform = "scale(0)"
-        setTimeout(() => {
-            document.getElementById("wish-display-" + props.index).style.display = "none";
-            document.getElementById("wish-update-" + props.index).style.display = "flex";
+        let divTag = e.target.tagName.toLowerCase();
+
+        console.log("tag:" + divTag);
+        // Does not flip if clicking button
+        if (divTag != "b") {
+            document.getElementById("wish-display-" + props.index).style.transform = "scale(0)";
+            document.getElementById('wish-container-' + props.index).style.transform = "scale(0)"
             setTimeout(() => {
-                document.getElementById('wish-container-' + props.index).style.transform = "scale(1)"
-                document.getElementById("wish-update-" + props.index).style.transform = "scale(1)";
-            }, 100)
-        }, 500)
+                document.getElementById("wish-display-" + props.index).style.display = "none";
+                document.getElementById("wish-update-" + props.index).style.display = "flex";
+                setTimeout(() => {
+                    document.getElementById('wish-container-' + props.index).style.transform = "scale(1)"
+                    document.getElementById("wish-update-" + props.index).style.transform = "scale(1)";
+                }, 100)
+            }, 500)
+        }
     }
 
     /**
@@ -62,7 +68,7 @@ const WishDisplay = (props) => {
     const clickToGoBack = (e) => {
         // get tag 
         let tag = e.target.tagName.toLowerCase()
-        console.log(tag);
+        // console.log(tag);
         // flip back only if user click on empty space of div
         if(tag == "form")
         {
@@ -100,7 +106,7 @@ const WishDisplay = (props) => {
                 props.removeWish(indexToDelete + 1);
             }
         } else {
-            console.log('Do not remove post!')
+            console.log('Do not remove post!');
         }
     }
 
