@@ -3,7 +3,7 @@
 ## Description: 
   This is my own personal website. It will include a page for each of these topics: Resume, Interest, Wish list, Goals, Blogs, and other random features that I find interesting. The website will be created using React.JS, Node.js, and CSS. I'll be using MongoDB to store my data. I'm learning React.JS at the same time as creating this website.<br/><br/>
 ***All functionalities (except for UPDATE) are good to go***<br/>
-***Link to Website*** : https://trais-website.herokuapp.com/ <br/>
+***Link to Website*** : <a href="https://trais-website.herokuapp.com/" target="_blank">Link</a><br/>
 ## Page contents<br/>
   - [Blog](#blog)
   - [Goals](#goals)
