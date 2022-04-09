@@ -133,7 +133,6 @@ class Blog extends React.Component {
      * @returns void
      */
     displayAddBtn() {
-        console.log(process.env.NODE_ENV);
         if(process.env.NODE_ENV === 'development'){
             return <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>;
         } else {
@@ -183,6 +182,9 @@ class Blog extends React.Component {
                     this.displayLoading()
                 }
                 <h2 className={styles['post-comments']} id='blog-comments'>Feedback. . .</h2>
+                {
+                    this.displayAddBtn()
+                }
                 <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>
                 {
                     this.displayAddBlogPostInterface()
