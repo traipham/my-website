@@ -185,7 +185,6 @@ class Blog extends React.Component {
                 {
                     this.displayAddBtn()
                 }
-                <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>
                 {
                     this.displayAddBlogPostInterface()
                 }
