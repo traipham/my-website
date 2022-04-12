@@ -1,5 +1,6 @@
 import './App.css';
-import React from "react";
+import React, { useEffect } from "react";
+import {useState} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Particles from 'react-tsparticles';
 
@@ -77,18 +78,33 @@ const particlesLoaded = (container) => {
 }
 
 function App() {
+
+  const [admin, setAdmin] = useState(false);
+
+
+  useEffect(() => {
+    const adminTF = localStorage.getItem("admin");
+    // console.log(typeof adminTF);
+    setAdmin(adminTF === "true");
+    // console.log(admin);
+  })
+
   return (
     <Router>
       <Particles id="tsparticles" init={particlesInit} loaded={particlesLoaded} options={option} />
       <Home />
       <Switch> 
         <Route path="/resume" component={Resume}/>
-        <Route path="/interest" component={Interest} />
-        <Route path="/blog" component={Blog} />
-        <Route path="/wish-list" component={WishList} />
-        <Route path="/goals" component={Goals} />
-        <Route path="/random" component={Random}/>
-        <Route path="/setting" component={Setting} />
+        <Route path="/interest"><Interest isAdmin={admin}/></Route>
+        <Route path="/blog" ><Blog isAdmin={admin}/> </Route>
+        <Route path="/wish-list"><WishList isAdmin={admin} /></Route>
+        <Route path="/goals"><Goals isAdmin={admin} /></Route>
+        {
+          admin ? <Route path="/random"><Random isAdmin={admin} /></Route> : console.log("hello")
+        }
+        {
+          admin ? <Route path="/setting"><Setting isAdmin={admin} /></Route> : console.log("world")
+        }
       </Switch>
     </Router>
   );

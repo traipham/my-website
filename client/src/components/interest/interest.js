@@ -135,11 +135,15 @@ class Interest extends React.Component {
      * @param {*} e - event object for onClick of add academic interest button
      */
     setAddAcadBtn(e){
+        const admin = this.props.isAdmin;
         this.setState({
             ...this.state,
-            addAcadBtn: true,
+            addAcadBtn: admin,
             whichBtn: e.target.id
         })
+        if(!admin){
+            alert("You are not an Admin!")
+        }
     }
 
     /**
@@ -147,11 +151,16 @@ class Interest extends React.Component {
      * @param {*} e - event object for onClick of add personal interest button 
      */
     setAddPersBtn(e){
+        const admin = this.props.isAdmin;
         this.setState({
             ...this.state,
-            addPersBtn: true,
+            addPersBtn: admin,
             whichBtn: e.target.id
         })
+        if (!admin) {
+            alert("You are not an Admin!")
+            console.log("is admin: ", admin)
+        }
     }
 
     persRemoveInterface(){

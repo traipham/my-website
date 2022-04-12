@@ -59,6 +59,13 @@ class Goals extends React.Component {
                     }]
                 })
             })
+            if (!this.props.isAdmin) {
+                console.log("Not an Admin!");
+                document.getElementById('add-goals-btn').style.visibility = 'none';
+            } else {
+                document.getElementById('add-goals-btn').style.visibility = "visible";
+                console.log("I AM ADMIN!");
+            }
             this.reward.rewardMe();
         }, 100)
     }
@@ -87,30 +94,39 @@ class Goals extends React.Component {
                 }]
             })
         }, 800)
-        document.getElementById('add-goals-btn').style.visibility = 'visible';
+        if (!this.props.isAdmin) {
+            console.log("Not an Admin!");
+            document.getElementById('add-goals-btn').style.visibility = 'none';
+        } else {
+            document.getElementById('add-goals-btn').style.visibility = "visible";
+            console.log("I AM ADMIN!");
+        }
         this.reward.rewardMe();
     }
 
     updateGoalDisplay(indexToUpdate){
-        
-        this.setState({
-            ...this.state,
-            loading: true
-        })
-        setTimeout( async() => {
-            const arrGoal = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
-            const updatedGoal = arrGoal[indexToUpdate-1];
-            console.log(updatedGoal.content);
-            let stateGoals = this.state.goals;
-            stateGoals[indexToUpdate].content = updatedGoal.content;
-            stateGoals[indexToUpdate].date = updatedGoal.date;
+        if(this.props.isAdmin){
             this.setState({
-                removeInterface: true,
-                loading: false,
-                goals: stateGoals,
+                ...this.state,
+                loading: true
             })
-        }, 300)
-        console.log(this.state.goals);
+            setTimeout(async () => {
+                const arrGoal = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
+                const updatedGoal = arrGoal[indexToUpdate - 1];
+                console.log(updatedGoal.content);
+                let stateGoals = this.state.goals;
+                stateGoals[indexToUpdate].content = updatedGoal.content;
+                stateGoals[indexToUpdate].date = updatedGoal.date;
+                this.setState({
+                    removeInterface: true,
+                    loading: false,
+                    goals: stateGoals,
+                })
+            }, 300)
+            console.log("Updated goals: ", this.state.goals);
+        } else {
+            alert("Not an Admin! Can not Update!")
+        }
     }
 
     /**
@@ -145,11 +161,10 @@ class Goals extends React.Component {
     }
 
     displayAddBtn(){
-        console.log(process.env.NODE_ENV);
-        if (process.env.NODE_ENV === 'development') {
-            return <button type="button" className="add-interface-btn" id="add-goals-btn" style={{ visibility: 'visible' }} onClick={this.displayInterface}>Add Goals</button>;
+        if (this.props.isAdmin) {
+            return <button type="button" className="add-interface-btn" id="add-goals-btn" onClick={this.displayInterface}>Add Goals</button>;
         } else {
-            console.log("Status: Production (can not add)")
+            console.log("Not an Admin")
         }
     }
 
@@ -188,7 +203,7 @@ class Goals extends React.Component {
                     </Reward>
                 </div>
                 <h1 className={styles['header']} id="goals-header">Goals</h1>
-                <button type="button" className={styles['add-btn']} id="add-goals-btn" style={{ visibility: 'visible' }} onClick={this.displayInterface}>Add Goals</button>
+                <button type="button" className={styles['add-btn']} id="add-goals-btn" onClick={this.displayInterface}>Add Goals</button>
                 {
                     this.state.removeInterface ? null : <GoalInterface displayGoalsFunc={this.displayGoalsFunc}/>
                 }
@@ -198,8 +213,10 @@ class Goals extends React.Component {
                 <div className={styles["goals-container"]} id="goals-container">
                     {
                         this.state.goals.slice(1).map((goal) => {
-                            console.log('parent state index: ' + goal.index)
-                            return <GoalDisplay key={"goal-" + goal.index} afterRemovalDisplay={this.afterRemovalDisplay} content={goal.content} tagColor={goal.tagColor} index={goal.index} date={goal.date} removeDisplayLoading={this.removeDisplayLoading} updateGoalDisplay={this.updateGoalDisplay}/>
+                            // console.log('parent state index: ' + goal.index)
+                            return <GoalDisplay key={"goal-" + goal.index} afterRemovalDisplay={this.afterRemovalDisplay} content={goal.content} 
+                                tagColor={goal.tagColor} index={goal.index} date={goal.date} removeDisplayLoading={this.removeDisplayLoading} 
+                                    updateGoalDisplay={this.updateGoalDisplay} isAdmin={this.props.isAdmin}/>
                         })
                     }
                 </div>

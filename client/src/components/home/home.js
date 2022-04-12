@@ -6,8 +6,10 @@ import OnClickConfetti from './confetti';
 import Particles from 'react-tsparticles';
 
 import house from './house-icon.jpg';
+import axios from "axios";
 function Home() {
     const [welcome, setWelcome] = useState(false);
+    const [admin, setAdmin] = useState(false);
 
     const styleWelcome = {
         display: "block"
@@ -51,12 +53,30 @@ function Home() {
         document.getElementById('click-me-btn').style.background = "lightgreen";
     }
 
+    const handleAdminLoginClick = (e) =>{
+        e.preventDefault();
+        const pw = prompt("What is the password?")
+        let realPW = ""
+        setTimeout(async() => {
+            realPW = await axios.get('/admin/').then((res) => { return (res.data[0].pw) });
+            if (pw === realPW) {
+                console.log("admin to %s", pw === realPW);
+            } else {
+                alert("Incorrect password! (Please stop!)");
+            }
+            localStorage.setItem('admin', pw === realPW);
+            console.log(localStorage.getItem('admin'));
+            window.location.reload();
+        }, 800)
+    }
+
     return(
         <div className="home">
+            <button class="btn" id="login-btn" onClick={handleAdminLoginClick}>Admin Login</button>
             {/* <h2 className="heading" onClick={homeBtn}>Trai's Website</h2> */}
             <div className="header" >
                 <nav className='pages-nav'>
-                    <button type="button" id="home-btn" id="home-btn" onClick={homeBtn}><img src={house} width="30px" height="30px" /></button>
+                    <button type="button" id="home-btn" onClick={homeBtn}><img src={house} width="30px" height="30px" /></button>
                     <Link id={styles['resume-link']} to="/resume"><button id="resume" onClick={handleClick}>Resume</button></Link>
                     <Link id={styles['interest-link']} to="/interest"><button id="interest" onClick={handleClick}>Interest</button></Link>
                     <Link id={styles['blog-link']} to="/blog"><button id="blog" onClick={handleClick}>Blog</button></Link>

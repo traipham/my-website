@@ -30,18 +30,24 @@ const DisplayBlogPost = (props) => {
      * @returns
      */
     async function handleRemoveBtn() {
-        props.removeDisplayLoading();
-        // Get index of post
-        const indexToDelete = props.index - 1;
+        if(props.isAdmin){
+            console.log("I am admin!");
+            
+            props.removeDisplayLoading();
+            // Get index of post
+            const indexToDelete = props.index - 1;
 
-        // Delete post at index
-        const success = await axios.delete('/blog/delete/1', { data: { index: indexToDelete } });
+            // Delete post at index
+            const success = await axios.delete('/blog/delete/1', { data: { index: indexToDelete } });
 
-        // Reload page when deleted successfully
-        if (success.status === 200) {
-            window.location.reload();
+            // Reload page when deleted successfully
+            if (success.status === 200) {
+                window.location.reload();
+            } else {
+                console.log(success.data);
+            }
         } else {
-            console.log(success.data);
+            alert("You're not an admin!");
         }
     }
 

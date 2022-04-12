@@ -51,20 +51,25 @@ const GoalDisplay = (props) => {
      * @param {*} e - event object for onClick of remove button 
      */
     const handleRemoveBtnOnClick = async (e) => {
-        if (window.confirm("Are you sure you want to delete this goal?")) {
-            props.removeDisplayLoading();
+        if(props.isAdmin){
+            console.log("I AM ADMIN!");
+            if (window.confirm("Are you sure you want to delete this goal?")) {
+                props.removeDisplayLoading();
 
-            const indexToDelete = props.index - 1;
-            const deletePost = await axios.delete('/goals/delete/1', { data: { index: indexToDelete } });
-            // console.log(deletePost);
-            if (deletePost.status === 200) {
-                console.log('Deleted at index: ' + indexToDelete);
-                props.afterRemovalDisplay(indexToDelete);
+                const indexToDelete = props.index - 1;
+                const deletePost = await axios.delete('/goals/delete/1', { data: { index: indexToDelete } });
+                // console.log(deletePost);
+                if (deletePost.status === 200) {
+                    console.log('Deleted at index: ' + indexToDelete);
+                    props.afterRemovalDisplay(indexToDelete);
+                } else {
+                    console.log(deletePost.data);
+                }
             } else {
-                console.log(deletePost.data);
+                console.log("Don't delete this goal!");
             }
         } else {
-            console.log("Don't delete this goal!")
+            alert("Not an Admin! Can not Remove!");
         }
     }
 
@@ -74,25 +79,28 @@ const GoalDisplay = (props) => {
 
     const handleUpdatePost = async(e) => {
         e.preventDefault();
+        if(props.isAdmin){
+            const arrGoal = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
+            const currGoal = arrGoal[props.index - 1];
+            console.log("current Goal: " + JSON.stringify(currGoal));
+            const update = {
+                _id: currGoal._id,
+                content: upContent
+            };
 
-        const arrGoal = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
-        const currGoal = arrGoal[props.index-1];
-        console.log("current Goal: " + JSON.stringify(currGoal));
-        const update = {
-            _id: currGoal._id,
-            content: upContent
-        };
+            const success = await axios.post("/goals/update/1", update);
+            console.log(success);
 
-        const success = await axios.post("/goals/update/1", update);
-        console.log(success);
-
-        if(success.status === 200){
-            // const newArr = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
-            // console.log(newArr);
-            props.updateGoalDisplay(props.index);
-            flipGoal();
+            if (success.status === 200) {
+                // const newArr = await axios.get('/goals/posts/').then((res) => { return res.data[0].goals });
+                // console.log(newArr);
+                props.updateGoalDisplay(props.index);
+                flipGoal();
+            } else {
+                console.log(success.data);
+            }
         } else {
-            console.log(success.data);
+            alert("Not an admin! Can not update!")
         }
     }
 

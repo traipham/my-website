@@ -34,7 +34,7 @@ class Blog extends React.Component {
         this.displayAddBlogPostInterface = this.displayAddBlogPostInterface.bind(this);
         this.displayBlogPostFunc = this.displayBlogPostFunc.bind(this);
         this.displayLoading = this.displayLoading.bind(this);
-        this.displayAddBtn = this.displayAddBtn.bind(this);
+        // this.displayAddBtn = this.displayAddBtn.bind(this);
         this.removeDisplayLoading = this.removeDisplayLoading.bind(this);
         this.removeInterface = this.removeInterface.bind(this);
     }
@@ -62,7 +62,13 @@ class Blog extends React.Component {
                     }]
                 })
             })
-            document.getElementById('blog-add-btn').style.visibility = "visible";
+            if (!this.props.isAdmin) {
+                console.log("Not an Admin!");
+                document.getElementById('blog-add-btn').style.visibility = 'none';
+            } else {
+                document.getElementById('blog-add-btn').style.visibility = "visible";
+                console.log("I AM ADMIN!");
+            }
             this.reward.rewardMe();
         })
     }
@@ -92,9 +98,15 @@ class Blog extends React.Component {
                     date: post.date,
                 }]
             })
-            document.getElementById('blog-add-btn').style.visibility = "visible";
             this.reward.rewardMe();
         }, 300);
+        if (!this.props.isAdmin) {
+            console.log("Not an Admin!");
+            document.getElementById('blog-add-btn').style.visibility = 'none';
+        } else {
+            document.getElementById('blog-add-btn').style.visibility = "visible";
+            console.log("I AM ADMIN!");
+        }
     }
     
     /**
@@ -128,17 +140,17 @@ class Blog extends React.Component {
         }
     }
 
-    /**
-     * This will display the add button if we're in development, but not production
-     * @returns void
-     */
-    displayAddBtn() {
-        if(process.env.NODE_ENV === 'development'){
-            return <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>;
-        } else {
-            console.log("Status: Production (can not add)");
-        }
-    }
+    // /**
+    //  * This will display the add button if we're in development, but not production
+    //  * @returns void
+    //  */
+    // displayAddBtn() {
+    //     if(process.env.NODE_ENV === 'development'){
+    //         return <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>;
+    //     } else {
+    //         console.log("Status: Production (can not add)");
+    //     }
+    // }
 
     /**
      * Set state for loading when removing goal
@@ -182,9 +194,7 @@ class Blog extends React.Component {
                     this.displayLoading()
                 }
                 <h2 className={styles['post-comments']} id='blog-comments'>Feedback. . .</h2>
-                {
-                    this.displayAddBtn()
-                }
+                <button type="button" className={styles["add-post-btn"]} id="blog-add-btn" onClick={this.setStateAddButton}>Add Post</button>
                 {
                     this.displayAddBlogPostInterface()
                 }
@@ -192,7 +202,7 @@ class Blog extends React.Component {
                     {
                         this.state.posts.slice(1).map((post) =>{
                             // console.log(post);
-                            return <DisplayBlogPost key={"post-"+post.index} content={post.content} location={post.location} image={post.image} date={post.date} index={post.index} removeDisplayLoading={this.removeDisplayLoading}/>
+                            return <DisplayBlogPost key={"post-"+post.index} content={post.content} location={post.location} image={post.image} date={post.date} index={post.index} removeDisplayLoading={this.removeDisplayLoading} isAdmin={this.props.isAdmin}/>
                         })
                     }
                 </div>

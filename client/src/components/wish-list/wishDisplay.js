@@ -96,17 +96,22 @@ const WishDisplay = (props) => {
      * @param {*} e - event object for onClick event of remove button
      */
     const removeWishOnClickBtn = async (e) => {
-        if (window.confirm('Are you sure you want to delete this post?')) {
-            props.displayLoading();
-            const indexToDelete = props.index - 1;
-            const success = await axios.delete('/wish-list/delete/1', { data: { index: indexToDelete } });
-            // Log result msg
-            console.log(success.data)
-            if (success.status === 200) {
-                props.removeWish(indexToDelete + 1);
+        if(props.isAdmin){
+            console.log("I AM ADMIN!");
+            if (window.confirm('Are you sure you want to delete this post?')) {
+                props.displayLoading();
+                const indexToDelete = props.index - 1;
+                const success = await axios.delete('/wish-list/delete/1', { data: { index: indexToDelete } });
+                // Log result msg
+                console.log(success.data)
+                if (success.status === 200) {
+                    props.removeWish(indexToDelete + 1);
+                }
+            } else {
+                console.log('Do not remove post!');
             }
         } else {
-            console.log('Do not remove post!');
+            alert("Not an Admin!");
         }
     }
 

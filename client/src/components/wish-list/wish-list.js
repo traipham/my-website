@@ -69,7 +69,13 @@ class WishList extends React.Component {
                     }]
                 })
             });
-            document.getElementById('add-wish').style.visibility = 'visible';
+            if(!this.props.isAdmin){
+                document.getElementById('add-wish').style.visibility = 'none';
+                console.log("Not an Admin!");
+            } else {
+                document.getElementById('add-wish').style.visibility = 'visible';
+                console.log("I AM ADMIN!");
+            }
             this.reward.rewardMe();
         })
     }
@@ -108,6 +114,13 @@ class WishList extends React.Component {
                 }]
 
             })
+            if (!this.props.isAdmin) {
+                document.getElementById('add-wish').style.visibility = 'none';
+                console.log("Not an Admin!");
+            } else {
+                document.getElementById('add-wish').style.visibility = 'visible';
+                console.log("I AM ADMIN!");
+            }
         });
 
         // Make "Add a wish" button visible
@@ -213,7 +226,9 @@ class WishList extends React.Component {
                             if(this.state.noWish || this.state.addBtn){
                                 return;
                             } else {
-                                return <WishDisplay key={"wish-" + wish.index} id={"wish-"+wish.index} removeWish={this.setRemoveWish} index={wish.index}  title={wish.title} description={wish.description} tag={wish.tag} img={wish.img} rating={wish.rating} date={wish.date} displayLoading={this.removeDisplayLoading}/>
+                                return <WishDisplay key={"wish-" + wish.index} id={"wish-"+wish.index} removeWish={this.setRemoveWish} 
+                                    index={wish.index}  title={wish.title} description={wish.description} tag={wish.tag} img={wish.img} rating={wish.rating} 
+                                        date={wish.date} displayLoading={this.removeDisplayLoading} isAdmin={this.props.isAdmin}/>
                             }
                     //***TEST STATE VALUES WHEN SUBMIT ***/
 

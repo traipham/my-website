@@ -7,7 +7,6 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 
-//RANDOM COMMENT HERE
 
 const wishListHelper = new WishListHelper();
 

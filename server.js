@@ -22,11 +22,12 @@ const goalsRouter = require('./server/routers/goals');
 const blogRouter = require('./server/routers/blog');
 const interestRouter = require('./server/routers/interest');
 const wishListRouter = require('./server/routers/wish-list');
+const adminRouter = require('./server/routers/admin');
 
 // const resumePage = require('./client/src/components/resume/resume')
 // Using these routers
 // app.use('/resume', resumePage)
-
+app.use('/admin', adminRouter)
 app.use('/goals', goalsRouter);
 app.use('/blog', blogRouter);
 app.use('/interest', interestRouter);
