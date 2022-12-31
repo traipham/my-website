@@ -10,19 +10,19 @@ import axios from 'axios';
  */
 const DisplayBlogPost = (props) => {
 
-    const dateStyle = {
-        border: '2px solid black',
-        padding: 5,
-        width: 'fit-content',
-    }
+    // const dateStyle = {
+    //     border: '2px solid black',
+    //     padding: 5,
+    //     width: 'fit-content',
+    // }
 
-    let btnStyle = {
-        display: "inline-block",
-        backgroundColor: 'red',
-        visibility: 'hidden',
-        width: "fit-content",
-        height: "fit-content",
-    }
+    // let btnStyle = {
+    //     display: "inline-block",
+    //     backgroundColor: 'red',
+    //     visibility: 'hidden',
+    //     width: "fit-content",
+    //     height: "fit-content",
+    // }
 
     /**
      * Remove functionality 
@@ -62,7 +62,7 @@ const DisplayBlogPost = (props) => {
             // else return jsx img element 
         } else {
             let imgB64 = Buffer.from(props.image.data).toString('base64')
-            return <img className={styles["post-img"]} src={`data:image/jpeg;base64,${imgB64}`} id="post-image" width="200px" height="200px" />;
+            return <img className={styles["post-img"]} alt="" src={`data:image/jpeg;base64,${imgB64}`} id="post-image" width="200px" height="200px" />;
         }
     }
 

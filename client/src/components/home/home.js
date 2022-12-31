@@ -2,21 +2,21 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import styles from './home.css';
 import WelcomeDisplay from './welcomeMsg.js';
-import OnClickConfetti from './confetti';
-import Particles from 'react-tsparticles';
+// import OnClickConfetti from './confetti';
+// import Particles from 'react-tsparticles';
 
 import house from './house-icon.jpg';
 import axios from "axios";
 function Home() {
-    const [welcome, setWelcome] = useState(false);
-    const [admin, setAdmin] = useState(false);
+    // const [welcome, setWelcome] = useState(false);
+    // const [admin, setAdmin] = useState(false);
 
     const styleWelcome = {
         display: "block"
     }
 
     const homeBtn = () => {
-        window.location = "/"
+        window.location = window.location.origin;
         document.getElementById('welcome-container').style.display = "block";
     }
 
@@ -46,7 +46,7 @@ function Home() {
      * @param {*} e - event object for onClcik of Welcome button 
      */
     const handleWelcomeBtnOnClick = (e) =>{
-        setWelcome(true);
+        // setWelcome(true);
 
         document.getElementById('click-me-btn').style.boxShadow = "rgba(0, 0, 0, 0.774) 0px 0px 0px 0px";
         document.getElementById('click-me-btn').style.padding = "12px";
@@ -72,7 +72,7 @@ function Home() {
 
     return(
         <div className="home">
-            <button class="btn" id="login-btn" onClick={handleAdminLoginClick}>Admin Login</button>
+            <button className="btn" id="login-btn" onClick={handleAdminLoginClick}>Admin Login</button>
             {/* <h2 className="heading" onClick={homeBtn}>Trai's Website</h2> */}
             <div className="header" >
                 <nav className='pages-nav'>

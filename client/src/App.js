@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect } from "react";
 import {useState} from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Particles from 'react-tsparticles';
 
 import Home from './components/home/home.js';

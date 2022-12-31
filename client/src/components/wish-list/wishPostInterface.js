@@ -164,7 +164,7 @@ const WishPostInterface = (props) => {
                 }
                 <div className={styles["input-container"]} id="wish-img-container">
                     <label className="image" id="wish-int-img" htmlFor="input-wish-img"><b>Select image: </b></label>
-                    <input type="file" name="image" id="input-wish-img" name="input-wish-img" accept="image/*" onChange={handleOnChangeImage}></input>
+                    <input type="file" id="input-wish-img" name="input-wish-img" accept="image/*" onChange={handleOnChangeImage}></input>
                     <img className='post-img' id='preview-wishlist-img' src="#" alt="preview image" height="200px" width="200px" />
                 </div>
                 {
